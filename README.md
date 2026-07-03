@@ -2,7 +2,7 @@
 
 # ⚡ flow
 
-**An opinionated, portable dev-workflow skill suite.**
+**A structured, portable dev-workflow skill suite.**
 Take one tracked issue from *ticket → merged-and-verified* — and bootstrap whole projects from a PRD — with the same discipline on any agent harness.
 
 ![version](https://img.shields.io/badge/version-0.1.0-blue)
@@ -26,7 +26,7 @@ pick  →  implement  →  sanity check  →  review  →  ship
 
 `flow` is a suite of **16 skills** that encode a full delivery workflow — generalized from a
 battle-tested Claude Code slash-command setup so the *discipline* travels to any project or harness.
-It's opinionated on purpose: hard gates, evidence-backed acceptance criteria, and an audit trail,
+It's structured on purpose: hard gates, evidence-backed acceptance criteria, and an audit trail,
 not vibes.
 
 > **Status — honest:** the suite is written and internally consistent but **not yet run end-to-end**.
@@ -145,7 +145,7 @@ install/                 per-harness install guides
 - [`ROADMAP.md`](ROADMAP.md) — status, coupling analysis, decisions
 - [`VALIDATION.md`](VALIDATION.md) — the runbook to prove it works
 - [`PUBLISHING.md`](PUBLISHING.md) — how it's distributed
-- [`method/conventions.md`](method/conventions.md) — the opinionated method
+- [`method/conventions.md`](method/conventions.md) — the structured method
 
 ## License
 

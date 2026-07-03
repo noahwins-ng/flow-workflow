@@ -12,7 +12,7 @@ upload to a registry — you push a repo and users add it.
 cd ~/Dev/dev-workflow-skill
 git remote add origin git@github.com:noahwins-ng/flow-workflow.git   # or gh:
 gh repo create noahwins-ng/flow-workflow --public \
-  --description "Opinionated, portable dev-workflow skill suite" --source . --push
+  --description "Structured, portable dev-workflow skill suite" --source . --push
 ```
 Tag the release so consumers can pin a version:
 ```bash
