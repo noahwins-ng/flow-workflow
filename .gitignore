@@ -1,0 +1,7 @@
+# This package ships templates, not a live project config.
+# A consuming repo's filled-in profile lives in THAT repo, never here.
+workflow-profile.yaml
+
+# OS / editor cruft
+.DS_Store
+*.swp

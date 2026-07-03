@@ -1,0 +1,131 @@
+# Workflow profile — copy to `workflow-profile.yaml` at your repo root and fill in.
+# Every value here is a project-specific NOUN read by the workflow SUITE (ship-issue,
+# session-check, cycle-start/end, sync-plan, change-scope, retro, server-audit, ...).
+# The skills' SPINE (sequence, gates, AC discipline, recovery, rituals) never changes; this
+# file is the only thing that changes between projects. `init` scaffolds a filled-in copy.
+# Convention: an empty ("") value means "this project has no such concept — skip that step".
+
+project:
+  name: "Equity Data Agent"          # human name, used in reports
+  default_branch: main
+
+tracker:
+  # Linear is the constant across projects. Each operation below is a CAPABILITY, resolved at
+  # runtime native-first (see SKILL.md "Step 0b"): if the harness exposes a Linear MCP tool
+  # (Claude Code / Cursor / opencode / Codex / pi may), the agent uses that; OTHERWISE it runs
+  # the shell command here — the bundled adapter (curl+jq over Linear GraphQL, needs
+  # LINEAR_API_KEY), which is the universal fallback for any harness with a shell.
+  # (To use a different tracker on some project, repoint these at another adapter/tool.)
+  kind: linear
+  identifier_regex: "QNT-\\d+"        # how to recognize an issue id in user input (change prefix per team)
+  identifier_example: "QNT-305"
+  adapter: "adapters/linear.sh"       # path relative to the package root (${CLAUDE_PLUGIN_ROOT} on Claude Code)
+  get_issue:       "{adapter} issue get {id}"                 # -> JSON: id,title,description,status,branchName,milestone,blockedBy
+  set_in_progress: "{adapter} issue status {id} 'In Progress'"
+  set_in_review:   "{adapter} issue status {id} 'In Review'"
+  set_done:        "{adapter} issue status {id} 'Done'"
+  add_comment:     "{adapter} issue comment {id}"            # body on stdin
+  next_issue:      ""                 # optional; highest-priority open issue in the active cycle, or leave empty
+  # Linear supplies a canonical branch name; the adapter surfaces it as branchName.
+  branch_from_issue: "branchName"                            # field in get_issue output, OR:
+  branch_template:   "user/{id_lower}-{slug}"                # used only if branch_from_issue is empty
+
+vcs:
+  commit_format: "{id}: {type}({scope}): {description}"   # {type} in feat|fix|refactor|test|docs|chore
+  wip_commit:    "{id}: {type}({scope}): wip - {description}"
+  # If a commit-msg hook enforces a shape, note it so the agent doesn't get rejected:
+  commit_hook_note: "Plain '{id}: wip:' is rejected — type(scope) is required."
+  pr_title:  "{id}: {title}"
+  pr_body_closes: "Closes {id}"     # the phrase that auto-closes the tracker issue on merge
+  pr_footer: ""                     # e.g. leave empty; do NOT add tool-generated footers if the project forbids them
+
+verify:
+  # Local quality gate (sanity check). Each runs from repo root.
+  lint:   "uv run ruff check ."
+  format: "uv run ruff format --check ."
+  types:  "uv run pyright"
+  test:   "make test"               # MUST be the offline/fast gate that mirrors CI; not a live-LLM/integration sweep
+  test_note: "Do NOT use bare 'uv run pytest' — it collects the live-judge suite."
+  # Targeted test command for the implement phase; {path} = changed package/dir.
+  test_targeted: "uv run pytest {path} -x -q"
+
+deploy:
+  # How code reaches prod and how to prove the RIGHT code is live. These power the ship-phase
+  # hard gates. Leave a value empty ("") to skip that gate if the project has no such concept.
+  # Like the tracker, deploy is a CAPABILITY: shell commands (git/gh/ssh/curl) are the default, but
+  # any value can be repointed at a harness-native deploy tool (see examples/profile.node-vercel.yaml).
+  ci_status:    "gh pr checks {pr} --watch"
+  merge:        "gh pr merge {pr} --squash --delete-branch"
+  # deployed_sha: prove the running host is at the merge commit. {host_sha} is what this returns;
+  # the skill compares it to the merge commit sha.
+  deployed_sha: "ssh prod 'cd /opt/app && git rev-parse HEAD'"
+  # runtime_id: prove the running PROCESS loaded the expected code (not just that files landed).
+  # This is the project's 'runtime identity check' — e.g. assert the loaded module graph.
+  runtime_id:   "ssh prod 'docker exec app-daemon python -c \"...assert graph...\"'"
+  health:       "make check-prod"
+  rollback:     "make rollback"
+
+docs:
+  # The methodology surfaces. `init` scaffolds any that are missing from method/docs-skeleton/,
+  # or points these at existing files when adopting mid-project. Empty = the skills that use it
+  # no-op. (This is what the cycle/methodology skills depend on — see ROADMAP "coupling layers".)
+  plan:          "docs/project-plan.md"     # ship hard gate: every shipped ticket has an entry here
+  spec:          "docs/project-requirement.md"  # the what/why; change-scope edits this
+  patterns:      "docs/patterns.md"         # implement phase reads this before coding
+  architecture:  "docs/architecture/system-overview.md"
+  decisions_dir: "docs/decisions"           # ADRs; change-scope/sync-plan/retro create numbered files here
+  adr_template:  "docs/decisions/TEMPLATE.md"
+  adr_index:     "docs/INDEX.md"            # where new ADRs get listed; empty = no index
+  retros_dir:    "docs/retros"              # retro writes its report here
+  ac_templates:  "docs/AC-templates.md"     # implicit AC by changed-file trigger; empty = none
+
+architecture_rules: |
+  # Prose rules the review phase checks the diff against. Project-specific invariants.
+  - The LLM never does arithmetic; all math lives in the calculation layer.
+  - The agent never touches the database directly; it goes through the API.
+  - No hardcoded ticker lists — use the shared registry.
+
+ac_execution_keywords:
+  # Words in an AC that FORCE it to be a dev/prod execution AC (must be run + evidenced),
+  # never a code-inspection AC. Tune to your domain. See references/ac-classification.md.
+  - populated
+  - backfill
+  - "no duplicates"
+  - returns
+  - responds
+  - deployed
+  - "in prod"
+  - visible
+  - healthy
+
+review:
+  # Optional: a fresh-eyes reviewer to run before your own pass. If the harness supports
+  # subagents, name one; else leave empty and the agent does a single self-review pass.
+  fresh_eyes_agent: ""
+
+cadence:
+  # Powers cycle-start / cycle-end / retro. Assumes the Linear cycle + milestone + project model.
+  # Cadence ops resolve native-Linear-first; the commands below are the adapter fallback (the
+  # extended adapter implements `cycle active` and `project status-update`).
+  team:    "Quant"                 # Linear team NAME (cycle-start fetches its active cycle)
+  project: "Equity Data Agent"     # Linear project the issues + status-updates belong to
+  active_cycle:   "{adapter} cycle active '{team}'"                 # -> {number, startsAt, endsAt, issues[]}
+  status_update:  "{adapter} project status-update '{project}'"     # + health arg; body on stdin
+  # next issue: derive from active_cycle output — highest-priority issue whose status != Done.
+  # Milestones that are deliberate catch-alls (perpetual), NOT finite phases. cycle-end/retro
+  # must NOT prompt a retrospective when one of these "drains" — new work always lands there.
+  perpetual_milestones:
+    - "Ops & Reliability"
+  # Velocity → project-status-update health mapping (cycle-end). Fractions of planned issues closed.
+  health_on_track_min: 0.50        # >= this -> onTrack
+  health_at_risk_min:  0.25        # >= this -> atRisk, else offTrack
+
+audit:
+  # Powers server-audit — a Tier-3 DEPLOY-TOPOLOGY template. The default probes assume a single
+  # VPS running Docker Compose reached over ssh. If your deploy is serverless / k8s / PaaS,
+  # rewrite the probe set in skills/server-audit accordingly (or leave host empty to disable).
+  host:            "hetzner"        # ssh alias; empty = skip server-audit entirely
+  compose_file:    "/opt/equity-data-agent/docker-compose.yml"
+  repo_path:       "/opt/equity-data-agent"   # prod checkout, for repo-drift check
+  health_url:      "http://localhost:8000/api/v1/health"
+  expected_min_health_partition_free_pct: 20  # flag partitions with less free than this

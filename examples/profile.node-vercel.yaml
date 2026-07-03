@@ -1,0 +1,84 @@
+# Example: a Node/Next.js app deployed on Vercel, tracked in Linear.
+# Shows how the SAME spine runs on a totally different stack — only this file changes.
+# Copy to workflow-profile.yaml and adjust. (flow-init generates a starting point like this.)
+
+project:
+  name: "Acme Web"
+  default_branch: main
+
+tracker:
+  kind: linear
+  identifier_regex: "ACME-\\d+"
+  identifier_example: "ACME-142"
+  adapter: "adapters/linear.sh"
+  get_issue:       "{adapter} issue get {id}"
+  set_in_progress: "{adapter} issue status {id} 'In Progress'"
+  set_in_review:   "{adapter} issue status {id} 'In Review'"
+  set_done:        "{adapter} issue status {id} 'Done'"
+  add_comment:     "{adapter} issue comment {id}"
+  next_issue:      ""
+  branch_from_issue: "branchName"
+  branch_template:   "user/{id_lower}-{slug}"
+
+vcs:
+  commit_format: "{id}: {type}({scope}): {description}"
+  wip_commit:    "{id}: {type}({scope}): wip - {description}"
+  commit_hook_note: ""
+  pr_title:  "{id}: {title}"
+  pr_body_closes: "Closes {id}"
+  pr_footer: ""
+
+verify:
+  lint:   "npm run lint"
+  format: "npm run format:check"
+  types:  "npm run typecheck"
+  test:   "npm test"
+  test_note: ""
+  test_targeted: "npm test -- {path}"
+
+deploy:
+  # Vercel auto-deploys on merge; verify via the deployment API/CLI rather than ssh.
+  ci_status:    "gh pr checks {pr} --watch"
+  merge:        "gh pr merge {pr} --squash --delete-branch"
+  deployed_sha: "vercel inspect --token $VERCEL_TOKEN <prod-url> | grep commit"  # prove prod = merge
+  runtime_id:   ""                      # no separate runtime-graph concept; leave empty (gate skips)
+  health:       "curl -sf https://acme.example.com/api/health"
+  rollback:     "vercel rollback <prod-url> --token $VERCEL_TOKEN"
+
+docs:
+  plan:          "docs/project-plan.md"
+  spec:          "docs/project-requirement.md"
+  patterns:      ""                     # no patterns doc yet — skill falls back to code exploration
+  architecture:  "docs/architecture/system-overview.md"
+  decisions_dir: "docs/decisions"
+  adr_template:  "docs/decisions/TEMPLATE.md"
+  adr_index:     "docs/INDEX.md"
+  retros_dir:    "docs/retros"
+  ac_templates:  ""
+
+architecture_rules: |
+  - Data fetching lives in server components / route handlers, never in client components.
+  - No secrets in NEXT_PUBLIC_* env vars.
+
+ac_execution_keywords:
+  - deployed
+  - returns
+  - renders
+  - "200"
+  - responds
+
+review:
+  fresh_eyes_agent: ""
+
+cadence:
+  team:    "Acme"
+  project: "Acme Web"
+  active_cycle:   "{adapter} cycle active '{team}'"
+  status_update:  "{adapter} project status-update '{project}'"
+  perpetual_milestones:
+    - "Ops & Reliability"
+  health_on_track_min: 0.50
+  health_at_risk_min:  0.25
+
+audit:
+  host: ""                              # serverless — server-audit does not apply; leave empty
