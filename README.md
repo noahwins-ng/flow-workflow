@@ -1,112 +1,152 @@
-# dev-workflow — a portable, opinionated workflow skill suite
+<div align="center">
 
-A personal orba/gstack-style package of dev-workflow skills, generalized from a Claude-Code
-slash-command workflow so they run under any harness that reads files and runs a shell
-(Claude Code, Codex, Cursor, opencode, pi). The flagship is **ship-issue** — one tracked issue from
-ticket to merged-and-verified (pick → implement → sanity check → review → ship). See `ROADMAP.md`
-for the full skill list, coupling analysis, and what's still pending.
+# ⚡ flow
 
-## Design: spine + profile
+**An opinionated, portable dev-workflow skill suite.**
+Take one tracked issue from *ticket → merged-and-verified* — and bootstrap whole projects from a PRD — with the same discipline on any agent harness.
 
-- **Spine** (this package): the invariant discipline — phase sequence, hard gates, acceptance-
-  criteria classification with evidence receipts, audit-comment contract, WIP-attempt recovery,
-  same-SHA flap detection. Never changes between projects.
-- **Profile** (`workflow-profile.yaml`, per project): every substitutable noun — tracker + issue-id
-  format, branch/commit/PR conventions, lint/format/type/test commands, deploy-identity and health
-  checks, doc paths, architecture rules, AC keywords.
+![version](https://img.shields.io/badge/version-0.1.0-blue)
+![license](https://img.shields.io/badge/license-MIT-green)
+![status](https://img.shields.io/badge/status-pre--validation-orange)
+![harness](https://img.shields.io/badge/harness-Claude%20Code-8A63D2)
+![tracker](https://img.shields.io/badge/tracker-Linear-5E6AD2)
 
-The spine reads the profile at Step 0 and executes using its values. A different stack fills in
-`npm run lint` / GitHub Issues / Vercel and the same pipeline runs unchanged.
-
-## Layout
+</div>
 
 ```
-profile.template.yaml         copy → workflow-profile.yaml (package-wide config); init generates it
-QUICKSTART.md                 5-minute first run
-ROADMAP.md                    skill list, coupling analysis, resolved decisions
-install/                      per-harness install guides (Claude Code supported; others placeholder)
+pick  →  implement  →  sanity check  →  review  →  ship
+         ↑ hard gate ────────────┘        │          │
+         AC classified + evidence         │          └─ verify deployed identity → tracker Done
+         └────────── flow-fix: diagnose from git → resume ──────────┘
+```
+
+---
+
+## What it is
+
+`flow` is a suite of **16 skills** that encode a full delivery workflow — generalized from a
+battle-tested Claude Code slash-command setup so the *discipline* travels to any project or harness.
+It's opinionated on purpose: hard gates, evidence-backed acceptance criteria, and an audit trail,
+not vibes.
+
+> **Status — honest:** the suite is written and internally consistent but **not yet run end-to-end**.
+> Treat your first real project as the validation pass (see [`VALIDATION.md`](VALIDATION.md)).
+
+## The core idea: spine + profile
+
+| | |
+|---|---|
+| **Spine** (this package) | The invariant discipline — phase order, hard gates, AC classification with evidence receipts, the audit-comment contract, WIP-attempt recovery, same-SHA flap detection. *Never changes between projects.* |
+| **Profile** (`workflow-profile.yaml`, per project) | Every substitutable noun — tracker + issue-id format, branch/commit/PR conventions, lint/format/type/test commands, deploy-identity & health checks, doc paths, architecture rules. |
+
+The spine reads the profile and runs. A Python/Hetzner project and a Node/Vercel project fill in
+different commands — the same pipeline runs unchanged.
+
+## The skills
+
+**Delivery**
+| Skill | Does |
+|---|---|
+| `flow-ship-issue` | The flagship pipeline: pick → implement → sanity → review → ship *(the old `/go`)* |
+| `flow-fix` | Recover a broken ship run — diagnose the failed phase **from git state**, fix, resume |
+
+**Inception** — bootstrap a project from a PRD
+| Skill | Does |
+|---|---|
+| `flow-init` | Scaffold docs skeleton + `workflow-profile.yaml` (greenfield or gap-fill; PRD-aware) |
+| `flow-plan-project` | PRD → phases → create Linear **project + milestones + issues** + seed the plan |
+| `flow-gen-claudemd` | Generate `CLAUDE.md` in the house style |
+
+**Cadence**
+| Skill | Does |
+|---|---|
+| `flow-cycle-start` / `flow-cycle-end` | Weekly rituals — active cycle, rollover, velocity, status update |
+| `flow-retro` | Milestone retro: **invariant → guard audit** + lessons-to-memory |
+
+**Scope & docs**
+| Skill | Does |
+|---|---|
+| `flow-change-scope` | Formalize add/drop/modify across spec + plan + overview + tracker + ADR |
+| `flow-sync-plan` | Reconcile the plan doc with the tracker (mechanical gap sweep) |
+
+**Session & status**
+| Skill | Does |
+|---|---|
+| `flow-session-check` | Restore context: branch → issue → git state → directional AC |
+| `flow-status` | Fast local-only git snapshot (no network) |
+| `flow-sync-issue-status` | Reconcile a drifted tracker status from git/PR state |
+
+**Ops & meta**
+| Skill | Does |
+|---|---|
+| `flow-server-audit` | Prod durability/security/drift audit (deploy-topology template) |
+| `flow-doctor` | Preflight — is the profile complete and do its commands/paths/tracker resolve? |
+| `flow` | Index/help — *"what can this do?"*, routes you to the right skill |
+
+## Quickstart
+
+```bash
+# 1. Install as a Claude Code plugin (keeps the package intact — see install/claude-code.md)
+/plugin marketplace add noahwins-ng/flow-workflow
+/plugin install flow@flow
+```
+
+**Existing project:** `flow-init` → `flow-doctor` → work with `flow-ship-issue <ID>`.
+
+**New project from a PRD:** drop your brief in the repo, then
+`flow-init` → `flow-doctor` → `flow-plan-project` → `flow-gen-claudemd` → `flow-cycle-start`.
+
+Full walkthrough in [`QUICKSTART.md`](QUICKSTART.md).
+
+## Harness support
+
+Distributed as a **multi-manifest plugin** (one `skills/` source + a thin manifest per harness), the
+pattern used by [obra/superpowers](https://github.com/obra/superpowers). This keeps the package a
+**unit per harness**, so shared `adapters/`, `method/`, and cross-skill references resolve.
+
+| Harness | Status |
+|---|---|
+| **Claude Code** | ✅ supported (`.claude-plugin/` present) |
+| Cursor · Codex · opencode · pi | 🚧 aspirational — manifest per harness, added after Claude Code is validated |
+
+Portability is designed in: tracker access is **native-MCP-first with a `curl`+`jq` fallback**,
+deploy/verify goes through profile shell commands, phases load by plain file reads (progressive
+disclosure), and the fresh-eyes reviewer is optional. Details: [`install/`](install/).
+
+## Repo layout
+
+<details>
+<summary>Expand the tree</summary>
+
+```
+profile.template.yaml    package-wide config schema; flow-init generates a filled copy per project
+QUICKSTART.md            5-minute first run
+ROADMAP.md               skill list, coupling analysis, decisions, what's aspirational
+VALIDATION.md            end-to-end runbook + watch-list of untested seams
+CLAUDE.md                conventions for working ON this package
+skills/                  the 16 flow-* skills (all prefixed to namespace across harnesses)
 method/
-  conventions.md              the opinionated method the skills assume
-  project-setup-playbook.md   inception reference the flow-* inception skills operationalize
-  claude-md-template.md       Working Approach (verbatim) + Project Conventions placeholders
-  guidelines/                 stack-agnostic discipline: debugging, scoping, verification (skills cite these)
-  docs-skeleton/docs/         plan, spec, ADR template, INDEX, architecture, retros, AC-templates, guides — scaffolded by init
-skills/                       (all skills prefixed flow- to namespace across harnesses)
-  flow/                       index/help: "what can this do?" — routes you to the right skill
-  flow-init/                  bootstrap: scaffold docs skeleton + profile (greenfield & mid-project; PRD-aware)
-  flow-doctor/                preflight: profile + env health check (read-only)
-  flow-plan-project/          inception: PRD → phases → Linear project + milestones + issues + plan
-  flow-gen-claudemd/          inception: generate CLAUDE.md in the house style
-  flow-ship-issue/            flagship pipeline (SKILL.md + references/ + 2 shared refs) — the old /go
-  flow-fix/                   recover a broken ship run: diagnose (from git) → fix → resume
-  flow-session-check/         restore context: branch → issue → git state → directional AC
-  flow-sync-issue-status/     reconcile one issue's tracker status from git/PR state
-  flow-status/                fast local-only git snapshot (no network)
-  flow-cycle-start/  flow-cycle-end/   cadence rituals (active cycle, rollover, velocity, status update)
-  flow-sync-plan/             reconcile the plan doc with the tracker (mechanical gap sweep)
-  flow-change-scope/          formalize add/drop/modify across spec + plan + overview + tracker + ADR
-  flow-retro/                 milestone retro: invariant→guard audit + lessons-to-memory
-  flow-server-audit/          prod durability/security/drift audit (deploy-topology template)
-adapters/
-  linear.sh                   tracker fallback — Linear GraphQL over curl+jq (needs LINEAR_API_KEY)
+  conventions.md         the method the skills assume
+  project-setup-playbook.md   inception reference
+  claude-md-template.md  Working Approach + Project Conventions placeholders
+  guidelines/            debugging · scoping · verification discipline (skills cite these)
+  docs-skeleton/         plan, spec, ADRs, retros, AC-templates — scaffolded by flow-init
+adapters/linear.sh       tracker fallback (Linear GraphQL over curl+jq)
+examples/                filled example profiles (Python, Node/Vercel)
+install/                 per-harness install guides
+.claude-plugin/          Claude Code plugin + marketplace manifests
 ```
 
-All skills share one per-project `workflow-profile.yaml`. Linear is the constant tracker, resolved
-native-MCP-first with `adapters/linear.sh` as the universal fallback. **Adopt with `init`** — it
-scaffolds the docs skeleton and a pre-filled profile into a new repo, and gap-fills (never clobbers)
-an existing one.
+</details>
 
-## Adopt in a project
+## Documentation
 
-1. Install the package for your harness — **Claude Code is supported today**; see
-   [`install/claude-code.md`](install/claude-code.md). (Install it as a *plugin*, not loose skills —
-   the skills reference package-internal paths that only resolve with the package kept intact.)
-2. Run **flow-init** in the target repo. It scaffolds the docs skeleton (or gap-fills an existing
-   repo without clobbering), generates `workflow-profile.yaml`, and pre-fills what it can detect —
-   leaving judgment-call fields (tracker prefix, `deploy.*`, `cadence.*`, `architecture_rules`)
-   flagged for review.
-3. Run **flow-doctor** to confirm the profile resolves, then invoke a skill: *"ship &lt;ISSUE&gt;"*,
-   *"session-check"*, *"cycle-start"*, etc.
+- [`QUICKSTART.md`](QUICKSTART.md) — install + first run
+- [`ROADMAP.md`](ROADMAP.md) — status, coupling analysis, decisions
+- [`VALIDATION.md`](VALIDATION.md) — the runbook to prove it works
+- [`PUBLISHING.md`](PUBLISHING.md) — how it's distributed
+- [`method/conventions.md`](method/conventions.md) — the opinionated method
 
-### New project from a PRD (inception)
+## License
 
-Have a PRD / requirements brief you wrote with AI? Bootstrap the whole project from it:
-
-1. Import the PRD into the repo, then **flow-init** — reads it, fills the profile + seeds the spec.
-2. **flow-doctor** — sanity-check the setup.
-3. **flow-plan-project** — decomposes the spec into phases, proposes milestones + issues with
-   three-class AC (pause to approve), then creates the Linear **project + phase milestones + Ops &
-   Reliability milestone + issues** and writes `project-plan.md`.
-4. **flow-gen-claudemd** — generates `CLAUDE.md` in the house style.
-5. **flow-cycle-start** — and start building.
-
-The inception method is documented in `method/project-setup-playbook.md`.
-
-## Cross-harness notes
-
-Harness support: **Claude Code — supported.** Codex / Cursor / opencode / pi — *aspirational
-targets, not yet validated* (each will need its own install adapter; the skill bodies are written to
-avoid harness-specific assumptions). Portability is designed in via:
-
-- **Tracker: native-first, adapter-fallback.** Tracker operations are capabilities, not hardcoded
-  calls. If the harness exposes a Linear MCP tool, the agent uses it; otherwise it falls back to
-  the bundled `adapters/linear.sh` (curl+jq, needs `LINEAR_API_KEY`). So a harness with Linear MCP
-  needs no API key, and one without still works. See SKILL.md "Step 0b".
-- **Deploy/verify access** goes through profile shell commands (git, gh, ssh, curl) — no harness
-  built-ins assumed.
-- **Progressive disclosure instead of sub-command reload.** The original `/go` re-invoked each
-  sub-command to reload full instructions; here `SKILL.md` stays lean and the agent reads
-  `references/NN-phase.md` on entering a phase — same effect, plain file reads.
-- **Fresh-eyes review is optional.** If the harness has subagents, set `review.fresh_eyes_agent`;
-  otherwise the agent does a single self-review pass.
-
-## Validation (do this on a SECOND project, never on the source repo)
-
-The source project's working slash-command workflow must not be risked. Prove the generalization
-on a different project instead:
-
-1. Fill in a profile for a small, low-stakes repo.
-2. Run the pipeline on a trivial issue (a docs typo or one-line fix).
-3. Confirm: correct branch, sanity gate blocks on a deliberately-broken AC, review runs, PR opens,
-   deploy-identity gate fires, tracker closes with an audit comment carrying real receipts.
-4. Only after that passes, use it for real work.
+[MIT](LICENSE) © 2026 Noah Ng
