@@ -6,6 +6,12 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- `flow-fix` — recover a broken ship run: diagnose the failed phase from git state, fix, resume
+  (ports the source repo's `/fix`; the one parity gap that was missing).
+- `flow` — index/help skill routing "what can this do?" to the right skill.
+- `QUICKSTART.md` — 5-minute first run.
+- `install/` — per-harness install guides: `claude-code.md` (supported) + placeholder stubs for
+  Codex / Cursor / opencode / pi, plus the common adapter contract in `install/README.md`.
 - `method/guidelines/` — stack-agnostic engineering discipline distilled from the source project's
   memory/feedback log: debugging-and-investigation, scoping-and-tickets, verification-and-durability.
   Cited by flow-ship-issue (implement + ac-classification) and flow-retro.

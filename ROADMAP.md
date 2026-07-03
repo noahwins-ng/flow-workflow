@@ -37,6 +37,8 @@ built-ins; others collided with the source repo's own commands.
 | flow-doctor (profile + env preflight) | — | ✅ |
 | flow-plan-project (PRD → phases → Linear project/milestones/issues + plan) | tracker+methodology | ✅ |
 | flow-gen-claudemd (generate CLAUDE.md in house style) | methodology | ✅ |
+| flow-fix (recover a broken ship run: diagnose→fix→resume) | git+tracker | ✅ |
+| flow (index/help — "what can this do?") | — | ✅ |
 
 **Inception flow** (new-project bootstrapping): flow-init (import PRD) → flow-doctor →
 flow-plan-project → flow-gen-claudemd → flow-cycle-start. Operationalizes
