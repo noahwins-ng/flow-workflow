@@ -54,6 +54,11 @@ implement creation yet (candidate extension).
    — non-destructive, gap-fill only, point the profile at existing docs rather than duplicating.
    (The profile still honors "empty = skip" so a skill degrades gracefully if a surface is absent.)
 
+## Validation
+The suite is written but **unrun**. `VALIDATION.md` is the end-to-end runbook (install → adapter
+smoke test → inception → daily loop → cadence → mid-project adoption → self-checks) with a watch-list
+of the untested seams. Run it on a throwaway Claude Code project + disposable Linear project first.
+
 ## Not yet done
 - Smoke-test `adapters/linear.sh` with a real `LINEAR_API_KEY` (harnesses without Linear MCP).
 - Validate the whole suite on a SECOND low-stakes repo — never the source repo.
