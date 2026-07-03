@@ -149,4 +149,4 @@ install/                 per-harness install guides
 
 ## License
 
-[MIT](LICENSE) © 2026 Noah Ng
+[MIT](LICENSE) © 2026 noahwins-ng
