@@ -1,50 +1,68 @@
-# Quickstart
+<div align="center">
 
-Get the `flow` suite running in a project in ~5 minutes. (Claude Code is the supported harness
-today — see `install/` for the aspirational others.)
+# 🚀 Quickstart
 
-## 1. Install (Claude Code)
+**Get `flow` running in a project in ~5 minutes.**
+Claude Code is supported today — see [`install/`](install/) for the aspirational others.
 
-Install this repo as a **plugin** (not loose skills — the skills reference package-internal paths
-that only resolve with the package intact). See [`install/claude-code.md`](install/claude-code.md).
-Verify: ask *"/flow"* — you should get the suite index.
+</div>
 
-## 2. Tracker access
+---
 
-- Have a **Linear MCP** in your session? Nothing to do — the skills use it natively.
-- Otherwise export `LINEAR_API_KEY` (a Linear personal API key); the `adapters/linear.sh` fallback
-  uses it (needs `curl` + `jq`).
+## 1 · Install
 
-## 3a. Existing project
+Install this repo as a **plugin** — not loose skills. (The skills reference package-internal paths
+that only resolve when the package stays intact; see [`install/claude-code.md`](install/claude-code.md).)
 
-```
-flow-init         # gap-fills docs + generates workflow-profile.yaml (never clobbers)
-flow-doctor       # confirms the profile's commands/paths/tracker resolve
-```
-Review the fields `flow-doctor` flags, then work: `flow-session-check`, `flow-ship-issue <ID>`.
-
-## 3b. New project from a PRD
-
-Drop your PRD/requirements brief in the repo, then:
-```
-flow-init            # reads the PRD, seeds the spec + profile
-flow-doctor
-flow-plan-project    # PRD → phases → Linear project + milestones + issues + plan  (approve before it creates)
-flow-gen-claudemd    # generates CLAUDE.md in the house style
-flow-cycle-start     # and start building
+```bash
+/plugin marketplace add noahwins-ng/flow-workflow
+/plugin install flow@flow
 ```
 
-## 4. The daily loop
+✅ **Verify:** ask **`/flow`** — you should get the suite index.
 
+## 2 · Tracker access
+
+| You have… | Do this |
+|---|---|
+| A **Linear MCP** in your session | Nothing — the skills use it natively |
+| No Linear MCP | Export `LINEAR_API_KEY` (a Linear personal API key); the `adapters/linear.sh` fallback uses it (needs `curl` + `jq`) |
+
+## 3 · Set up your project
+
+**Existing project**
+```bash
+flow-init      # gap-fills docs + generates workflow-profile.yaml (never clobbers)
+flow-doctor    # confirms the profile's commands / paths / tracker resolve
 ```
-flow-session-check           # start of session — where was I?
-flow-ship-issue <ID>         # take one ticket to merged-and-verified
-flow-fix <ID>                # if a ship run broke: diagnose → fix → resume
+Review the fields `flow-doctor` flags, then jump to the daily loop.
+
+**New project from a PRD** — drop your brief in the repo, then:
 ```
-Weekly: `flow-cycle-start` / `flow-cycle-end`. Milestone done: `flow-retro <phase>`.
+flow-init  →  flow-doctor  →  flow-plan-project  →  flow-gen-claudemd  →  flow-cycle-start
+   │              │                  │                     │                    │
+ reads PRD,    sanity-      phases → Linear         CLAUDE.md in         start
+ seeds spec    checks       project + issues        house style          building
+ + profile     setup        (approve first)
+```
 
-## Lost?
-Ask **/flow** for the full index, or read `README.md`.
+## 4 · The daily loop
 
-> Status: the suite is written and internally consistent but **not yet run end-to-end**. Treat your
-> first real project as the validation pass — see `ROADMAP.md`.
+```bash
+flow-session-check      # start of session — "where was I?"
+flow-ship-issue <ID>    # take one ticket to merged-and-verified
+flow-fix <ID>           # if a ship run broke: diagnose (from git) → fix → resume
+```
+
+**Weekly:** `flow-cycle-start` / `flow-cycle-end`  ·  **Milestone done:** `flow-retro <phase>`
+
+---
+
+<div align="center">
+
+**Lost?** Ask **`/flow`** for the full index, or read the [README](README.md).
+
+</div>
+
+> ⚠️ **Status:** the suite is written and internally consistent but **not yet run end-to-end**.
+> Treat your first real project as the validation pass — see [`VALIDATION.md`](VALIDATION.md).
