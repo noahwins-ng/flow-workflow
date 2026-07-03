@@ -19,17 +19,27 @@ Before writing code:
 2. If none, fall back to exploration: read the relevant package/module, find 1–2 similar existing
    files in the same area, and read the project's shared config/schema module.
 
-## Step 3 — Implement with AC checkpoints
-For each acceptance criterion (or logical group):
-1. **Write the code** that satisfies it. Follow the patterns from Step 2. Respect every rule in
-   `profile.architecture_rules`. Use the project's config object for all hosts/ports/credentials —
-   never hardcode them. Keep it minimal: implement exactly what the AC requires, nothing
-   speculative.
-2. **Quick-lint the changed files only** (save the full type check for Step 7):
-   run `profile.verify.lint` and `profile.verify.format` scoped to the files you touched.
-3. **WIP commit** after each meaningful chunk, using `profile.vcs.wip_commit` (respect
-   `profile.vcs.commit_hook_note` so the commit hook doesn't reject it). WIP commits protect
-   against session loss and make recovery (attempt counting) possible; they are squashed at ship.
+## Step 2b — Confirm the approach (Think Before Coding)
+Before writing code, state your approach in 1–2 sentences. If there's a real design fork, name 2–3
+options with a recommendation. If the issue is ambiguous, or your approach deviates from the ticket's
+stated intent, **confirm with the user before implementing** — a cheap course-correction beats a wrong
+build. (For a genuinely new or large piece, that design work belongs upstream in `flow-plan-project`;
+this is a quick approach check, not a full design session.)
+
+## Step 3 — Implement test-first, with AC checkpoints
+Work in **red → green → refactor** cycles. For each verifiable acceptance criterion (or logical group):
+1. **Write the test first.** For a **bug**, write a test that reproduces it and **watch it fail for
+   the right reason** — a test you never saw fail proves nothing. For a **feature / behavior change**,
+   write tests that pin the AC. *Exceptions* (note them, ask if unsure): throwaway prototype, generated
+   code, pure config.
+2. **Write the minimal code** to make it pass. Follow Step 2's patterns; respect
+   `profile.architecture_rules`; use the project's config object for all hosts/ports/credentials
+   (never hardcode); nothing speculative.
+3. **Refactor** while the tests stay green.
+4. **Quick-lint the changed files** — `profile.verify.lint` + `profile.verify.format` (full type
+   check is Step 7).
+5. **WIP commit** each meaningful chunk via `profile.vcs.wip_commit` (respect
+   `profile.vcs.commit_hook_note`). WIP commits enable crash recovery + attempt counting; squashed at ship.
 
 ## Step 4 — Wire up
 Ensure the new code is actually reachable: exported/registered where the project expects, and any
