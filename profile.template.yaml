@@ -112,6 +112,16 @@ cadence:
   active_cycle:   "{adapter} cycle active '{team}'"                 # -> {number, startsAt, endsAt, issues[]}
   status_update:  "{adapter} project status-update '{project}'"     # + health arg; body on stdin
   # next issue: derive from active_cycle output — highest-priority issue whose status != Done.
+
+taxonomy:
+  # Used by flow-plan-project when creating issues, and to follow the existing Linear structure.
+  team_id: ""                      # Linear team UUID (find via list_teams); speeds up creation. Optional.
+  labels:                          # the small fixed label set issues are tagged with
+    - ai
+    - backend
+    - frontend
+    - infra
+  ops_milestone: "Ops & Reliability"   # the perpetual cross-cutting milestone name (see cadence)
   # Milestones that are deliberate catch-alls (perpetual), NOT finite phases. cycle-end/retro
   # must NOT prompt a retrospective when one of these "drains" — new work always lands there.
   perpetual_milestones:

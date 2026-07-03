@@ -33,7 +33,16 @@ built-ins; others collided with the source repo's own commands.
 | flow-change-scope | 4 doc surfaces+ADR+tracker | ✅ |
 | flow-retro | all + memory + retros | ✅ |
 | flow-server-audit | deploy-topology template (Compose/ssh default) | ✅ |
-| **flow-init** (bootstrap: scaffold docs skeleton + profile) | — | ✅ |
+| **flow-init** (bootstrap: scaffold docs skeleton + profile; PRD-aware) | — | ✅ |
+| flow-doctor (profile + env preflight) | — | ✅ |
+| flow-plan-project (PRD → phases → Linear project/milestones/issues + plan) | tracker+methodology | ✅ |
+| flow-gen-claudemd (generate CLAUDE.md in house style) | methodology | ✅ |
+
+**Inception flow** (new-project bootstrapping): flow-init (import PRD) → flow-doctor →
+flow-plan-project → flow-gen-claudemd → flow-cycle-start. Operationalizes
+`method/project-setup-playbook.md` (generalized from the source repo's real playbook). Tracker
+*creation* ops (project/milestone/issue) need native Linear MCP — the shell adapter doesn't
+implement creation yet (candidate extension).
 
 ## Forks — RESOLVED (user chose 1A + 2A)
 

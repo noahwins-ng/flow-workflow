@@ -26,6 +26,18 @@ left alone. If you would replace something you didn't create, stop and surface i
    - Package root = where this skill lives (contains `method/docs-skeleton/` and `profile.template.yaml`).
    - Target repo root = `git rev-parse --show-toplevel` (or cwd if not a git repo — warn).
 
+1b. **PRD anchor (if present).** Look for an imported PRD / requirements brief — a path the user
+   gives, or a file like `PRD.md`, `prd.md`, `docs/prd.md`, or an existing `docs/project-requirement.md`.
+   If found, **read it** and use it to drive the fill:
+   - Seed `project.name` and the identifier-prefix suggestion from it (don't guess a prefix — propose
+     one from the product name and confirm).
+   - Establish the **spec**: if `docs/project-requirement.md` doesn't exist, create it from the PRD
+     (either move/rename the PRD into place, or write a spec that references it) so `docs.spec` has a
+     home; if it already exists, point `docs.spec` at it. Do not silently discard the PRD.
+   - Note that phase decomposition + tracker creation is the **next** skill (flow-plan-project) — do
+     NOT create phases/issues here.
+   If no PRD exists, proceed with a blank spec skeleton and note it.
+
 2. **Scaffold docs (gap-fill only).** For each file under `method/docs-skeleton/docs/`, compute its
    target path in the repo and:
    - **Target exists** → leave it. Record it as "found" and use its real path in the profile.
@@ -71,7 +83,9 @@ left alone. If you would replace something you didn't create, stop and surface i
 
    Tracker: Linear MCP <detected | not detected — export LINEAR_API_KEY for adapters/linear.sh>
 
-   Next: review the NEEDS-YOU fields in workflow-profile.yaml, then run flow-session-check or flow-ship-issue.
+   Next: review the NEEDS-YOU fields in workflow-profile.yaml, then run flow-doctor to verify.
+   New project from a PRD? → flow-plan-project (phases + Linear), then flow-gen-claudemd.
+   Existing project? → flow-session-check or flow-ship-issue.
    ```
 
 ## Idempotency
