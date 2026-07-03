@@ -1,7 +1,11 @@
 # Installing the flow suite in pi (placeholder)
 
-> **Status: aspirational, unverified.** Stub — I don't yet have confirmed details on pi's extension
-> model. Fill this in from the docs / a real setup after the Claude Code validation pass.
+> **Status: aspirational, unverified.** Stub — fill in from a real setup after the Claude Code pass.
+>
+> **Concrete path:** add a `.pi/extensions/` manifest over the same `skills/`, modeled on
+> [obra/superpowers](https://github.com/obra/superpowers)'s `.pi/extensions/` (superpowers explicitly
+> supports Pi); users install via `pi install git:github.com/noahwins-ng/flow-workflow`. See
+> `install/README.md` for the per-harness table + adapter contract.
 
 ## What needs verifying (open questions)
 - **Skill/command mechanism.** How does pi register reusable, description-triggered instructions? Is

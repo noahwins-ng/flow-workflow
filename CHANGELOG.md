@@ -5,6 +5,12 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Decided
+- Distribution = multi-manifest plugin/marketplace pattern (one `skills/` + a per-harness manifest,
+  modeled on obra/superpowers + wshobson/agents). Keeps the repo a unit per harness so the shared
+  root survives. Rejected Vercel `npx skills` CLI (scatters skills, breaks shared root). Per-harness
+  manifests (`.cursor-plugin/` etc.) to add one at a time after Claude Code validation.
+
 ### Added
 - `CLAUDE.md` for the package itself (authoring conventions, dogfooding the house style).
 - Publishing: `LICENSE` (MIT), `.claude-plugin/marketplace.json`, `PUBLISHING.md` — installable as a
