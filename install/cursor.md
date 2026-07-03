@@ -2,6 +2,10 @@
 
 > **Status: aspirational, unverified.** Stub — confirm against a real Cursor setup after the Claude
 > Code validation pass.
+>
+> **Concrete path:** add a `.cursor-plugin/` manifest over the same `skills/`, modeled on the one in
+> [obra/superpowers](https://github.com/obra/superpowers); users install via `/add-plugin` or the
+> plugin marketplace. See `install/README.md` for the per-harness table + adapter contract.
 
 ## What needs verifying
 - **Skill mechanism.** Cursor has Rules (`.cursor/rules/*.mdc`) and Commands. Confirm which best maps
