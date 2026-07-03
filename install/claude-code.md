@@ -1,0 +1,50 @@
+# Installing the `flow` suite in Claude Code
+
+Claude Code is the **primary, supported** harness. The other four targets (Codex, Cursor, opencode,
+pi) are aspirational until validated — see `../ROADMAP.md`.
+
+## Why install as a plugin (not loose skills)
+
+The skills reference **package-internal paths** — `adapters/linear.sh`, sibling
+`skills/flow-*/SKILL.md` (read-and-follow), and `method/docs-skeleton/`. These resolve only if the
+package stays intact as a unit. Copying individual skill folders into `~/.claude/skills/` breaks
+those sibling references. **Installing the whole package as one plugin keeps the structure together**
+and exposes its root as `${CLAUDE_PLUGIN_ROOT}`, which is how skills locate the adapter and the
+docs-skeleton.
+
+## Install (plugin)
+
+1. This repo already has `.claude-plugin/plugin.json`, and Claude Code auto-discovers a plugin's
+   `skills/` folder — so all `flow-*` skills register on install.
+2. Add the repo as a plugin (via a local marketplace entry or a plugin add pointing at this repo).
+   All eleven `flow-*` skills + `flow-doctor` become available; the plugin namespaces them, and they
+   also keep their baked-in `flow-` prefix for non-plugin/other-harness use.
+
+## Per-project setup
+
+From inside the target project repo:
+1. Run **flow-init** — scaffolds the docs skeleton (or gap-fills an existing repo) and writes
+   `workflow-profile.yaml`.
+2. Run **flow-doctor** — confirms the profile is complete and its commands/paths/tracker resolve.
+3. Then: *"ship &lt;ISSUE&gt;"*, *"session-check"*, *"cycle-start"*, etc.
+
+## Tracker access
+
+- If your Claude Code session has a **Linear MCP** server, the skills use it natively — no key needed.
+- If not, they fall back to `${CLAUDE_PLUGIN_ROOT}/adapters/linear.sh`, which needs `LINEAR_API_KEY`
+  exported (a Linear personal API key) plus `curl` + `jq`.
+
+## Optional extras
+
+- **Explicit `/flow-*` slash commands.** Skills are model-invoked by description. To also trigger
+  them as literal slash commands, drop thin wrappers in `.claude/commands/` that say *"invoke the
+  flow-ship-issue skill with $ARGUMENTS"*. Not required — asking in natural language already works.
+- **Fresh-eyes reviewer.** `flow-ship-issue`'s review phase reads `profile.review.fresh_eyes_agent`.
+  To use it, define that subagent in `.claude/agents/` and set the profile field to its name;
+  otherwise leave it empty and the skill does a single self-review pass.
+
+## Package path convention
+
+All internal references (`adapters/…`, `method/…`, `skills/flow-*/…`) are **relative to the package
+root**. Under a plugin install that root is `${CLAUDE_PLUGIN_ROOT}`. If you install some other way,
+make sure the whole package tree is reachable from a stable path and resolve internal refs against it.
