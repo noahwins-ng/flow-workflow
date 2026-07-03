@@ -1,6 +1,6 @@
 # The method this suite assumes
 
-The workflow skills are *opinionated*: they encode one way of working. `init` scaffolds the docs
+The workflow skills are *structured*: they encode one way of working. `init` scaffolds the docs
 that make that method real. This file is the reference for the conventions the skills expect.
 
 ## Tracker model (Linear)

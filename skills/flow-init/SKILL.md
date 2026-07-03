@@ -12,7 +12,7 @@ description: >-
 
 Scaffold the method into the current repo. Works both for a **greenfield** repo (create everything)
 and **mid-project adoption** (detect what exists, fill only the gaps, never clobber). This is the
-one command that makes the opinionated skills usable in a project.
+one command that makes the suite's skills usable in a project.
 
 ## Golden rule
 

@@ -3,7 +3,7 @@
 > **At a glance:** 16 `flow-*` skills built · on GitHub (`noahwins-ng/flow-workflow`, private) ·
 > distribution decided (multi-manifest plugin) · **not yet validated end-to-end**.
 
-**Goal:** a personal, opinionated dev-workflow skill package (orba/superpowers-style) that runs
+**Goal:** a personal, structured dev-workflow skill package (orba/superpowers-style) that runs
 across Claude Code, Codex, Cursor, opencode, and pi — generalized from the `equity-data-agent`
 `.claude/commands/` workflow **without touching that working workflow**.
 
@@ -12,7 +12,7 @@ across Claude Code, Codex, Cursor, opencode, and pi — generalized from the `eq
 ## 🧱 The idea — coupling layers
 
 Every skill sits on one or more layers. The profile absorbs (1) and (2); (3) is what makes the
-package *opinionated*.
+package *structured*.
 
 1. **Stack** — toolchain (lint/test/deploy commands) → profile.
 2. **Tracker** — Linear (the constant) → capability, native-MCP-first, `adapters/linear.sh` fallback.
@@ -51,7 +51,7 @@ doesn't implement creation yet (candidate extension).
 
 ## 🧭 Decisions
 
-**Methodology scope & docs model** *(resolved)* — full opinionated suite + `flow-init` bootstrap;
+**Methodology scope & docs model** *(resolved)* — full structured suite + `flow-init` bootstrap;
 the package ships `method/docs-skeleton/` and `flow-init` scaffolds it. `flow-init` is
 non-destructive: greenfield scaffolds everything, mid-project gap-fills and points the profile at
 existing docs. (Profile honors "empty = skip" so a skill degrades gracefully if a surface is absent.)
