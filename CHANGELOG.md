@@ -6,6 +6,11 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- **Bundled `flow-investigator` subagent** (`agents/`) — read-only diagnostician (root-cause
+  hypothesis + confidence + next-step commands, never remediates), generalized from the source repo's
+  `ops-investigator`. Dispatched by `flow-fix` (complex/multi-signal failures — parallel per domain
+  for multiple independent failures) and `flow-server-audit` (incident triage). Carries the
+  debug-state-not-logs discipline.
 - **Bundled `flow-code-reviewer` subagent** (`agents/`) — the review phase now ships an independent
   fresh-eyes reviewer, auto-registered on Claude Code plugin install; `profile.review.fresh_eyes_agent`
   defaults to it. Generalized from the source repo's equity-specific `code-reviewer-ediff` — it reads

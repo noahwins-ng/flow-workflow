@@ -17,6 +17,12 @@ serverless / k8s / PaaS, **rewrite Step 1's probes** for that topology and keep 
 Reads `profile.audit`. If `profile.audit.host` is empty, this skill does not apply — say so and stop.
 Read-only: never modifies config or restarts anything. Fixes go through the normal ship pipeline.
 
+**Incident vs. routine.** If you're here in response to a **specific symptom** (a Discord alert, a
+`check-prod` failure, a user report) rather than a routine snapshot, first dispatch the read-only
+**`flow-investigator`** subagent with the symptom — it returns a root-cause hypothesis + confidence
++ next-step commands. Verify its findings against the collection below. For a routine audit, skip
+straight to Step 0.
+
 ## Step 0 — Orient
 `ssh <audit.host> 'echo ok'` — if it fails, stop (nothing else is reachable). Read
 `profile.audit.compose_file` for the expected service list. `git rev-parse origin/<default_branch>`

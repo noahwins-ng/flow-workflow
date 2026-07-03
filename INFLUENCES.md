@@ -29,8 +29,8 @@ The reference for both the distribution model and several disciplines.
 **Candidate future borrows (not yet adopted) — the "parallelism/scale" cluster (harness-dependent):**
 - *subagent-driven-development* — dispatch a fresh implementer subagent per task (per-task + broad
   review). Fit: an optional execution mode / a `flow-execute-plan` skill.
-- *dispatching-parallel-agents* — one agent per independent failure. Fit: `flow-fix` on 3+ unrelated
-  failures.
+- *dispatching-parallel-agents* (partial) — `flow-fix` now dispatches one `flow-investigator` per
+  independent failure domain in parallel. Not yet a general parallel-execution primitive.
 - *requesting-code-review* (partial) — we now bundle a `flow-code-reviewer` and dispatch it
   (by name, or via `agents/flow-code-reviewer.md` as a prompt template on generic-subagent harnesses,
   superpowers-style). Not yet adopted: the per-request precisely-crafted context + severity triage.
