@@ -27,6 +27,9 @@ These are the untested seams — scrutinize them:
 3. **Package-root path resolution** — do cross-skill read-and-follow (`skills/flow-*/SKILL.md`) and
    `adapters/linear.sh` resolve from the consuming repo? (`${CLAUDE_PLUGIN_ROOT}` under plugin install.)
 4. **Empty-value skips** — deploy/audit gates with empty profile values must skip cleanly, not error.
+5. **Bundled subagent registration + naming** — does `agents/flow-code-reviewer.md` register on plugin
+   install, and under what name (bare `flow-code-reviewer` vs. a plugin-namespaced form like
+   `flow:flow-code-reviewer`)? If namespaced, `profile.review.fresh_eyes_agent` must be updated to match.
 
 ---
 
@@ -36,6 +39,7 @@ These are the untested seams — scrutinize them:
 |------|--------|
 | Ask **/flow** | Returns the suite index; all 16 skills discoverable by name. |
 | Ask "what can the workflow do?" | `flow` skill triggers by description (not just slash). |
+| Check the agent registered | `flow-code-reviewer` appears in the harness's subagent list after install. **Note the exact name** (bare vs. `flow:`-namespaced) — if namespaced, update `profile.review.fresh_eyes_agent` to match. |
 
 ## Phase 1 — Adapter smoke test (`adapters/linear.sh`)
 
@@ -67,7 +71,7 @@ echo "**test update**" | LINEAR_API_KEY=… ./adapters/linear.sh project status-
 | Step | Assert |
 |------|--------|
 | **flow-session-check** | Branch → issue → git state → directional AC; fast, no deep verify. |
-| **flow-ship-issue &lt;ID&gt;** on a trivial issue (one-line change) | pick → implement → sanity → review → PR → merge. With empty `deploy.*`, deploy gates **skip cleanly**. Tracker → Done; audit comment posted with receipts. |
+| **flow-ship-issue &lt;ID&gt;** on a trivial issue (one-line change) | pick → implement → sanity → review → PR → merge. Implement is **test-first**; sanity runs the **security gate**; **review dispatches `flow-code-reviewer`** (confirm it actually spawns + returns findings). With empty `deploy.*`, deploy gates **skip cleanly**. Tracker → Done; audit comment posted with receipts. |
 | **flow-fix &lt;ID&gt;** — break on purpose: introduce a lint error mid-run, or a failing test | Diagnoses the failed phase **from git state**; fixes; resumes via read-and-follow; posts fix comment. |
 
 > Deploy-gate validation (SHA match, runtime-id, health) needs a repo with **real CD** — out of
