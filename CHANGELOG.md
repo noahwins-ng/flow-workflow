@@ -6,6 +6,8 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- `VALIDATION.md` — end-to-end runbook to prove the suite on a throwaway project (install, adapter
+  smoke test, inception, daily loop, cadence, mid-project adoption, self-checks) + untested-seam watch-list.
 - `flow-fix` — recover a broken ship run: diagnose the failed phase from git state, fix, resume
   (ports the source repo's `/fix`; the one parity gap that was missing).
 - `flow` — index/help skill routing "what can this do?" to the right skill.
