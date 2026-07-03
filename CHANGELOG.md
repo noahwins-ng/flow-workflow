@@ -6,6 +6,9 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- `CLAUDE.md` for the package itself (authoring conventions, dogfooding the house style).
+- Publishing: `LICENSE` (MIT), `.claude-plugin/marketplace.json`, `PUBLISHING.md` — installable as a
+  Claude Code plugin marketplace from GitHub.
 - `VALIDATION.md` — end-to-end runbook to prove the suite on a throwaway project (install, adapter
   smoke test, inception, daily loop, cadence, mid-project adoption, self-checks) + untested-seam watch-list.
 - `flow-fix` — recover a broken ship run: diagnose the failed phase from git state, fix, resume

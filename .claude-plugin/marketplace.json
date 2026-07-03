@@ -1,0 +1,14 @@
+{
+  "name": "flow",
+  "owner": {
+    "name": "Noah Ng",
+    "url": "https://github.com/noahwins-ng"
+  },
+  "plugins": [
+    {
+      "name": "flow",
+      "source": "./",
+      "description": "Opinionated dev-workflow skill suite: one ticket pick→merged-and-verified, cadence rituals, PRD→Linear inception, scope changes, retros. Linear default, tracker-agnostic; per-project workflow-profile.yaml."
+    }
+  ]
+}
