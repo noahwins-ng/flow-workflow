@@ -27,9 +27,10 @@ These are the untested seams — scrutinize them:
 3. **Package-root path resolution** — do cross-skill read-and-follow (`skills/flow-*/SKILL.md`) and
    `adapters/linear.sh` resolve from the consuming repo? (`${CLAUDE_PLUGIN_ROOT}` under plugin install.)
 4. **Empty-value skips** — deploy/audit gates with empty profile values must skip cleanly, not error.
-5. **Bundled subagent registration + naming** — does `agents/flow-code-reviewer.md` register on plugin
-   install, and under what name (bare `flow-code-reviewer` vs. a plugin-namespaced form like
-   `flow:flow-code-reviewer`)? If namespaced, `profile.review.fresh_eyes_agent` must be updated to match.
+5. **Bundled subagent registration + naming** — do `agents/flow-code-reviewer.md` and
+   `agents/flow-investigator.md` register on plugin install, and under what name (bare vs. a
+   plugin-namespaced form like `flow:flow-code-reviewer`)? If namespaced, update
+   `profile.review.fresh_eyes_agent` (and the skills' `flow-investigator` references) to match.
 
 ---
 

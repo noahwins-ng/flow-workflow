@@ -33,6 +33,13 @@ Cross-check the tracker status; if it disagrees with git, note the drift — do 
 the git-based diagnosis. Report the diagnosis (branch, tracker status + drift note, WIP count,
 uncommitted, PR state, inferred failed phase + reason).
 
+**When the failure is complex or multi-signal** (post-deploy failure, conflicting signals, an
+unclear root cause), optionally dispatch the read-only **`flow-investigator`** subagent for an
+independent root-cause hypothesis before you fix — it keeps this session's context clean and won't
+touch anything. For **multiple independent failures** (e.g. 3+ unrelated failing test files),
+dispatch **one `flow-investigator` per failure domain in parallel** (harness permitting). For a
+straightforward git-state diagnosis, do it inline — don't over-orchestrate.
+
 ## Step 2 — Fix
 
 - **implement**: commit salvageable uncommitted work as WIP; run `profile.verify.lint/format/types`
