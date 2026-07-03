@@ -13,12 +13,19 @@ prevents shipping unverified work. Read it whenever a phase tells you to classif
 ship work before it was actually verified. Every acceptance criterion is exactly one of three
 kinds, and each kind has a required form of proof.
 
+**Evidence must be FRESH.** Run the proving command *in this session* and read its actual output —
+a prior run, "should pass", or "looks right" is not evidence. Words like **"should", "probably",
+"seems to"** are banned as proof: they signal you're asserting, not verifying. If you haven't run
+the command, you cannot claim it passes.
+
 ## The three kinds
 
 ### [code AC] — verifiable by reading the implementation
 Example: "handles rate limits with exponential backoff", "uses an idempotent table engine",
 "validates the ticker against the registry".
-- **Proof:** name the `file:line` or the `test::name` that pins it. Mark PASS / FAIL.
+- **Proof:** a **passing test that pins it** (preferred — cite `test::name`; you wrote it test-first
+  in implement Step 3). If the behavior is genuinely not unit-testable, cite the `file:line`. Mark
+  PASS / FAIL. A code AC with a testable behavior and no test is a gap, not a pass.
 
 ### [dev execution AC] — must actually run locally before ship
 Example: "backfill ran successfully", "endpoint returns 200", "no duplicates on re-run",

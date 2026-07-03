@@ -4,6 +4,30 @@ The *why* behind the ship gates. The enforcement mechanics live in
 `skills/flow-ship-issue/references/ac-classification.md` (the three-class AC taxonomy) and the ship
 phase's hard gates; this doc is the reasoning they encode, so the gates aren't cargo-culted.
 
+## The gate function — no completion claim without fresh evidence
+Claiming work is complete without verification is dishonesty, not efficiency. Before you claim *any*
+status ("passes", "fixed", "done") or express satisfaction ("great!", "perfect!"):
+
+1. **Identify** the command that proves the claim.
+2. **Run** it — fresh and complete, *in this session*.
+3. **Read** the full output; check the exit code; count failures.
+4. **Claim only what the output confirms**, with that output attached.
+
+If you didn't run the command in this message, you cannot say it passes. Skipping a step is lying,
+not verifying. (Adapted from obra/superpowers' *verification-before-completion*.)
+
+**Rationalizations to reject:**
+
+| Excuse | Reality |
+|---|---|
+| "Should work now" | Run the verification. |
+| "I'm confident" | Confidence ≠ evidence. |
+| "Linter passed" | Linter ≠ compiler ≠ tests. |
+| "The agent reported success" | Check the diff / output yourself. |
+| "Just this once" | No exceptions. |
+
+Red-flag words that signal you're asserting, not verifying: **should · probably · seems to · looks right.**
+
 ## Aggregate "green" hides invariants
 CI ✓ + CD ✓ + `/health` 200 does **not** prove your system is in a state you can survive a failure
 from. Each green proves a *narrow* claim — syntax, connectivity, liveness — and none proves

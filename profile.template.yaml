@@ -48,6 +48,9 @@ verify:
   test_note: "Do NOT use bare 'uv run pytest' — it collects the live-judge suite."
   # Targeted test command for the implement phase; {path} = changed package/dir.
   test_targeted: "uv run pytest {path} -x -q"
+  # Dependency vulnerability scan — run by sanity-check when a dep manifest/lockfile changes.
+  # High/critical CVEs block ship. Empty = no automated audit (falls back to eyeballing the diff).
+  security: "uv pip audit"          # e.g. "npm audit --audit-level=high" / "pip-audit" / "govulncheck ./..."
 
 deploy:
   # How code reaches prod and how to prove the RIGHT code is live. These power the ship-phase
