@@ -19,14 +19,21 @@ The reference for both the distribution model and several disciplines.
   design work lives upstream in `flow-plan-project`.
 - **Multi-manifest distribution** (one `skills/` + a thin manifest per harness) → our
   packaging/install model. See `install/README.md`.
+- **Receiving-code-review** → review phase (`04-review.md` Step 4) now processes findings with rigor
+  (restate → verify against the code → fix or push back with reasoning → one at a time, test each),
+  and forbids reflexive agreement in place of verifying.
+- **Writing-plans (partial)** → for multi-file/non-trivial issues, implement Step 2b now maps the
+  files-to-touch (one responsibility each) and breaks work into bite-sized, independently testable
+  steps. We adopted the decomposition discipline, not the separate-plan-doc workflow.
 
-**Candidate future borrows (not yet adopted):**
-- *subagent-driven-development* / *dispatching-parallel-agents* — dispatch implementation to a fresh
-  subagent; we only use a fresh-eyes reviewer today.
-- *requesting-code-review* / *receiving-code-review* — the discipline of processing feedback without
-  rationalizing; our review phase covers the adversarial pass but not the "receiving" half.
-- *writing-plans* — finer 2–5 minute task granularity than our phase/issue decomposition.
-- *using-git-worktrees* — parallel branch work.
+**Candidate future borrows (not yet adopted) — the "parallelism/scale" cluster (harness-dependent):**
+- *subagent-driven-development* — dispatch a fresh implementer subagent per task (per-task + broad
+  review). Fit: an optional execution mode / a `flow-execute-plan` skill.
+- *dispatching-parallel-agents* — one agent per independent failure. Fit: `flow-fix` on 3+ unrelated
+  failures.
+- *requesting-code-review* — a templated reviewer context + severity triage; we have a fresh-eyes
+  reviewer but not the templated request.
+- *using-git-worktrees* — isolated workspace; only pays off alongside subagent/parallel execution.
 
 ## [wshobson/agents](https://github.com/wshobson/agents)
 
