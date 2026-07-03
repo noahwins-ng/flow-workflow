@@ -26,6 +26,16 @@ stated intent, **confirm with the user before implementing** — a cheap course-
 build. (For a genuinely new or large piece, that design work belongs upstream in `flow-plan-project`;
 this is a quick approach check, not a full design session.)
 
+For a **multi-file or non-trivial** issue, also decompose before coding:
+- **Map the files** you'll create/touch and the *one responsibility* of each. Prefer small, focused
+  files; files that change together live together (split by responsibility, not by technical layer).
+- **Break the work into bite-sized, independently testable steps** — the smallest unit that carries
+  its own red→green cycle (each pairs with Step 3's test-first loop). Fold setup/scaffolding into the
+  step whose deliverable needs it; split only where a reviewer could reject one step while approving
+  its neighbor.
+
+Skip this micro-planning for a trivial one-file change.
+
 ## Step 3 — Implement test-first, with AC checkpoints
 Work in **red → green → refactor** cycles. For each verifiable acceptance criterion (or logical group):
 1. **Write the test first.** For a **bug**, write a test that reproduces it and **watch it fail for

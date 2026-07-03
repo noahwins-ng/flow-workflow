@@ -15,6 +15,10 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 - **Confirm-the-approach step** — a lightweight design gate before implementation (Think Before Coding).
 - New AC-templates: dependency changes (audit clean) and user-facing changes (docs/changelog).
 - `INFLUENCES.md` credits obra/superpowers + wshobson/agents and lists candidate future borrows.
+- **Receiving-review discipline** (review phase) — process each finding with rigor (restate → verify
+  → fix or push back), no reflexive agreement. From superpowers' *receiving-code-review*.
+- **File-mapping + testable micro-steps** (implement Step 2b) for multi-file issues. From
+  superpowers' *writing-plans*.
 
 ### Decided
 - Distribution = multi-manifest plugin/marketplace pattern (one `skills/` + a per-harness manifest,

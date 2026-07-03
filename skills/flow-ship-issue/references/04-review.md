@@ -17,7 +17,8 @@ Read the full branch diff with fresh eyes and look for defects before shipping. 
 ## Step 2 — Review
 **2.0 — Fresh eyes first (optional).** If `profile.review.fresh_eyes_agent` is set and the harness
 supports subagents, dispatch it on the diff only (no author context) and use its findings as your
-starting point. Do not skip your own pass. If it is empty, do a single self-review pass.
+starting point. Do not skip your own pass. If it is empty, do a single self-review pass. Treat the
+agent's findings as input to **verify**, not gospel — process them per Step 4's discipline before acting.
 
 **2.1 — Your own pass.** Read the diff as if you did not write it. Check each category:
 
@@ -53,8 +54,20 @@ Verdict: SHIP / FIX FIRST
 SHIP = no blocking issues. FIX FIRST = blocking issues exist (list with file:line + suggested fix).
 
 ## Step 4 — If FIX FIRST
-Fix each blocking item (show problem → fix → apply; auto-apply when running the full pipeline).
-After fixing, re-read the changed lines to confirm no new issue was introduced, then re-run review.
+Process each finding with technical rigor — don't rubber-stamp, don't rationalize it away (whether it
+came from the fresh-eyes agent or your own pass):
+
+1. **Restate** the finding in your own words. If it's unclear, **STOP and ask** — partial
+   understanding produces the wrong fix, and findings can be interrelated.
+2. **Verify** it against the actual code — is it real, and real *for this codebase*?
+3. **Decide:** fix it, or **push back with technical reasoning** if the finding is wrong. A reviewer
+   (human or agent) can be wrong; blindly applying a wrong suggestion is its own defect.
+4. **Fix one item at a time**, re-running the relevant test/command after each — fresh evidence per
+   `references/ac-classification.md`. Never batch-apply on faith.
+
+Do **not** substitute reflexive agreement ("you're absolutely right", "good catch") for verifying —
+actions over performance. After all blocking items are resolved, re-read the changed lines to confirm
+no new issue was introduced, then re-run review.
 
 ## Step 5 — If SHIP
 `Review passed — ready for phase 5 (ship).`
