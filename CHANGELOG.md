@@ -6,6 +6,9 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- `method/guidelines/` — stack-agnostic engineering discipline distilled from the source project's
+  memory/feedback log: debugging-and-investigation, scoping-and-tickets, verification-and-durability.
+  Cited by flow-ship-issue (implement + ac-classification) and flow-retro.
 - Inception flow for bootstrapping a project from a PRD:
   - `flow-init` is now PRD-aware (reads an imported brief, seeds the spec + project fields).
   - `flow-plan-project` — decompose spec → phases → create Linear project + milestones (+ Ops &

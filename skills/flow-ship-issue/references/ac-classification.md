@@ -3,6 +3,10 @@
 Shared by the sanity-check (phase 3) and review (phase 4) phases. This is the discipline that
 prevents shipping unverified work. Read it whenever a phase tells you to classify AC.
 
+> The reasoning behind this discipline — why aggregate "green" doesn't prove durability, why deploy
+> success isn't code-running, why liveness isn't durability — lives in
+> `method/guidelines/verification-and-durability.md`. Read it if a gate feels like ceremony.
+
 ## The core rule
 
 **"Needs manual verification" is NOT an acceptable state.** It has been used as a loophole to

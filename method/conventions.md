@@ -40,3 +40,9 @@ without a guard is still on vibes. This is how ceremony turns into durability.
 `init` is non-destructive: on a repo that already has some of these, it leaves existing files alone,
 adds only what's missing, and points the profile at whatever it finds. You are never forced to
 reorganize an in-flight project's docs — only to fill the gaps.
+
+## Guidelines
+
+Beyond this method, `guidelines/` holds stack-agnostic engineering discipline (debugging &
+investigation, scoping & tickets, verification & durability) distilled from real project lessons.
+Skills reference the relevant one when they hit its situation — see `guidelines/README.md`.

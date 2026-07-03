@@ -41,7 +41,8 @@ system so future sessions benefit. This is how ceremony compounds.
 ## Step 5 — Prep + review next phase
 Show the next milestone's issues. Cross-reference each upcoming phase against this retro's lessons
 for: invalidated requirements, underspecified ones, discovered dependencies, missing requirements,
-complexity mismatches. Draft concrete `[add|drop|modify] <id>: <one line> — Reason: <lesson>`
+complexity mismatches. Apply `method/guidelines/scoping-and-tickets.md` when re-sizing (the sizing
+trap, cut-don't-rescope-thrice, bundle follow-ups, reactive-is-half-of-scope). Draft concrete `[add|drop|modify] <id>: <one line> — Reason: <lesson>`
 recommendations **grounded in findings, not speculation**. **Pause for approval.** For each approved
 one, **read `skills/flow-change-scope/SKILL.md` and follow it** (read-and-follow, not skill-invocation).
 If nothing's warranted, say so.

@@ -27,6 +27,7 @@ method/
   conventions.md              the opinionated method the skills assume
   project-setup-playbook.md   inception reference the flow-* inception skills operationalize
   claude-md-template.md       Working Approach (verbatim) + Project Conventions placeholders
+  guidelines/                 stack-agnostic discipline: debugging, scoping, verification (skills cite these)
   docs-skeleton/docs/         plan, spec, ADR template, INDEX, architecture, retros, AC-templates, guides — scaffolded by init
 skills/                       (all skills prefixed flow- to namespace across harnesses)
   flow-init/                  bootstrap: scaffold docs skeleton + profile (greenfield & mid-project; PRD-aware)

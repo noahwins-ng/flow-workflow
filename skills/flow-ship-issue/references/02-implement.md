@@ -39,7 +39,9 @@ one).
 ## Step 5 — Targeted tests
 Run `profile.verify.test_targeted` with `{path}` set to the changed package/dir. If tests fail,
 **read the error, fix the code, re-run** — do not defer to the sanity check. If no tests exist for
-this area, note it and skip.
+this area, note it and skip. When a failure is non-obvious, apply
+`method/guidelines/debugging-and-investigation.md` (debug state not logs; classify the variant
+before fixing; fix the pattern, not just the failing example).
 
 ## Step 6 — AC self-assessment
 Classify per `references/ac-classification.md` and mark each AC **DONE / PARTIAL / BLOCKED**:
