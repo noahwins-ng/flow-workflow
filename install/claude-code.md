@@ -39,9 +39,11 @@ From inside the target project repo:
 - **Explicit `/flow-*` slash commands.** Skills are model-invoked by description. To also trigger
   them as literal slash commands, drop thin wrappers in `.claude/commands/` that say *"invoke the
   flow-ship-issue skill with $ARGUMENTS"*. Not required — asking in natural language already works.
-- **Fresh-eyes reviewer.** `flow-ship-issue`'s review phase reads `profile.review.fresh_eyes_agent`.
-  To use it, define that subagent in `.claude/agents/` and set the profile field to its name;
-  otherwise leave it empty and the skill does a single self-review pass.
+- **Fresh-eyes reviewer.** The plugin **bundles** a `flow-code-reviewer` subagent (in `agents/`,
+  auto-registered on install), and `profile.review.fresh_eyes_agent` defaults to it — so the review
+  phase gets an independent reviewer out of the box. It reads *this* project's rules from the profile
+  + CLAUDE.md, not hardcoded ones. Override the field to point at a different subagent, or empty it
+  for a single self-review pass.
 
 ## Package path convention
 

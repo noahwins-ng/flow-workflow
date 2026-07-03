@@ -102,9 +102,12 @@ ac_execution_keywords:
   - healthy
 
 review:
-  # Optional: a fresh-eyes reviewer to run before your own pass. If the harness supports
-  # subagents, name one; else leave empty and the agent does a single self-review pass.
-  fresh_eyes_agent: ""
+  # Fresh-eyes reviewer dispatched before your own pass. Defaults to the bundled `flow-code-reviewer`
+  # agent (ships in the plugin's `agents/`; reads THIS project's rules from the profile + CLAUDE.md).
+  # Set to another subagent name to override, or empty for a single self-review pass (harnesses
+  # without subagents). On a harness with only a generic subagent, dispatch it with
+  # `agents/flow-code-reviewer.md` as the prompt template.
+  fresh_eyes_agent: "flow-code-reviewer"
 
 cadence:
   # Powers cycle-start / cycle-end / retro. Assumes the Linear cycle + milestone + project model.

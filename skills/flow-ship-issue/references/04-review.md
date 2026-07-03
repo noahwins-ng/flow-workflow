@@ -15,10 +15,16 @@ Read the full branch diff with fresh eyes and look for defects before shipping. 
 - If uncommitted changes exist, warn: review covers committed state only.
 
 ## Step 2 — Review
-**2.0 — Fresh eyes first (optional).** If `profile.review.fresh_eyes_agent` is set and the harness
-supports subagents, dispatch it on the diff only (no author context) and use its findings as your
-starting point. Do not skip your own pass. If it is empty, do a single self-review pass. Treat the
-agent's findings as input to **verify**, not gospel — process them per Step 4's discipline before acting.
+**2.0 — Fresh eyes first.** Dispatch `profile.review.fresh_eyes_agent` (default: the bundled
+**`flow-code-reviewer`**) on the diff only — no author context — and use its findings as your starting
+point:
+- **Named-subagent harness** (e.g. Claude Code plugin agents) → dispatch the agent by name.
+- **Generic-subagent-only harness** → dispatch a general-purpose subagent using
+  `agents/flow-code-reviewer.md` as the prompt template (superpowers-style).
+- **No subagents** (or the field is empty) → do a single self-review pass yourself.
+
+Don't skip your own pass either way. Treat the agent's findings as input to **verify**, not gospel —
+process them per Step 4's discipline before acting.
 
 **2.1 — Your own pass.** Read the diff as if you did not write it. Check each category:
 
