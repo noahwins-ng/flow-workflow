@@ -22,7 +22,7 @@ Turn changes into verifiable goals. For anything structural, the verify step is 
 
 # flow — Project Conventions
 
-This repo is a **portable, opinionated dev-workflow skill suite** (orba/gstack-style). It was
+This repo is a **portable, structured dev-workflow skill suite** (orba/gstack-style). It was
 generalized from a real Claude-Code slash-command workflow; the source repo lives at
 `../equity-data-agent` and remains the reference implementation for conventions.
 
