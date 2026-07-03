@@ -22,7 +22,9 @@ The spine reads the profile at Step 0 and executes using its values. A different
 
 ```
 profile.template.yaml         copy → workflow-profile.yaml (package-wide config); init generates it
+QUICKSTART.md                 5-minute first run
 ROADMAP.md                    skill list, coupling analysis, resolved decisions
+install/                      per-harness install guides (Claude Code supported; others placeholder)
 method/
   conventions.md              the opinionated method the skills assume
   project-setup-playbook.md   inception reference the flow-* inception skills operationalize
@@ -30,11 +32,13 @@ method/
   guidelines/                 stack-agnostic discipline: debugging, scoping, verification (skills cite these)
   docs-skeleton/docs/         plan, spec, ADR template, INDEX, architecture, retros, AC-templates, guides — scaffolded by init
 skills/                       (all skills prefixed flow- to namespace across harnesses)
+  flow/                       index/help: "what can this do?" — routes you to the right skill
   flow-init/                  bootstrap: scaffold docs skeleton + profile (greenfield & mid-project; PRD-aware)
   flow-doctor/                preflight: profile + env health check (read-only)
   flow-plan-project/          inception: PRD → phases → Linear project + milestones + issues + plan
   flow-gen-claudemd/          inception: generate CLAUDE.md in the house style
   flow-ship-issue/            flagship pipeline (SKILL.md + references/ + 2 shared refs) — the old /go
+  flow-fix/                   recover a broken ship run: diagnose (from git) → fix → resume
   flow-session-check/         restore context: branch → issue → git state → directional AC
   flow-sync-issue-status/     reconcile one issue's tracker status from git/PR state
   flow-status/                fast local-only git snapshot (no network)
