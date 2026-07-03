@@ -131,6 +131,7 @@ method/
   claude-md-template.md  Working Approach + Project Conventions placeholders
   guidelines/            debugging · scoping · verification discipline (skills cite these)
   docs-skeleton/         plan, spec, ADRs, retros, AC-templates — scaffolded by flow-init
+agents/flow-code-reviewer.md  bundled fresh-eyes reviewer subagent (dispatched by the review phase)
 adapters/linear.sh       tracker fallback (Linear GraphQL over curl+jq)
 examples/                filled example profiles (Python, Node/Vercel)
 install/                 per-harness install guides

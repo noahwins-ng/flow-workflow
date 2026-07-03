@@ -31,8 +31,9 @@ The reference for both the distribution model and several disciplines.
   review). Fit: an optional execution mode / a `flow-execute-plan` skill.
 - *dispatching-parallel-agents* — one agent per independent failure. Fit: `flow-fix` on 3+ unrelated
   failures.
-- *requesting-code-review* — a templated reviewer context + severity triage; we have a fresh-eyes
-  reviewer but not the templated request.
+- *requesting-code-review* (partial) — we now bundle a `flow-code-reviewer` and dispatch it
+  (by name, or via `agents/flow-code-reviewer.md` as a prompt template on generic-subagent harnesses,
+  superpowers-style). Not yet adopted: the per-request precisely-crafted context + severity triage.
 - *using-git-worktrees* — isolated workspace; only pays off alongside subagent/parallel execution.
 
 ## [wshobson/agents](https://github.com/wshobson/agents)

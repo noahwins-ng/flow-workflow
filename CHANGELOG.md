@@ -5,6 +5,12 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Added
+- **Bundled `flow-code-reviewer` subagent** (`agents/`) — the review phase now ships an independent
+  fresh-eyes reviewer, auto-registered on Claude Code plugin install; `profile.review.fresh_eyes_agent`
+  defaults to it. Generalized from the source repo's equity-specific `code-reviewer-ediff` — it reads
+  project rules from the profile + CLAUDE.md. Also usable as a prompt template on generic-subagent harnesses.
+
 ### Enhanced (flow-ship-issue — industry best practice + obra/superpowers)
 - **Test-first discipline** — implement phase now works red→green→refactor; bugs get a
   reproducing test ("watch it fail for the right reason") and code AC are test-pinned.
