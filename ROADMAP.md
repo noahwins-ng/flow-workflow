@@ -54,6 +54,17 @@ implement creation yet (candidate extension).
    — non-destructive, gap-fill only, point the profile at existing docs rather than duplicating.
    (The profile still honors "empty = skip" so a skill degrades gracefully if a surface is absent.)
 
+## Distribution (decided 2026-07-04)
+**Multi-manifest plugin/marketplace pattern** — one `skills/` source + a thin manifest per harness,
+modeled on [obra/superpowers](https://github.com/obra/superpowers) and
+[wshobson/agents](https://github.com/wshobson/agents). Chosen because it installs the repo as a
+**unit per harness**, so our shared root (`adapters/`, `method/`, cross-skill refs) survives.
+Rejected: Vercel `npx skills` CLI — it copies skills as self-contained folders and drops files
+outside each skill dir, breaking our shared root (would need a flatten/build step first).
+Manifests: `.claude-plugin/` ✅; `.cursor-plugin/` / `.codex-plugin/` / `.opencode/` / `.pi/extensions/`
+to add per-harness, one at a time, after Claude Code is validated. See `install/README.md`.
+Pushed to GitHub (private): `noahwins-ng/flow-workflow` — make public before real distribution.
+
 ## Validation
 The suite is written but **unrun**. `VALIDATION.md` is the end-to-end runbook (install → adapter
 smoke test → inception → daily loop → cadence → mid-project adoption → self-checks) with a watch-list

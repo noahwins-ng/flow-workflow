@@ -2,6 +2,10 @@
 
 > **Status: aspirational, unverified.** Stub — confirm against a real opencode setup after the Claude
 > Code validation pass.
+>
+> **Concrete path:** add a `.opencode/` folder (with an `INSTALL.md`) over the same `skills/`, modeled
+> on [obra/superpowers](https://github.com/obra/superpowers)'s `.opencode/`; users follow that
+> `INSTALL.md`. See `install/README.md` for the per-harness table + adapter contract.
 
 ## What needs verifying
 - **Skill/command mechanism.** opencode supports custom commands and agents and is fairly

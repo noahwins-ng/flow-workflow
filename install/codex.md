@@ -2,6 +2,10 @@
 
 > **Status: aspirational, unverified.** This is a stub. Do the Claude Code pass first, then fill this
 > in from what actually works. Everything below is a starting hypothesis to be confirmed.
+>
+> **Concrete path:** add a `.codex-plugin/` manifest over the same `skills/`, modeled on the one in
+> [obra/superpowers](https://github.com/obra/superpowers); users install via `/plugins` → search →
+> install. See `install/README.md` for the per-harness table + adapter contract.
 
 ## What needs verifying
 - **Instruction/skill mechanism.** Codex reads `AGENTS.md` for project instructions and supports
