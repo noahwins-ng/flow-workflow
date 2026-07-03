@@ -25,9 +25,14 @@ profile.template.yaml         copy → workflow-profile.yaml (package-wide confi
 ROADMAP.md                    skill list, coupling analysis, resolved decisions
 method/
   conventions.md              the opinionated method the skills assume
-  docs-skeleton/docs/         plan, spec, ADR template, INDEX, architecture, retros — scaffolded by init
+  project-setup-playbook.md   inception reference the flow-* inception skills operationalize
+  claude-md-template.md       Working Approach (verbatim) + Project Conventions placeholders
+  docs-skeleton/docs/         plan, spec, ADR template, INDEX, architecture, retros, AC-templates, guides — scaffolded by init
 skills/                       (all skills prefixed flow- to namespace across harnesses)
-  flow-init/                  bootstrap: scaffold docs skeleton + profile (greenfield & mid-project)
+  flow-init/                  bootstrap: scaffold docs skeleton + profile (greenfield & mid-project; PRD-aware)
+  flow-doctor/                preflight: profile + env health check (read-only)
+  flow-plan-project/          inception: PRD → phases → Linear project + milestones + issues + plan
+  flow-gen-claudemd/          inception: generate CLAUDE.md in the house style
   flow-ship-issue/            flagship pipeline (SKILL.md + references/ + 2 shared refs) — the old /go
   flow-session-check/         restore context: branch → issue → git state → directional AC
   flow-sync-issue-status/     reconcile one issue's tracker status from git/PR state
@@ -57,6 +62,20 @@ an existing one.
    flagged for review.
 3. Run **flow-doctor** to confirm the profile resolves, then invoke a skill: *"ship &lt;ISSUE&gt;"*,
    *"session-check"*, *"cycle-start"*, etc.
+
+### New project from a PRD (inception)
+
+Have a PRD / requirements brief you wrote with AI? Bootstrap the whole project from it:
+
+1. Import the PRD into the repo, then **flow-init** — reads it, fills the profile + seeds the spec.
+2. **flow-doctor** — sanity-check the setup.
+3. **flow-plan-project** — decomposes the spec into phases, proposes milestones + issues with
+   three-class AC (pause to approve), then creates the Linear **project + phase milestones + Ops &
+   Reliability milestone + issues** and writes `project-plan.md`.
+4. **flow-gen-claudemd** — generates `CLAUDE.md` in the house style.
+5. **flow-cycle-start** — and start building.
+
+The inception method is documented in `method/project-setup-playbook.md`.
 
 ## Cross-harness notes
 

@@ -5,6 +5,16 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Added
+- Inception flow for bootstrapping a project from a PRD:
+  - `flow-init` is now PRD-aware (reads an imported brief, seeds the spec + project fields).
+  - `flow-plan-project` — decompose spec → phases → create Linear project + milestones (+ Ops &
+    Reliability) + issues with three-class AC, and seed `project-plan.md`. Propose-then-create.
+  - `flow-gen-claudemd` — generate `CLAUDE.md` (Working Approach + Project Conventions) in house style.
+- `method/project-setup-playbook.md` + `method/claude-md-template.md` — inception references,
+  generalized from the source repo's real playbook and CLAUDE.md.
+- Profile `taxonomy` section (labels, team_id, ops_milestone); docs-skeleton gains `AC-templates.md`
+  and `guides/dev-workflow.md`.
 
 ## [0.1.0] — 2026-07-03
 ### Added
