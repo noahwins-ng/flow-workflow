@@ -14,6 +14,16 @@ Run each and report pass/fail:
 - `profile.verify.test` — the offline/fast gate that mirrors CI. Honor `profile.verify.test_note`
   (e.g. do not use a bare test runner that pulls in live/integration suites).
 
+## Step 1b — Security & dependencies (automated gate)
+Manual security review is phase 4; this is the automated pre-PR gate.
+- **Secret scan.** `git diff <default_branch>...HEAD` — no committed credentials, keys, tokens, or
+  `.env` values. Any hit → **NEEDS FIXES** (and rotate the exposed secret).
+- **Dependency audit.** If the diff changed a dependency manifest/lockfile (`git diff --name-only`
+  hits `package.json`/`package-lock.json`/`pyproject.toml`/`uv.lock`/`requirements*.txt`/`go.mod`/…),
+  run `profile.verify.security` (e.g. `npm audit` / `pip-audit` / `uv pip audit`). **High/critical
+  CVEs block ship** — bump the dep in the same PR (don't split it into a separate ticket). If
+  `profile.verify.security` is empty, note the gap and check the lockfile diff by eye.
+
 ## Step 2 — Acceptance criteria
 1. Fetch the issue (`profile.tracker.get_issue`) and extract its Acceptance Criteria.
 2. Add implicit AC from changed files if `profile.docs.ac_templates` is set (see
@@ -31,7 +41,7 @@ Sanity Check: <id> — <title>
 
 Warnings: ⚠ <if any>
 
-Code Quality:  ✓ Lint  ✓ Format  ✓ Types  ✓ Tests (N)
+Code Quality:  ✓ Lint  ✓ Format  ✓ Types  ✓ Tests (N)  ✓ Security (secrets/deps)
 
 Acceptance Criteria:
   ✓ <crit>  [code AC — <file:line>]

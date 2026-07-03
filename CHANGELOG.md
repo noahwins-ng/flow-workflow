@@ -5,6 +5,17 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Enhanced (flow-ship-issue — industry best practice + obra/superpowers)
+- **Test-first discipline** — implement phase now works red→green→refactor; bugs get a
+  reproducing test ("watch it fail for the right reason") and code AC are test-pinned.
+- **Automated security gate** — sanity-check adds a secret scan + dependency CVE audit
+  (`profile.verify.security`) triggered on lockfile changes; high/critical CVEs block ship.
+- **Fresh-evidence gate** — ac-classification + verification guideline now require evidence run in
+  the current session and ban "should/probably/seems" as proof (superpowers' gate function).
+- **Confirm-the-approach step** — a lightweight design gate before implementation (Think Before Coding).
+- New AC-templates: dependency changes (audit clean) and user-facing changes (docs/changelog).
+- `INFLUENCES.md` credits obra/superpowers + wshobson/agents and lists candidate future borrows.
+
 ### Decided
 - Distribution = multi-manifest plugin/marketplace pattern (one `skills/` + a per-harness manifest,
   modeled on obra/superpowers + wshobson/agents). Keeps the repo a unit per harness so the shared
