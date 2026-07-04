@@ -69,8 +69,9 @@ root. Manifests: `.claude-plugin/` ✅; `.cursor-plugin/` / `.codex-plugin/` / `
 **Validated end-to-end 2026-07-04** (Claude Code, disposable Node sandbox) — all 8
 [`VALIDATION.md`](VALIDATION.md) phases exercised: CI green, hooks, test-first, subagent dispatch,
 real Linear inception, cadence + retro. **PASS with 2 defects, both now fixed** (FAIL-1 subagent
-namespacing, FAIL-2 plan-project ticket convention). Still untested: the live `adapters/linear.sh`
-GraphQL path (the sandbox used native Linear MCP) — the one remaining unexercised executable.
+namespacing, FAIL-2 plan-project ticket convention). The live `adapters/linear.sh` GraphQL path is
+**intentionally not exercised** — it's the fallback for harnesses *without* Linear MCP, and native MCP
+is the primary path. Static-reviewed clean (state-by-UUID, enum values confirmed); not a gap for MCP users.
 
 ## 📋 Not yet done
 
