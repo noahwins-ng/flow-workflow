@@ -102,12 +102,12 @@ ac_execution_keywords:
   - healthy
 
 review:
-  # Fresh-eyes reviewer dispatched before your own pass. Defaults to the bundled `flow-code-reviewer`
-  # agent (ships in the plugin's `agents/`; reads THIS project's rules from the profile + CLAUDE.md).
-  # Set to another subagent name to override, or empty for a single self-review pass (harnesses
-  # without subagents). On a harness with only a generic subagent, dispatch it with
-  # `agents/flow-code-reviewer.md` as the prompt template.
-  fresh_eyes_agent: "flow-code-reviewer"
+  # Fresh-eyes reviewer dispatched before your own pass. This is the EXACT dispatch name — set it to
+  # what your harness registered the bundled agent as. **Claude Code namespaces plugin agents as
+  # `<plugin>:<agent>`, so the value is `flow:flow-code-reviewer`** (verify with /agents). On a harness
+  # that doesn't namespace, use the bare `flow-code-reviewer`. Empty = single self-review pass; on a
+  # generic-subagent harness, dispatch `agents/flow-code-reviewer.md` as the prompt template.
+  fresh_eyes_agent: "flow:flow-code-reviewer"
 
 cadence:
   # Powers cycle-start / cycle-end / retro. Assumes the Linear cycle + milestone + project model.

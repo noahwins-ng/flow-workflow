@@ -15,10 +15,13 @@ Read the full branch diff with fresh eyes and look for defects before shipping. 
 - If uncommitted changes exist, warn: review covers committed state only.
 
 ## Step 2 — Review
-**2.0 — Fresh eyes first.** Dispatch `profile.review.fresh_eyes_agent` (default: the bundled
+**2.0 — Fresh eyes first.** Dispatch `profile.review.fresh_eyes_agent` (the bundled
 **`flow-code-reviewer`**) on the diff only — no author context — and use its findings as your starting
 point:
-- **Named-subagent harness** (e.g. Claude Code plugin agents) → dispatch the agent by name.
+- **Named-subagent harness** → dispatch the agent by the name in the profile. **Claude Code namespaces
+  plugin agents as `flow:flow-code-reviewer`** — if the profile still holds a bare name and dispatch
+  doesn't resolve, retry with the `flow:` prefix (and fix the profile). Never silently skip to
+  self-review because the name didn't resolve — that's the FAIL-1 trap.
 - **Generic-subagent-only harness** → dispatch a general-purpose subagent using
   `agents/flow-code-reviewer.md` as the prompt template (superpowers-style).
 - **No subagents** (or the field is empty) → do a single self-review pass yourself.

@@ -66,9 +66,11 @@ root. Manifests: `.claude-plugin/` ✅; `.cursor-plugin/` / `.codex-plugin/` / `
 
 ## 🧪 Validation
 
-The suite is written but **unrun**. [`VALIDATION.md`](VALIDATION.md) is the end-to-end runbook
-(install → adapter smoke test → inception → daily loop → cadence → mid-project adoption → self-checks)
-with a watch-list of untested seams. Run it on a throwaway Claude Code + disposable Linear project first.
+**Validated end-to-end 2026-07-04** (Claude Code, disposable Node sandbox) — all 8
+[`VALIDATION.md`](VALIDATION.md) phases exercised: CI green, hooks, test-first, subagent dispatch,
+real Linear inception, cadence + retro. **PASS with 2 defects, both now fixed** (FAIL-1 subagent
+namespacing, FAIL-2 plan-project ticket convention). Still untested: the live `adapters/linear.sh`
+GraphQL path (the sandbox used native Linear MCP) — the one remaining unexercised executable.
 
 ## 📋 Not yet done
 

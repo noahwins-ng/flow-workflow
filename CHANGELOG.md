@@ -5,6 +5,21 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Validated
+- **First end-to-end validation pass** (2026-07-04, Claude Code, disposable Node sandbox) — all 8
+  runbook phases exercised for real: CI ran green, hooks fired, test-first RED→GREEN, subagents
+  dispatched, inception created a real Linear project, cadence + retro worked. PASS with 2 defects
+  (below). Report: `flow-sandbox/test-report.md`.
+
+### Fixed
+- **FAIL-1: bundled subagents dispatched under the wrong name.** Claude Code registers plugin agents
+  namespaced (`flow:flow-code-reviewer` / `flow:flow-investigator`) but shipped defaults used the bare
+  name → review silently degraded to self-review. Profile default is now the namespaced form; review /
+  fix / server-audit prose is namespace-aware; `flow-init` verifies it per-harness.
+- **FAIL-2: flow-plan-project ignored the team's ticket convention.** Added Step 2a — sample 1–2
+  existing issues and mirror their section layout + AC numbering; clarified in `ac-classification.md`
+  that the `[class]` tags are semantic shorthand, not the rendered ticket format.
+
 ### Added
 - **Repo-config scaffolds** (`method/scaffolds/`, dropped in by `flow-init`, placeholders filled from
   the profile): GitHub Actions **CI** (lint/format/types/test/security) + **CD** carrying the three

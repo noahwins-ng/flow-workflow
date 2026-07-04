@@ -20,6 +20,13 @@ the command, you cannot claim it passes.
 
 ## The three kinds
 
+> **Presentation vs. semantics.** The `[code AC]` / `[dev execution AC]` / `[prod execution AC]` tags
+> below are the *semantic classification* — internal shorthand for how each criterion is proven. They
+> are **not** a required rendering. When you **write** a ticket, follow the project's own AC format
+> (many teams use a numbered list like `- [ ] AC1 (short-label, code AC) -- <text>`); the tag just
+> records which class it is. When you **verify** (sanity/review), classify by these three kinds
+> regardless of how the ticket rendered them.
+
 ### [code AC] — verifiable by reading the implementation
 Example: "handles rate limits with exponential backoff", "uses an idempotent table engine",
 "validates the ticker against the registry".
