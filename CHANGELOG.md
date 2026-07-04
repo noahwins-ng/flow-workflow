@@ -5,6 +5,8 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+
+## [0.2.0] — 2026-07-05
 ### Validated
 - **First end-to-end validation pass** (2026-07-04, Claude Code, disposable Node sandbox) — all 8
   runbook phases exercised for real: CI ran green, hooks fired, test-first RED→GREEN, subagents
