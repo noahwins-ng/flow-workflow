@@ -108,6 +108,29 @@ python -c "import yaml; yaml.safe_load(open('examples/profile.node-vercel.yaml')
 - [ ] every SKILL.md has name + description frontmatter.
 - [ ] profile + example YAML parse.
 
+## Phase 7 — Scaffolds & hooks (after `flow-init` ran in Phase 2)
+
+`flow-init` should have dropped repo config from `method/scaffolds/`, placeholders filled from the profile.
+
+| Check | Assert |
+|------|--------|
+| `.github/workflows/ci.yml` | Created; **no `__PLACEHOLDER__` left** — `verify.*` commands substituted; toolchain-setup step matches the stack. |
+| `.github/workflows/cd.yml` | Present with the 3 hard gates filled from `deploy.*` — **or cleanly skipped** if `deploy.*` is empty (no error, noted in the report). |
+| `.githooks/commit-msg` + `core.hooksPath` | Installed and set. **Test it:** a conventional message (`<ID>: feat(x): …`) commits; a garbage message is **rejected**. |
+| `Makefile` | `make test`/`lint`/`format` run the `verify.*` commands. |
+| `.github/dependabot.yml` | Ecosystem matches the stack. |
+| PR template + `docs/guides/ops-runbook.md` | Present. |
+| **Gap-fill** | Pre-seed one file (e.g. an existing `Makefile`) *before* `flow-init` → it's left untouched and reported as "found". |
+| **CI actually runs** (needs the GitHub sandbox) | Push a PR → `ci.yml` runs and goes green. |
+
+## Phase 8 — Optional hooks (Claude-Code guardrails)
+
+| Check | Assert |
+|------|--------|
+| Registration | `protect-repo` + `check-uncommitted` register on plugin install (see watch-list #5 for naming). |
+| Inert by default | With no `FLOW_HOOKS` / `.flow-hooks`, a `git push --force` is **allowed** (hook no-ops). |
+| Opt-in works | After `touch .flow-hooks` (or `export FLOW_HOOKS=1`), `git push --force` / `git reset --hard` are **blocked**; a normal feature-branch push is allowed. |
+
 ## Cleanup
 - [ ] Archive/delete the sandbox Linear project + issues.
 - [ ] Delete the `flow-sandbox` GitHub repo.
@@ -115,8 +138,9 @@ python -c "import yaml; yaml.safe_load(open('examples/profile.node-vercel.yaml')
 ## Exit criteria
 - [ ] Phases 0–2 fully PASS (install, adapter, inception) — the core loop.
 - [ ] Phase 3 PASS through merge (deploy gates deferred).
+- [ ] Phase 7 PASS: scaffolds filled correctly + commit-msg hook gates.
 - [ ] Every FAIL either fixed or filed with a repro.
-- [ ] Watch-list items 1–4 each explicitly confirmed or fixed.
+- [ ] Watch-list items 1–5 each explicitly confirmed or fixed.
 
 ---
 
