@@ -14,8 +14,9 @@ Linear + Claude Code setup; the war stories behind each invariant live in the so
 3. **`flow-plan-project`** — decompose the spec into phases → milestones + issues → create them in the
    tracker + write `project-plan.md`.
 4. **`flow-gen-claudemd`** — generate `CLAUDE.md` from the profile + spec + repo conventions.
-5. Repo foundation (Makefile, `.env.example`, `.gitignore`, commit-msg hook, CI/CD) — outside these
-   skills' scope, but the playbook lists them; see the checklist below.
+5. Repo foundation — **`flow-init` scaffolds this** from `method/scaffolds/`: GitHub Actions CI + CD
+   (with the three hard gates), a `commit-msg` hook, a `Makefile`, `dependabot.yml`, and a PR template,
+   placeholders filled from the profile. (`.env.example` / `.gitignore` remain the author's to add.)
 6. `flow-cycle-start` and begin building.
 
 ## Tracker structure (the taxonomy to follow)

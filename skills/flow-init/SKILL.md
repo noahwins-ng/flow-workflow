@@ -65,6 +65,24 @@ left alone. If you would replace something you didn't create, stop and surface i
    - Leave `deploy.*`, `cadence.*`, `audit.*`, `architecture_rules`, `ac_execution_keywords` as
      template defaults with a note that the user should review them — these are judgment calls.
 
+3b. **Scaffold repo config (gap-fill, after the profile exists).** Copy the templates under
+   `method/scaffolds/` into the repo, **filling `__PLACEHOLDERS__` from the profile** (verify.*,
+   deploy.*, vcs, tracker.identifier_regex, detected stack/ecosystem). Same non-destructive rule as
+   docs: **never overwrite an existing file** — if the repo already has `.github/workflows/`, a
+   `Makefile`, `.githooks/`, a PR template, or `dependabot.yml`, leave it and note it as "found".
+   - `.github/workflows/ci.yml` — lint/format/types/test/security (from `verify.*`). Add the
+     toolchain-setup step for the detected stack; drop the security step if `verify.security` is empty.
+   - `.github/workflows/cd.yml` — deploy + the **three hard gates** (from `deploy.*`). Delete any gate
+     whose `deploy.*` value is empty (the project has no such concept). If there's no deploy at all,
+     skip `cd.yml` entirely and note it.
+   - `.githooks/commit-msg` — tune `__ID_REGEX__` to `tracker.identifier_regex`. Run
+     `git config core.hooksPath .githooks` (or fold into `make setup`).
+   - `Makefile` — targets mapped to `verify.*` (skip if the repo already has a task runner).
+   - `.github/dependabot.yml` — set the ecosystem from the detected stack.
+   - `.github/PULL_REQUEST_TEMPLATE.md`.
+   Leave any placeholder you genuinely can't fill and flag it in the report — don't invent a command
+   that won't run.
+
 4. **Tracker check.** Note whether the harness exposes a Linear MCP tool. If not, remind the user
    the shell adapter needs `LINEAR_API_KEY` exported.
 
@@ -80,6 +98,11 @@ left alone. If you would replace something you didn't create, stop and surface i
    Profile: workflow-profile.yaml created
      pre-filled: project.name, default_branch, verify.* (Python)
      NEEDS YOU:  tracker prefix, deploy.*, cadence.team/project, architecture_rules
+
+   Repo config:
+     created   .github/workflows/ci.yml, .githooks/commit-msg, Makefile, PR template, dependabot.yml
+     skipped   .github/workflows/cd.yml  (deploy.* empty — no deploy target yet)
+     found     Makefile  (left as-is)
 
    Tracker: Linear MCP <detected | not detected — export LINEAR_API_KEY for adapters/linear.sh>
 

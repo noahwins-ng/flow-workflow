@@ -1,0 +1,32 @@
+# CD — deploy on push to the default branch, then VERIFY the deploy landed.
+# The three hard gates are the flow verification discipline, enforced in CI (not just at ship time).
+# flow-init fills __PLACEHOLDERS__ from workflow-profile.yaml (deploy.*). Delete gates the project
+# has no concept of (leave the corresponding profile value empty).
+name: CD
+
+on:
+  push:
+    branches: [__DEFAULT_BRANCH__]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy
+        run: __DEPLOY_CMD__                # your deploy mechanism (ssh / vercel / flyctl / …)
+
+      # ---- HARD GATES: prove the RIGHT code is actually running ----
+      - name: Gate 1 — prod SHA == merged commit
+        run: |
+          REMOTE_SHA=$(__DEPLOYED_SHA_CMD__)   # profile.deploy.deployed_sha
+          if [ "$REMOTE_SHA" != "${{ github.sha }}" ]; then
+            echo "DRIFT: prod=$REMOTE_SHA merged=${{ github.sha }}"; exit 1
+          fi
+
+      - name: Gate 2 — runtime loaded the expected code
+        run: __RUNTIME_ID_CMD__            # profile.deploy.runtime_id  (assert asset/route/handler set)
+
+      - name: Gate 3 — post-deploy smoke (one cheap real operation)
+        run: __HEALTH_CMD__                # profile.deploy.health
