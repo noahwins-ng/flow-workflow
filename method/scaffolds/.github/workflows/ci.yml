@@ -1,0 +1,27 @@
+# CI — runs on every PR + push to the default branch. Mirrors the flow sanity-check gate.
+# flow-init fills the __PLACEHOLDERS__ from workflow-profile.yaml (verify.*) and detected stack.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [__DEFAULT_BRANCH__]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # __TOOLCHAIN_SETUP__  (e.g. astral-sh/setup-uv, actions/setup-node@v4, actions/setup-go)
+
+      - name: Lint
+        run: __LINT_CMD__          # profile.verify.lint
+      - name: Format check
+        run: __FORMAT_CMD__        # profile.verify.format
+      - name: Types
+        run: __TYPES_CMD__         # profile.verify.types
+      - name: Test
+        run: __TEST_CMD__          # profile.verify.test  (the offline/fast gate that mirrors sanity-check)
+      - name: Security — dependency audit
+        run: __SECURITY_CMD__      # profile.verify.security  (omit this step if empty)

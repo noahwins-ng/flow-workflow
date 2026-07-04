@@ -6,6 +6,12 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- **Repo-config scaffolds** (`method/scaffolds/`, dropped in by `flow-init`, placeholders filled from
+  the profile): GitHub Actions **CI** (lint/format/types/test/security) + **CD** carrying the three
+  hard gates (prod-SHA==merge, runtime-load, post-deploy smoke); a **commit-msg** git hook enforcing
+  `vcs.commit_format`; a `Makefile` mapped to `verify.*`; `dependabot.yml`; a PR template. Plus an
+  **ops-runbook** stub in the docs-skeleton (referenced by flow-investigator / flow-server-audit).
+  Closes the loop: the ship skill *verified* the gates; CI now *enforces* them.
 - **Optional Claude Code hooks bundle** (`hooks/`) — `protect-repo` (force-push / main-push /
   hard-reset / `rm -rf` guardrail) + `check-uncommitted` (session-end reminder), generalized from the
   source repo. Registered on install but **inert until enabled** (`FLOW_HOOKS=1` or a `.flow-hooks`

@@ -130,7 +130,9 @@ method/
   project-setup-playbook.md   inception reference
   claude-md-template.md  Working Approach + Project Conventions placeholders
   guidelines/            debugging · scoping · verification discipline (skills cite these)
-  docs-skeleton/         plan, spec, ADRs, retros, AC-templates — scaffolded by flow-init
+  docs-skeleton/         plan, spec, ADRs, retros, AC-templates, ops-runbook — scaffolded by flow-init
+  scaffolds/             repo config flow-init drops in: CI/CD workflows (with the 3 hard gates),
+                         commit-msg hook, Makefile, dependabot, PR template — placeholders filled from the profile
 agents/                  bundled subagents: flow-code-reviewer (review phase) · flow-investigator (fix/audit, read-only)
 hooks/                   OPTIONAL Claude-Code guardrails (protect-repo + check-uncommitted) — inert until enabled
 adapters/linear.sh       tracker fallback (Linear GraphQL over curl+jq)
