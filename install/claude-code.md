@@ -47,6 +47,20 @@ From inside the target project repo:
   - **`flow-investigator`** — read-only diagnostician dispatched by `flow-fix` (complex/multi failures)
     and `flow-server-audit` (incident triage). Returns a root-cause hypothesis; never remediates.
 
+## Optional guardrail hooks (Claude-Code-only, opt-in)
+
+The plugin ships two Claude Code hooks in `hooks/` — **`protect-repo`** (blocks force-push, direct
+`main`/`master` push, `git reset --hard`, and `rm -rf` on the repo root/home/.git) and
+**`check-uncommitted`** (a session-end reminder). They're **registered on install but inert by
+default** — installing flow never silently adds global git guardrails.
+
+Enable them when you want the guardrails:
+- **Globally:** add `export FLOW_HOOKS=1` to your shell profile.
+- **Per-repo:** `touch .flow-hooks` at the repo root.
+
+These align with flow's branch-per-issue + PR-merge model (hence "no direct push to main"). They're
+Claude-Code-only; other harnesses have their own event models (not yet ported).
+
 ## Package path convention
 
 All internal references (`adapters/…`, `method/…`, `skills/flow-*/…`) are **relative to the package

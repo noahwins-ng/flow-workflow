@@ -6,6 +6,10 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Added
+- **Optional Claude Code hooks bundle** (`hooks/`) — `protect-repo` (force-push / main-push /
+  hard-reset / `rm -rf` guardrail) + `check-uncommitted` (session-end reminder), generalized from the
+  source repo. Registered on install but **inert until enabled** (`FLOW_HOOKS=1` or a `.flow-hooks`
+  marker) so installing flow never silently adds global git guardrails. Claude-Code-only.
 - **Bundled `flow-investigator` subagent** (`agents/`) — read-only diagnostician (root-cause
   hypothesis + confidence + next-step commands, never remediates), generalized from the source repo's
   `ops-investigator`. Dispatched by `flow-fix` (complex/multi-signal failures — parallel per domain
