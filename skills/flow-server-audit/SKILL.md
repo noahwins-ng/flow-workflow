@@ -19,7 +19,8 @@ Read-only: never modifies config or restarts anything. Fixes go through the norm
 
 **Incident vs. routine.** If you're here in response to a **specific symptom** (a Discord alert, a
 `check-prod` failure, a user report) rather than a routine snapshot, first dispatch the read-only
-**`flow-investigator`** subagent with the symptom — it returns a root-cause hypothesis + confidence
+**`flow-investigator`** subagent (Claude Code: **`flow:flow-investigator`**) with the symptom — it
+returns a root-cause hypothesis + confidence
 + next-step commands. Verify its findings against the collection below. For a routine audit, skip
 straight to Step 0.
 

@@ -64,6 +64,9 @@ left alone. If you would replace something you didn't create, stop and surface i
      prefix (e.g. `QNT`); don't guess.
    - Leave `deploy.*`, `cadence.*`, `audit.*`, `architecture_rules`, `ac_execution_keywords` as
      template defaults with a note that the user should review them — these are judgment calls.
+   - `review.fresh_eyes_agent` — the template defaults to the Claude Code namespaced form
+     `flow:flow-code-reviewer`. If you're on Claude Code, keep it (verify with `/agents`). On a harness
+     that registers bundled agents *without* a namespace, change it to the bare `flow-code-reviewer`.
 
 3b. **Scaffold repo config (gap-fill, after the profile exists).** Copy the templates under
    `method/scaffolds/` into the repo, **filling `__PLACEHOLDERS__` from the profile** (verify.*,

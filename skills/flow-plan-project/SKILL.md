@@ -22,14 +22,23 @@ Turn the spec into a tracked plan. Operationalizes `method/project-setup-playboo
 Read the spec (`profile.docs.spec`) or the PRD path the user gives. Extract: the product summary,
 the non-negotiable principles, and any phasing the author already implied.
 
-## Step 2 — Propose the decomposition (no writes yet)
+## Step 2a — Learn the team's ticket convention (don't assume it)
+Before drafting, **fetch 1–2 existing issues** from `profile.cadence.project` / team (any non-trivial
+recent ticket) and note their **exact structure** — section headings, ordering, and how AC are
+written. Established teams have a house format (commonly: `## Context` → `## Scope` → `## Out of
+scope` → `## Acceptance Criteria` (a **numbered** list) → `## References`). **Mirror it.** If the team
+has no established format yet, use the default below. Never invent a format when one already exists.
+
+## Step 2b — Propose the decomposition (no writes yet)
 Draft, and present for approval:
 1. **Phases** — a small ordered set (Phase 0 Foundation … Phase N), each with a one-line goal. Map
    1:1 to milestones. Always include a separate **"Ops & Reliability"** perpetual milestone.
-2. **Issues per phase** — each with: title, one-paragraph scope, deliverables, and **acceptance
-   criteria written in the three-class taxonomy** (code / dev-execution / prod-execution — see
-   `skills/flow-ship-issue/references/ac-classification.md`). Keep issues shippable in ~1 cycle;
-   split anything bigger. Suggest a label per issue from `profile.taxonomy.labels`.
+2. **Issues per phase** — each written in the **team's format from Step 2a**, with title, scope,
+   deliverables, and acceptance criteria. The three-class taxonomy (code / dev-execution / prod-
+   execution — see `skills/flow-ship-issue/references/ac-classification.md`) is the **semantics** of
+   each AC; render it in the team's presentation — e.g. a numbered list `- [ ] AC1 (short-label, code
+   AC) -- <text>`, not raw bracket tags, if that's what their tickets use. Keep issues shippable in
+   ~1 cycle; split anything bigger. Suggest a label per issue from `profile.taxonomy.labels`.
 3. **Cycle 1 pick** — which Phase 0/1 issues seed the first cycle.
 
 Present as a phase-by-phase outline. **Pause for approval.** The user may edit phases, issues, AC,
