@@ -132,6 +132,7 @@ method/
   guidelines/            debugging · scoping · verification discipline (skills cite these)
   docs-skeleton/         plan, spec, ADRs, retros, AC-templates — scaffolded by flow-init
 agents/                  bundled subagents: flow-code-reviewer (review phase) · flow-investigator (fix/audit, read-only)
+hooks/                   OPTIONAL Claude-Code guardrails (protect-repo + check-uncommitted) — inert until enabled
 adapters/linear.sh       tracker fallback (Linear GraphQL over curl+jq)
 examples/                filled example profiles (Python, Node/Vercel)
 install/                 per-harness install guides
