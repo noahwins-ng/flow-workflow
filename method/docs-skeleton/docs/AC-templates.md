@@ -4,6 +4,10 @@ Acceptance criteria that apply to a *class* of change automatically — appended
 and flow-review when `git diff --name-only <default_branch>...HEAD` matches a trigger glob, even if
 the issue author didn't list them. Referenced by `profile.docs.ac_templates`.
 
+<!-- SKELETON DEFAULTS — written for a deployed-service topology. flow-tailor re-derives the
+     trigger groups from THIS repo's actual dangerous surfaces (e.g. a no-deploy CLI replaces the
+     prod-gate group with CI/hooks/gate-script triggers). Remove this marker once tailored. -->
+
 ## Infra / CI / Deploy PRs
 
 Apply when the diff touches any of: CI/CD workflows, container/build files (`Dockerfile`,
