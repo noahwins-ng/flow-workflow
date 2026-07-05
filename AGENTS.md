@@ -32,6 +32,7 @@ package root. Resolve it in this order:
 | `flow-fix` | Recover a broken ship run — diagnose the failed phase from git state, resume |
 | **Inception** | |
 | `flow-init` | Scaffold docs skeleton + `workflow-profile.yaml` (greenfield or gap-fill) |
+| `flow-tailor` | Derive + prove the project-specific workflow layer (probes, commands, AC surfaces) |
 | `flow-plan-project` | PRD → phases → tracker project + milestones + issues + plan doc |
 | `flow-gen-claudemd` | Generate the project's `CLAUDE.md` in house style |
 | **Cadence** | |
@@ -49,9 +50,10 @@ package root. Resolve it in this order:
 
 ## Per-project setup
 
-From the target project repo: run `flow-init` (scaffolds docs + profile), then `flow-doctor`
-(verifies everything resolves). Skills read `profile.<key>` from `workflow-profile.yaml`; an empty
-value means "this project has no such concept — skip that step".
+From the target project repo: run `flow-init` (scaffolds docs + profile), then `flow-tailor`
+(derives + proves the project-specific values), then `flow-doctor` (verifies everything resolves).
+Skills read `profile.<key>` from `workflow-profile.yaml`; an empty value means "this project has
+no such concept — skip that step".
 
 ## Tracker
 

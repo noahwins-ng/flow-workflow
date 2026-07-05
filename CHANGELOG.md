@@ -5,6 +5,23 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Added (universality = derived fit)
+- **`flow-tailor`** (17th skill) — the strategy shift: instead of a schema that fits every project,
+  the agent **derives + proves** this project's bespoke workflow layer on top of the spine. Study
+  the repo → interview against the gate contracts → derive the judgment-call profile values →
+  **run every derived command with output shown** (fresh-evidence gate applied to the workflow
+  itself; UNPROVEN is a visible state, never a fake probe) → document the derivation in profile
+  comments → flow-doctor green with the degradation report walked line by line. Re-runnable on
+  stack/topology change.
+- **`method/guidelines/tailoring.md`** — the question bank: per-contract derivation questions
+  (identity / runtime-load / health), the verify/AC/rules surfaces, and the anti-patterns.
+- **Inception flow rewired**: `flow-init → flow-tailor → flow-doctor → flow-plan-project →
+  flow-gen-claudemd → flow-cycle-start`. flow-init keeps mechanical detection; the judgment calls
+  it used to dump on the user ("NEEDS YOU") are now tailor's job. ROADMAP records the decision
+  (derived fit over archetype matrix; examples become reference derivations).
+- Doc-drift sweep while rewiring: README badges/status (0.2.0, validated), stale skill counts,
+  ROADMAP at-a-glance (public + validated).
+
 ### Added (universality across project types)
 - **Ship hard gates reframed as topology-neutral contracts** — what each gate *proves* (identity /
   runtime-load / health) is spine; the probe is profile. `05-ship.md` + the template's `deploy:`

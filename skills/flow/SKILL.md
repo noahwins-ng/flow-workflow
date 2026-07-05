@@ -14,9 +14,10 @@ skill and (briefly) what it will do; if they just want the map, print the sectio
 ## By moment
 
 **New project (inception)** — from a PRD to a tracked, documented, ready-to-build repo:
-`flow-init` (import PRD, scaffold docs + profile) → `flow-doctor` (verify setup) →
-`flow-plan-project` (phases → Linear project/milestones/issues + plan) → `flow-gen-claudemd`
-(generate CLAUDE.md) → `flow-cycle-start`.
+`flow-init` (import PRD, scaffold docs + profile) → `flow-tailor` (derive + prove the
+project-specific workflow layer) → `flow-doctor` (verify setup) → `flow-plan-project` (phases →
+Linear project/milestones/issues + plan) → `flow-gen-claudemd` (generate CLAUDE.md) →
+`flow-cycle-start`.
 
 **Daily / per-issue:**
 - `flow-session-check` — restore context at the start of a session.
@@ -38,7 +39,8 @@ skill and (briefly) what it will do; if they just want the map, print the sectio
 - `flow-server-audit` — prod durability/security/drift snapshot → tracked tickets.
 
 **Setup / meta:**
-- `flow-init` · `flow-doctor` · `flow` (this index).
+- `flow-init` · `flow-tailor` (fit the workflow to this project's stack/topology — re-run when
+  either changes) · `flow-doctor` · `flow` (this index).
 
 ## Deeper reading
 - `README.md` / `QUICKSTART.md` — install + first run.
