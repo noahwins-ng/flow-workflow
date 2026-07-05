@@ -9,7 +9,7 @@ note() { printf '  %s\n' "$1"; }
 fail() { printf 'FAIL: %s\n' "$1"; FAIL=1; }
 
 # 1. Frontmatter: name == dir, description present and <= 1024 chars (agentskills.io spec)
-echo "[1/5] skill frontmatter"
+echo "[1/6] skill frontmatter"
 python3 - <<'PY' || FAIL=1
 import pathlib, re, sys
 import yaml
@@ -32,14 +32,14 @@ sys.exit(1 if bad else 0)
 PY
 
 # 2. YAML surfaces parse
-echo "[2/5] yaml parses"
+echo "[2/6] yaml parses"
 for y in profile.template.yaml examples/*.yaml hooks/hooks.json .claude-plugin/*.json; do
   [ -f "$y" ] || continue
   python3 -c "import sys,yaml; yaml.safe_load(open('$y'))" 2>/dev/null || fail "$y does not parse"
 done
 
 # 3. shellcheck
-echo "[3/5] shellcheck"
+echo "[3/6] shellcheck"
 if command -v shellcheck >/dev/null; then
   # -S warning: info-level SC2016 fires falsely on GraphQL '$var' strings in the adapter
   shellcheck -S warning adapters/*.sh hooks/*.sh scripts/*.sh || FAIL=1
@@ -50,7 +50,7 @@ fi
 # 4. Package-internal cross-references resolve.
 #    Scan prose surfaces for backticked package-root-relative paths; skip globs/placeholders.
 #    (docs-skeleton + scaffolds are excluded: their refs point at the CONSUMER repo.)
-echo "[4/5] cross-references resolve"
+echo "[4/6] cross-references resolve"
 while IFS= read -r ref; do
   case "$ref" in (*'*'*|*'<'*|*'{'*|*'…'*) continue;; esac
   [ -e "$ref" ] || fail "dangling reference: $ref"
@@ -59,7 +59,7 @@ done < <(grep -rhoE '`(skills|method|adapters|agents|install|hooks)/[A-Za-z0-9._
          | grep -v 'method/docs-skeleton\|method/scaffolds' | tr -d '`' | sort -u)
 
 # 5. Profile-key drift: every concrete profile.<section>.<key> a skill reads exists in the template.
-echo "[5/5] profile keys exist in template"
+echo "[5/6] profile keys exist in template"
 python3 - <<'PY' || FAIL=1
 import pathlib, re, sys
 import yaml
@@ -75,6 +75,26 @@ for section, key in sorted(refs):
         print(f"FAIL: profile.{section} referenced but not in template"); bad = True
     elif isinstance(tpl[section], dict) and key not in tpl[section]:
         print(f"FAIL: profile.{section}.{key} referenced but not in template"); bad = True
+sys.exit(1 if bad else 0)
+PY
+
+# 6. Example profiles match the template schema (no section/key an example has that the
+#    template doesn't — examples drifting from the schema is how consumers copy stale shapes).
+echo "[6/6] example profiles match template schema"
+python3 - <<'PY' || FAIL=1
+import pathlib, sys
+import yaml
+tpl = yaml.safe_load(open("profile.template.yaml"))
+bad = False
+for ex in sorted(pathlib.Path("examples").glob("*.yaml")):
+    doc = yaml.safe_load(ex.read_text())
+    for section, val in doc.items():
+        if section not in tpl:
+            print(f"FAIL: {ex}: section '{section}' not in template"); bad = True
+        elif isinstance(val, dict) and isinstance(tpl[section], dict):
+            for key in val:
+                if key not in tpl[section]:
+                    print(f"FAIL: {ex}: '{section}.{key}' not in template"); bad = True
 sys.exit(1 if bad else 0)
 PY
 
