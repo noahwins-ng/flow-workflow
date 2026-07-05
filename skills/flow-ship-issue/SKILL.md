@@ -82,7 +82,7 @@ Two references are shared across phases — read them when a phase tells you to:
   phase. Never skip to review or ship on a NEEDS FIXES.
 - **Review must return SHIP.** FIX FIRST → fix the blocking items, re-run review.
 - **Ship verifies deployed identity before trusting any AC.** After merge+deploy, confirm the
-  running code is the code you merged (`profile.verify.deployed_sha` + `profile.verify.runtime_id`)
+  running code is the code you merged (`profile.deploy.deployed_sha` + `profile.deploy.runtime_id`)
   *before* checking any post-deploy AC. An AC check against stale code is meaningless.
 
 ## Failure handling

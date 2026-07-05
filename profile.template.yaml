@@ -19,7 +19,8 @@ tracker:
   kind: linear
   identifier_regex: "QNT-\\d+"        # how to recognize an issue id in user input (change prefix per team)
   identifier_example: "QNT-305"
-  adapter: "adapters/linear.sh"       # path relative to the package root (${CLAUDE_PLUGIN_ROOT} on Claude Code)
+  adapter: "adapters/linear.sh"       # relative to the package root — resolution chain in AGENTS.md
+                                      # (${CLAUDE_PLUGIN_ROOT} -> $FLOW_ROOT -> dir holding AGENTS.md)
   get_issue:       "{adapter} issue get {id}"                 # -> JSON: id,title,description,status,branchName,milestone,blockedBy
   set_in_progress: "{adapter} issue status {id} 'In Progress'"
   set_in_review:   "{adapter} issue status {id} 'In Review'"

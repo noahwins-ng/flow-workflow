@@ -18,11 +18,11 @@ Read the full branch diff with fresh eyes and look for defects before shipping. 
 **2.0 — Fresh eyes first.** Dispatch `profile.review.fresh_eyes_agent` (the bundled
 **`flow-code-reviewer`**) on the diff only — no author context — and use its findings as your starting
 point:
-- **Named-subagent harness** → dispatch the agent by the name in the profile. **Claude Code namespaces
-  plugin agents as `flow:flow-code-reviewer`** — if the configured name doesn't resolve, retry with the
-  other form (add the `flow:` prefix if it's bare, strip it if it's namespaced), then fix the profile to
-  the form that worked. Never silently skip to self-review because the name didn't resolve — that's the
-  FAIL-1 trap.
+- **Named-subagent harness** → dispatch the agent by the name in the profile (per-harness naming in
+  `install/harness-notes.md` — e.g. Claude Code namespaces it `flow:flow-code-reviewer`). If the
+  configured name doesn't resolve, retry with the other namespace form (add the plugin prefix if it's
+  bare, strip it if it's namespaced), then fix the profile to the form that worked. Never silently
+  skip to self-review because the name didn't resolve — that's the FAIL-1 trap.
 - **Generic-subagent-only harness** → dispatch a general-purpose subagent using
   `agents/flow-code-reviewer.md` as the prompt template (superpowers-style).
 - **No subagents** (or the field is empty) → do a single self-review pass yourself.

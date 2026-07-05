@@ -34,9 +34,9 @@ the git-based diagnosis. Report the diagnosis (branch, tracker status + drift no
 uncommitted, PR state, inferred failed phase + reason).
 
 **When the failure is complex or multi-signal** (post-deploy failure, conflicting signals, an
-unclear root cause), optionally dispatch the read-only **`flow-investigator`** subagent (Claude Code
-registers it namespaced as **`flow:flow-investigator`** — if the name doesn't resolve, retry with the
-other form: add the `flow:` prefix if it's bare, strip it if it's namespaced) for an
+unclear root cause), optionally dispatch the read-only **`flow-investigator`** subagent (dispatch
+name + resolution rule per `install/harness-notes.md` — e.g. `flow:flow-investigator` on Claude
+Code; if the name doesn't resolve, retry the other namespace form) for an
 independent root-cause hypothesis before you fix — it keeps this session's context clean and won't
 touch anything. For **multiple independent failures** (e.g. 3+ unrelated failing test files),
 dispatch **one `flow-investigator` per failure domain in parallel** (harness permitting). For a

@@ -10,10 +10,54 @@ that make that method real. This file is the reference for the conventions the s
   A milestone completing triggers a retro.
 - **Perpetual milestones** — deliberate catch-alls (e.g. "Ops & Reliability") that never "complete";
   work lands there continuously. cycle-end/retro never auto-prompt a retro for these
-  (`cadence.perpetual_milestones` in the profile).
+  (`taxonomy.perpetual_milestones` in the profile).
 - **Cycles = weeks** — the unit of cadence. cycle-start kicks one off; cycle-end wraps it and rolls
   incomplete issues forward. An issue must be **Todo** (not Backlog) to appear on the cycle board.
 - **One branch + one PR per issue.** Branch name comes from the tracker.
+
+## Ticket structure (universal)
+
+Every issue the suite creates (plan-project, change-scope) follows **one canonical shape**,
+regardless of project. The *content* is project-specific; the *structure* never is.
+
+**Title** — commit-shaped: `type(scope): imperative summary`, with `type` from the project's
+commit format (`feat|fix|test|docs|refactor|chore`) and `scope` the touched area.
+
+**Body** — these sections, in this order (Markdown `##` headings):
+
+```markdown
+[Optional one-line lead-in linking the parent issue / ADR this follows from.]
+
+## Context
+Why this exists: the problem, prior-issue/ADR links, evidence. Enough for a
+cold reader to judge the AC.
+
+## Scope
+What to do — the deliverables, as bullets.
+
+## Out of scope
+Explicit non-goals (omit the section only when there's genuinely nothing to fence off).
+
+## Acceptance Criteria
+- [ ] AC1 (<short label>, <class>) -- <one verifiable claim>
+- [ ] AC2 (<short label>, <class>) -- ...
+
+## References
+- Related issues / ADRs / files / docs (omit if none).
+```
+
+**AC lines** — numbered `AC<n>`, one verifiable claim each, tagged with a short label plus the
+**class** from the three-class taxonomy (`code` / `dev execution` / `prod execution` — semantics in
+`skills/flow-ship-issue/references/ac-classification.md`). The class tag is what lets sanity-check
+and ship enforce the right kind of evidence.
+
+**Metadata** — always set the **project** (issues without it fall out of the project view); set the
+**milestone** (a phase, or the perpetual Ops milestone for reactive/hardening work); one **label**
+from the project's fixed set; a **priority**. When picked into a cycle, status goes **Todo**.
+
+If an adopted team already has its own house format, mirror their *presentation* (heading names,
+AC numbering style) — but the canonical elements above (context, scope, classed + verifiable AC,
+references, metadata rules) must all still be present. Structure is spine; rendering is profile.
 
 ## Docs skeleton (the four surfaces + records)
 

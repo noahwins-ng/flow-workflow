@@ -41,7 +41,8 @@ generalized from a real Claude-Code slash-command workflow; the source repo live
 - **Cross-skill references use read-and-follow**, not "invoke the skill": *"read
   `skills/flow-sync-plan/SKILL.md` and follow it"*. Skill-tool invocation isn't portable across harnesses.
 - **Package-internal paths are package-root-relative** (`adapters/…`, `method/…`, sibling skills).
-  Under a Claude Code plugin install the root is `${CLAUDE_PLUGIN_ROOT}`.
+  Root resolution chain (authoritative copy in `AGENTS.md`): `${CLAUDE_PLUGIN_ROOT}` → `$FLOW_ROOT`
+  → the directory holding `AGENTS.md`.
 - The three-class **AC discipline** (`skills/flow-ship-issue/references/ac-classification.md`) and the
   evidence-receipt / audit-comment contracts are load-bearing — preserve them when editing ship/sanity/review.
 
@@ -67,8 +68,8 @@ adapter doesn't implement them yet.
 - Adding/renaming a skill is a docs-touch too: update README skill list, ROADMAP status, CHANGELOG.
 
 ## Quality gates (this repo)
-- `shellcheck adapters/linear.sh` clean. Every `SKILL.md` has `name` + `description`.
-  `profile.template.yaml` + `examples/*.yaml` parse. (See `VALIDATION.md` Phase 6.)
+- `scripts/check.sh` green (frontmatter, YAML, shellcheck, cross-refs, profile-key drift) — CI runs
+  it on every PR. It mechanizes `VALIDATION.md` Phase 6.
 - The real proof is `VALIDATION.md` — run it on a throwaway project before trusting a change.
 
 ## Working docs

@@ -25,7 +25,7 @@ descoped, split, or debug-heavy commit histories); blockers (external APIs, tool
 For every incident/outage/surprise this period, ask: *"what invariant did this violate, and is it
 now enforced by CI or a ship hard-gate?"*
 1. List the incidents — closed reliability/ops tickets in this window (incidents from
-   `profile.cadence.perpetual_milestones` count even if outside the retro's milestone) + Step 2
+   `profile.taxonomy.perpetual_milestones` count even if outside the retro's milestone) + Step 2
    surprises.
 2. For each, one line: `<id>: <one-sentence invariant> — guard: <file path | "NONE — propose <id>">`.
    An *invariant* is a claim you assumed true that drifted (e.g. "prod SHA == merged commit").

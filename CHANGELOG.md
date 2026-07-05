@@ -5,7 +5,28 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Added
+- **Universal ticket structure** (`method/conventions.md` "Ticket structure") — the canonical issue
+  shape (commit-shaped title; Context → Scope → Out of scope → Acceptance Criteria → References;
+  `- [ ] AC<n> (<label>, <class>) -- <claim>` lines; metadata rules), codified from the reference
+  project's live tickets. flow-plan-project + flow-change-scope now anchor on it — structure is
+  spine, team presentation is mirrored on top (the FAIL-2 sampling step remains for rendering only).
+- **`AGENTS.md`** — harness-neutral entry point (skill index, per-project setup, tracker resolution)
+  so any agent that reads the repo can use the suite without a plugin manifest.
+- **Package-root resolution chain**, documented once in `AGENTS.md` and echoed by the install docs:
+  `${CLAUDE_PLUGIN_ROOT}` → `$FLOW_ROOT` → the directory holding `AGENTS.md`.
+- **`install/harness-notes.md`** — the one home for per-harness facts (agent dispatch naming,
+  subagent/hook support) + the universal dispatch rule; review / fix / server-audit prose now
+  reference it instead of inlining Claude-Code specifics.
+- **`scripts/check.sh` + a GitHub Actions `check` workflow** — mechanizes VALIDATION.md Phase 6:
+  frontmatter (name==dir, description ≤1024 chars), YAML parses, shellcheck, package-internal
+  cross-references resolve, and profile-key drift (skills reading keys the template doesn't define).
+
 ### Fixed
+- **Profile-key drift caught by the new checker:** skills read `profile.cadence.perpetual_milestones`
+  / `.health_on_track_min` and `profile.verify.deployed_sha` / `.runtime_id`, but the template defines
+  them under `taxonomy.*` and `deploy.*` — the skills now read the template's real keys (this was
+  silent-degradation drift of the FAIL-1 class).
 - Bundled-subagent dispatch now resolves the agent name **symmetrically** — if the configured name
   doesn't resolve it retries with the other form (add/strip the `flow:` namespace), never silently
   falling back to self-review. Applied to the review dispatch + the `flow-investigator` dispatch in
