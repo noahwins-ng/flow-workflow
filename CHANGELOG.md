@@ -5,6 +5,12 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Fixed
+- Bundled-subagent dispatch now resolves the agent name **symmetrically** — if the configured name
+  doesn't resolve it retries with the other form (add/strip the `flow:` namespace), never silently
+  falling back to self-review. Applied to the review dispatch + the `flow-investigator` dispatch in
+  `flow-fix` / `flow-server-audit`; fixed a stale `install/claude-code.md` line that named the bare
+  default.
 
 ## [0.2.0] — 2026-07-05
 ### Validated

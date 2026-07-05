@@ -19,9 +19,10 @@ Read the full branch diff with fresh eyes and look for defects before shipping. 
 **`flow-code-reviewer`**) on the diff only — no author context — and use its findings as your starting
 point:
 - **Named-subagent harness** → dispatch the agent by the name in the profile. **Claude Code namespaces
-  plugin agents as `flow:flow-code-reviewer`** — if the profile still holds a bare name and dispatch
-  doesn't resolve, retry with the `flow:` prefix (and fix the profile). Never silently skip to
-  self-review because the name didn't resolve — that's the FAIL-1 trap.
+  plugin agents as `flow:flow-code-reviewer`** — if the configured name doesn't resolve, retry with the
+  other form (add the `flow:` prefix if it's bare, strip it if it's namespaced), then fix the profile to
+  the form that worked. Never silently skip to self-review because the name didn't resolve — that's the
+  FAIL-1 trap.
 - **Generic-subagent-only harness** → dispatch a general-purpose subagent using
   `agents/flow-code-reviewer.md` as the prompt template (superpowers-style).
 - **No subagents** (or the field is empty) → do a single self-review pass yourself.
