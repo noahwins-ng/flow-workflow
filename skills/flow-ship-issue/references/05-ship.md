@@ -53,11 +53,25 @@ offer to fix.
 After merge, deployment runs. Wait for it to propagate (re-check container/deploy age; if the
 deploy hasn't triggered, wait ~90s and re-check — don't verify against a stale deployment).
 
+**The gates are topology-neutral contracts; the profile supplies this project's probe.** What each
+gate *proves* never changes — how you prove it depends on where the code runs:
+
+| Contract | VPS/Compose | Serverless/PaaS | k8s | Published package |
+|---|---|---|---|---|
+| identity | `ssh prod git rev-parse HEAD` | deployment SHA from platform API/CLI | image digest/tag == commit | registry version == release |
+| runtime-load | exec-in-container asserts loaded module graph | function/route cold-start probe | pod ready + version endpoint | install-from-registry smoke |
+| health | health endpoint / `make check-prod` | platform health/status URL | readiness probes green | `npx <pkg> --version` etc. |
+
+**No-deploy project** (all `deploy.deployed_sha`/`runtime_id`/`health` empty — e.g. a library
+before publish automation): the pipeline ends at merge + plan tick + tracker close-out. **Say so
+in the report** ("no deploy surface — gates (a)/(b)/health skipped by profile") — skipping must be
+visible, never silent.
+
 **Hard gates — an AC check against the wrong code is meaningless. If either fails, STOP** (do not
 run health or per-AC checks): investigate the deploy, fix, re-trigger.
 
-- **(a) Deployed SHA matches the merge commit** (`profile.deploy.deployed_sha`, if set): compare the
-  host's HEAD sha to the PR's merge-commit sha. Differ ⇒ deploy did not land.
+- **(a) Deployed identity matches the merge commit** (`profile.deploy.deployed_sha`, if set):
+  compare what's running/published to the PR's merge-commit sha. Differ ⇒ deploy did not land.
 - **(b) Runtime loaded the expected code** (`profile.deploy.runtime_id`, if set): prove the running
   *process* loaded the code you merged — not merely that files are present. Fail ⇒ the process is up
   but did not load cleanly; check deploy logs.

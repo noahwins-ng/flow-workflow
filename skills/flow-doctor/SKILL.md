@@ -43,6 +43,21 @@ Load `workflow-profile.yaml` from the repo root (or the path the user gives). Th
 7. **Cadence sanity** — if `cadence.*` is populated, confirm `team` and `project` are set (empty
    ⇒ cycle-start/cycle-end/retro can't run). ⚠ if the suite's cadence skills are unusable.
 
+8. **Degradation report — what this profile turns OFF.** Empty values are legal ("no such
+   concept"), but each one disables specific behavior downstream; the consumer must *see* that
+   contract, not discover it mid-ship. List every empty key that gates something, with its effect:
+   - `deploy.deployed_sha` / `runtime_id` / `health` empty → ship gates (a)/(b)/health **off**;
+     pipeline ends at merge + close-out (the no-deploy archetype — fine for a library, alarming
+     for a service).
+   - `verify.security` empty → no automated CVE gate on lockfile changes.
+   - `docs.plan|spec|patterns|ac_templates` empty → the corresponding plan-gate / change-scope /
+     implement-context / implicit-AC step no-ops.
+   - `review.fresh_eyes_agent` empty → single self-review pass, no independent reviewer.
+   - `audit.host` empty → flow-server-audit disabled.
+   - `tracker.next_issue` empty → no "next up" suggestion after ship.
+   These are ℹ lines, not ⚠ — unless the combination looks contradictory (e.g. `deploy.health`
+   empty but `audit.host` set: something runs somewhere, yet ship never health-checks it → ⚠).
+
 ## Report
 ```
 flow-doctor — <project> @ <profile path>
@@ -55,7 +70,13 @@ flow-doctor — <project> @ <profile path>
   ✓ Tracker — native Linear tool detected
   ⚠ cadence.team empty — cycle/retro skills disabled
 
+  Profile turns OFF (empty = intentional; confirm each is deliberate):
+  ℹ deploy.deployed_sha/runtime_id/health — ship ends at merge (no-deploy archetype)
+  ℹ audit.host — flow-server-audit disabled
+  ℹ review.fresh_eyes_agent — single self-review pass
+
 Verdict: NEEDS ATTENTION (1 blocking, 2 advisories)
   Fix the ✗ items before running flow-ship-issue; ⚠ items are safe to defer.
 ```
-Verdict = HEALTHY if no ✗, else NEEDS ATTENTION with the blocking count.
+Verdict = HEALTHY if no ✗, else NEEDS ATTENTION with the blocking count. The ℹ degradation lines
+never affect the verdict — they exist so "off" is a decision the user has seen, not a surprise.

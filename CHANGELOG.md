@@ -5,6 +5,21 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Added (universality across project types)
+- **Ship hard gates reframed as topology-neutral contracts** — what each gate *proves* (identity /
+  runtime-load / health) is spine; the probe is profile. `05-ship.md` + the template's `deploy:`
+  section now carry per-topology probe examples (VPS · serverless/PaaS · k8s · published package)
+  and an explicit **no-deploy path**: all three empty ⇒ pipeline ends at merge and the report says
+  which gates were profile-skipped — visible, never silent.
+- **`examples/profile.library-cli.yaml`** — the no-deploy archetype (npm/PyPI package), proving the
+  "empty = skip" degradation story end-to-end.
+- **flow-doctor degradation report** (check 8) — lists every empty profile key and exactly what it
+  turns off (ship gates, security gate, server-audit, fresh-eyes review, …), plus a contradiction
+  heuristic (e.g. `audit.host` set but `deploy.health` empty). "Off" becomes a seen decision.
+- **check.sh check 6** — example profiles must match the template schema; immediately caught the
+  Node/Vercel example carrying `perpetual_milestones`/`health_*` under `cadence:` (template:
+  `taxonomy:`) and missing `verify.security` — fixed.
+
 ### Added
 - **Universal ticket structure** (`method/conventions.md` "Ticket structure") — the canonical issue
   shape (commit-shaped title; Context → Scope → Out of scope → Acceptance Criteria → References;

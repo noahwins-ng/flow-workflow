@@ -1,15 +1,18 @@
-# Example: a Node/Next.js app deployed on Vercel, tracked in Linear.
-# Shows how the SAME spine runs on a totally different stack — only this file changes.
-# Copy to workflow-profile.yaml and adjust. (flow-init generates a starting point like this.)
+# Example: a published npm CLI/library — the NO-DEPLOY archetype.
+# Proves the "empty = skip" degradation path: no host, no runtime, no server-audit. The ship
+# pipeline ends at merge + plan tick + tracker close-out, and reports the skipped gates explicitly.
+# (Publishing to the registry is a release ritual, not a per-ticket ship gate — until you automate
+# it, leave the identity/runtime gates empty rather than faking them.)
+# Copy to workflow-profile.yaml and adjust.
 
 project:
-  name: "Acme Web"
+  name: "Snippet Vault"
   default_branch: main
 
 tracker:
   kind: linear
-  identifier_regex: "ACME-\\d+"
-  identifier_example: "ACME-142"
+  identifier_regex: "SNIP-\\d+"
+  identifier_example: "SNIP-42"
   adapter: "adapters/linear.sh"
   get_issue:       "{adapter} issue get {id}"
   set_in_progress: "{adapter} issue status {id} 'In Progress'"
@@ -31,58 +34,59 @@ vcs:
 verify:
   lint:   "npm run lint"
   format: "npm run format:check"
-  types:  "npm run typecheck"
+  types:  ""                            # plain JS — no type gate (skill skips it, visibly)
   test:   "npm test"
   test_note: ""
   test_targeted: "npm test -- {path}"
   security: "npm audit --audit-level=high"
 
 deploy:
-  # Vercel auto-deploys on merge; verify via the deployment API/CLI rather than ssh.
+  # No deploy surface: CI + merge only. Identity/runtime/health gates are OFF by profile —
+  # flow-ship-issue ends at merge and says so ("no deploy surface — gates skipped by profile").
   ci_status:    "gh pr checks {pr} --watch"
   merge:        "gh pr merge {pr} --squash --delete-branch"
-  deployed_sha: "vercel inspect --token $VERCEL_TOKEN <prod-url> | grep commit"  # prove prod = merge
-  runtime_id:   ""                      # no separate runtime-graph concept; leave empty (gate skips)
-  health:       "curl -sf https://acme.example.com/api/health"
-  rollback:     "vercel rollback <prod-url> --token $VERCEL_TOKEN"
+  deployed_sha: ""
+  runtime_id:   ""
+  health:       ""
+  rollback:     ""
 
 docs:
   plan:          "docs/project-plan.md"
   spec:          "docs/project-requirement.md"
-  patterns:      ""                     # no patterns doc yet — skill falls back to code exploration
+  patterns:      ""
   architecture:  "docs/architecture/system-overview.md"
   decisions_dir: "docs/decisions"
   adr_template:  "docs/decisions/TEMPLATE.md"
   adr_index:     "docs/INDEX.md"
   retros_dir:    "docs/retros"
-  ac_templates:  ""
+  ac_templates:  "docs/AC-templates.md"
 
 architecture_rules: |
-  - Data fetching lives in server components / route handlers, never in client components.
-  - No secrets in NEXT_PUBLIC_* env vars.
+  - The core stays pure (no I/O); all filesystem access lives in the CLI layer.
+  - No new runtime dependencies without an ADR.
 
 ac_execution_keywords:
-  - deployed
   - returns
-  - renders
-  - "200"
-  - responds
+  - prints
+  - "exit code"
+  - installs
+  - published
 
 review:
-  fresh_eyes_agent: ""
+  fresh_eyes_agent: "flow:flow-code-reviewer"
 
 cadence:
-  team:    "Acme"
-  project: "Acme Web"
+  team:    "Snippets"
+  project: "Snippet Vault"
   active_cycle:   "{adapter} cycle active '{team}'"
   status_update:  "{adapter} project status-update '{project}'"
 
 taxonomy:
   team_id: ""
   labels:
-    - frontend
-    - backend
-    - infra
+    - cli
+    - core
+    - docs
   ops_milestone: "Ops & Reliability"
   perpetual_milestones:
     - "Ops & Reliability"
@@ -90,4 +94,4 @@ taxonomy:
   health_at_risk_min:  0.25
 
 audit:
-  host: ""                              # serverless — server-audit does not apply; leave empty
+  host: ""                              # nothing runs anywhere — server-audit does not apply

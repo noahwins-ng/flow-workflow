@@ -58,6 +58,15 @@ deploy:
   # hard gates. Leave a value empty ("") to skip that gate if the project has no such concept.
   # Like the tracker, deploy is a CAPABILITY: shell commands (git/gh/ssh/curl) are the default, but
   # any value can be repointed at a harness-native deploy tool (see examples/profile.node-vercel.yaml).
+  #
+  # The gates are TOPOLOGY-NEUTRAL CONTRACTS — only the probe changes with where code runs:
+  #   deployed_sha = "the running/published artifact is the merged commit"
+  #     VPS: ssh + git rev-parse | PaaS: deployment SHA via platform CLI/API | k8s: image digest
+  #     == commit | package: registry version == release. Values below are the VPS rendering.
+  #   runtime_id   = "the live PROCESS loaded that code" (not just files present)
+  #   health       = "it works" (one cheap real operation)
+  # No deploy at all (library pre-publish)? Leave all three empty — ship ends at merge, and the
+  # skill reports the gates as profile-skipped (visible, never silent). See examples/.
   ci_status:    "gh pr checks {pr} --watch"
   merge:        "gh pr merge {pr} --squash --delete-branch"
   # deployed_sha: prove the running host is at the merge commit. {host_sha} is what this returns;
