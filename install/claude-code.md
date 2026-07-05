@@ -41,9 +41,9 @@ From inside the target project repo:
   flow-ship-issue skill with $ARGUMENTS"*. Not required — asking in natural language already works.
 - **Bundled subagents** (in `agents/`, auto-registered on install; both read *this* project's rules
   from the profile + CLAUDE.md):
-  - **`flow-code-reviewer`** — fresh-eyes reviewer; `profile.review.fresh_eyes_agent` defaults to it,
-    so the review phase gets an independent reviewer out of the box. Override or empty it for a single
-    self-review pass.
+  - **`flow-code-reviewer`** — fresh-eyes reviewer; `profile.review.fresh_eyes_agent` defaults to the
+    namespaced **`flow:flow-code-reviewer`**, so the review phase gets an independent reviewer out of
+    the box. Override or empty it for a single self-review pass.
   - **`flow-investigator`** — read-only diagnostician dispatched by `flow-fix` (complex/multi failures)
     and `flow-server-audit` (incident triage). Returns a root-cause hypothesis; never remediates.
 
