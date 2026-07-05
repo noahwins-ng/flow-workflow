@@ -5,6 +5,17 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Validated
+- **flow-tailor shakedown** (2026-07-06, flow-sandbox re-tailor pass, no-deploy CLI shape): the
+  question bank caught both planted defect classes (skeleton AC-templates demanding prod gates on
+  a prod-less repo; service-flavored ac keywords on a CLI), re-tailor diff-and-confirm held, doctor
+  ended HEALTHY. One package fix fell out (below).
+
+### Fixed
+- `method/docs-skeleton/docs/AC-templates.md` now carries a **SKELETON DEFAULTS marker** — flow-init
+  scaffolds it verbatim, so untailored copies self-identify and flow-tailor knows to re-derive the
+  trigger groups instead of trusting them.
+
 ### Added (universality = derived fit)
 - **`flow-tailor`** (17th skill) — the strategy shift: instead of a schema that fits every project,
   the agent **derives + proves** this project's bespoke workflow layer on top of the spine. Study
