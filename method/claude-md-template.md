@@ -45,7 +45,9 @@ with a verify step each.
 
 ## Git Workflow
 <Branching (one branch per issue), commit format (profile.vcs.commit_format), PR conventions
- (profile.vcs.pr_*). One PR per issue; squash merge.>
+ (profile.vcs.pr_*). One PR per issue; squash merge.
+ Ticket structure: see the flow package's method/conventions.md ("Ticket structure") — reference
+ it, don't restate it.>
 
 ## Environment
 <Dev vs prod split, key env vars, how to switch. From .env.example / profile.deploy.*.>

@@ -32,6 +32,9 @@ additions and let the user merge.
    - **Repo Structure** ← the actual repo tree (packages/modules + one-line responsibilities).
    - **Code Style** ← `profile.verify.lint/format/types/test` verbatim.
    - **Git Workflow** ← `profile.vcs.*` (branch-per-issue, commit format, PR conventions, squash).
+     End with a pointer, not a copy: *"Ticket structure: see the flow package's
+     `method/conventions.md` ('Ticket structure')"* — the structure is spine; duplicating it
+     per-project invites drift.
    - **Environment** ← `.env.example` / `profile.deploy.*` (dev↔prod split, key vars).
    - **Working Docs** ← `profile.docs.*` (pointers to architecture, decisions/, patterns, guides).
    - **Observability** ← only if the project has tracing/error-tracking/health; else drop.
