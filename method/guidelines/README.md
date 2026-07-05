@@ -12,6 +12,9 @@ relevant one when you hit the situation it covers.
 - [verification-and-durability.md](verification-and-durability.md) — the *why* behind the ship gates:
   green-hides-invariants, deploy≠running, liveness≠durability, evidence-over-assertion, sample-broadly,
   real-domain-bounds, declarative-runtime-state.
+- [tailoring.md](tailoring.md) — derive (don't copy) the project-specific workflow layer: the
+  question bank per gate contract (identity/runtime-load/health), the verify/AC/rules surfaces,
+  and the anti-patterns (fake probes, plausible-but-unrun commands). Used by `flow-tailor`.
 
 ## Optional appendices (add when a project needs them)
 - **Data pipelines** — domain-bound asset checks, sensor batching from day one, idempotent

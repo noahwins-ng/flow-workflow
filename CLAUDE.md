@@ -53,8 +53,8 @@ profile wires it. Creation ops (project/milestone/issue) currently need native L
 adapter doesn't implement them yet.
 
 ## Layout
-- `skills/flow-*/` — the skills. `flow` (index), inception (`flow-init/plan-project/gen-claudemd`),
-  delivery (`flow-ship-issue`, `flow-fix`), cadence, scope, ops, meta (`flow-doctor`).
+- `skills/flow-*/` — the skills. `flow` (index), inception (`flow-init/tailor/plan-project/
+  gen-claudemd`), delivery (`flow-ship-issue`, `flow-fix`), cadence, scope, ops, meta (`flow-doctor`).
 - `method/` — `conventions.md`, `project-setup-playbook.md`, `claude-md-template.md`, `guidelines/`
   (debugging / scoping / verification), `docs-skeleton/` (scaffolded by `flow-init`).
 - `adapters/linear.sh` — tracker fallback. `profile.template.yaml` — the schema. `examples/` — filled profiles.

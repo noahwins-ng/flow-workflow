@@ -63,7 +63,8 @@ left alone. If you would replace something you didn't create, stop and surface i
    - `tracker.identifier_regex` / `identifier_example` → **ask the user** for their Linear team
      prefix (e.g. `QNT`); don't guess.
    - Leave `deploy.*`, `cadence.*`, `audit.*`, `architecture_rules`, `ac_execution_keywords` as
-     template defaults with a note that the user should review them — these are judgment calls.
+     template defaults — these are judgment calls, and **deriving them is flow-tailor's job**
+     (read `skills/flow-tailor/SKILL.md` and follow it, next). Don't hand-guess them here.
    - `review.fresh_eyes_agent` — the template defaults to the Claude Code namespaced form
      `flow:flow-code-reviewer`. If you're on Claude Code, keep it (verify with `/agents`). On a harness
      that registers bundled agents *without* a namespace, change it to the bare `flow-code-reviewer`.
@@ -100,7 +101,7 @@ left alone. If you would replace something you didn't create, stop and surface i
 
    Profile: workflow-profile.yaml created
      pre-filled: project.name, default_branch, verify.* (Python)
-     NEEDS YOU:  tracker prefix, deploy.*, cadence.team/project, architecture_rules
+     TO DERIVE (flow-tailor): deploy.*, cadence.team/project, architecture_rules, ac keywords
 
    Repo config:
      created   .github/workflows/ci.yml, .githooks/commit-msg, Makefile, PR template, dependabot.yml
@@ -109,8 +110,8 @@ left alone. If you would replace something you didn't create, stop and surface i
 
    Tracker: Linear MCP <detected | not detected — export LINEAR_API_KEY for adapters/linear.sh>
 
-   Next: review the NEEDS-YOU fields in workflow-profile.yaml, then run flow-doctor to verify.
-   New project from a PRD? → flow-plan-project (phases + Linear), then flow-gen-claudemd.
+   Next: run flow-tailor to derive + prove the judgment-call fields, then flow-doctor to verify.
+   New project from a PRD? → then flow-plan-project (phases + Linear), then flow-gen-claudemd.
    Existing project? → flow-session-check or flow-ship-issue.
    ```
 

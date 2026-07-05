@@ -5,9 +5,9 @@
 **A structured, portable dev-workflow skill suite.**
 Take one tracked issue from *ticket → merged-and-verified* — and bootstrap whole projects from a PRD — with the same discipline on any agent harness.
 
-![version](https://img.shields.io/badge/version-0.1.0-blue)
+![version](https://img.shields.io/badge/version-0.2.0-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
-![status](https://img.shields.io/badge/status-pre--validation-orange)
+![status](https://img.shields.io/badge/status-validated-brightgreen)
 ![harness](https://img.shields.io/badge/harness-Claude%20Code-8A63D2)
 ![tracker](https://img.shields.io/badge/tracker-Linear-5E6AD2)
 
@@ -24,13 +24,14 @@ pick  →  implement  →  sanity check  →  review  →  ship
 
 ## What it is
 
-`flow` is a suite of **16 skills** that encode a full delivery workflow — generalized from a
+`flow` is a suite of **17 skills** that encode a full delivery workflow — generalized from a
 battle-tested Claude Code slash-command setup so the *discipline* travels to any project or harness.
 It's structured on purpose: hard gates, evidence-backed acceptance criteria, and an audit trail,
 not vibes.
 
-> **Status — honest:** the suite is written and internally consistent but **not yet run end-to-end**.
-> Treat your first real project as the validation pass (see [`VALIDATION.md`](VALIDATION.md)).
+> **Status:** validated end-to-end on Claude Code (2026-07-04, all 8 [`VALIDATION.md`](VALIDATION.md)
+> phases — CI, hooks, test-first, subagents, live Linear inception, cadence, retro). Other harnesses
+> remain aspirational.
 
 ## The core idea: spine + profile
 
@@ -54,6 +55,7 @@ different commands — the same pipeline runs unchanged.
 | Skill | Does |
 |---|---|
 | `flow-init` | Scaffold docs skeleton + `workflow-profile.yaml` (greenfield or gap-fill; PRD-aware) |
+| `flow-tailor` | **Derive + prove** the project-specific workflow layer (deploy probes, verify commands, AC surfaces) — the bespoke fit on top of the spine |
 | `flow-plan-project` | PRD → phases → create Linear **project + milestones + issues** + seed the plan |
 | `flow-gen-claudemd` | Generate `CLAUDE.md` in the house style |
 
@@ -91,10 +93,10 @@ different commands — the same pipeline runs unchanged.
 /plugin install flow@flow
 ```
 
-**Existing project:** `flow-init` → `flow-doctor` → work with `flow-ship-issue <ID>`.
+**Existing project:** `flow-init` → `flow-tailor` → `flow-doctor` → work with `flow-ship-issue <ID>`.
 
 **New project from a PRD:** drop your brief in the repo, then
-`flow-init` → `flow-doctor` → `flow-plan-project` → `flow-gen-claudemd` → `flow-cycle-start`.
+`flow-init` → `flow-tailor` → `flow-doctor` → `flow-plan-project` → `flow-gen-claudemd` → `flow-cycle-start`.
 
 Full walkthrough in [`QUICKSTART.md`](QUICKSTART.md).
 
@@ -125,7 +127,7 @@ QUICKSTART.md            5-minute first run
 ROADMAP.md               skill list, coupling analysis, decisions, what's aspirational
 VALIDATION.md            end-to-end runbook + watch-list of untested seams
 CLAUDE.md                conventions for working ON this package
-skills/                  the 16 flow-* skills (all prefixed to namespace across harnesses)
+skills/                  the 17 flow-* skills (all prefixed to namespace across harnesses)
 method/
   conventions.md         the method the skills assume
   project-setup-playbook.md   inception reference
@@ -137,7 +139,7 @@ method/
 agents/                  bundled subagents: flow-code-reviewer (review phase) · flow-investigator (fix/audit, read-only)
 hooks/                   OPTIONAL Claude-Code guardrails (protect-repo + check-uncommitted) — inert until enabled
 adapters/linear.sh       tracker fallback (Linear GraphQL over curl+jq)
-examples/                filled example profiles (Python, Node/Vercel)
+examples/                filled example profiles (Node/Vercel, library-CLI no-deploy archetype)
 install/                 per-harness install guides + harness-notes.md (per-harness facts matrix)
 scripts/check.sh         self-consistency gate (frontmatter, cross-refs, profile-key drift) — CI runs it
 .claude-plugin/          Claude Code plugin + marketplace manifests

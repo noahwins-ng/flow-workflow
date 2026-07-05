@@ -17,7 +17,7 @@ docs-skeleton.
 1. This repo already has `.claude-plugin/plugin.json`, and Claude Code auto-discovers a plugin's
    `skills/` folder — so all `flow-*` skills register on install.
 2. Add the repo as a plugin (via a local marketplace entry or a plugin add pointing at this repo).
-   All eleven `flow-*` skills + `flow-doctor` become available; the plugin namespaces them, and they
+   All `flow-*` skills become available; the plugin namespaces them, and they
    also keep their baked-in `flow-` prefix for non-plugin/other-harness use.
 
 ## Per-project setup

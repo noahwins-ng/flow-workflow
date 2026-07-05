@@ -1,7 +1,7 @@
 # 🗺️ Roadmap
 
-> **At a glance:** 16 `flow-*` skills built · on GitHub (`noahwins-ng/flow-workflow`, private) ·
-> distribution decided (multi-manifest plugin) · **not yet validated end-to-end**.
+> **At a glance:** 17 `flow-*` skills · public (`noahwins-ng/flow-workflow`, MIT) · multi-manifest
+> plugin · **validated end-to-end on Claude Code 2026-07-04** (other harnesses aspirational).
 
 **Goal:** a personal, structured dev-workflow skill package (orba/superpowers-style) that runs
 across Claude Code, Codex, Cursor, opencode, and pi — generalized from the `equity-data-agent`
@@ -19,7 +19,7 @@ package *structured*.
 3. **Methodology** — docs skeleton (plan / spec / ADRs / retros), cycle+milestone model, the
    invariant-guard practice, memory capture → *a way of working*, not a swappable command.
 
-## ✅ Skills — all 16 built
+## ✅ Skills — all 17 built
 
 All skills are prefixed **`flow-`** to namespace them across harnesses (no universal namespace
 scheme exists, so the prefix is baked into each skill's `name:` + directory — `flow-init`/`flow-status`
@@ -30,6 +30,7 @@ would otherwise shadow Claude Code built-ins).
 | `flow-ship-issue` — pick→implement→sanity→review→ship *(the old /go)* | stack + tracker | ✅ |
 | `flow-fix` — recover a broken ship run: diagnose→fix→resume | git + tracker | ✅ |
 | `flow-init` — scaffold docs skeleton + profile (PRD-aware) | — | ✅ |
+| `flow-tailor` — derive + prove the project-specific workflow layer | all (it fits them) | ✅ |
 | `flow-plan-project` — PRD → phases → Linear project/milestones/issues + plan | tracker + methodology | ✅ |
 | `flow-gen-claudemd` — generate CLAUDE.md in house style | methodology | ✅ |
 | `flow-doctor` — profile + env preflight | — | ✅ |
@@ -44,7 +45,7 @@ would otherwise shadow Claude Code built-ins).
 | `flow-server-audit` — deploy-topology template | infra (Compose/ssh default) | ✅ |
 | `flow` — index/help | — | ✅ |
 
-**Inception flow:** `flow-init` (import PRD) → `flow-doctor` → `flow-plan-project` →
+**Inception flow:** `flow-init` (import PRD) → `flow-tailor` → `flow-doctor` → `flow-plan-project` →
 `flow-gen-claudemd` → `flow-cycle-start`. Operationalizes `method/project-setup-playbook.md`.
 ⚠️ Tracker *creation* ops (project/milestone/issue) need native Linear MCP — the shell adapter
 doesn't implement creation yet (candidate extension).
@@ -63,6 +64,14 @@ the shared root (`adapters/`, `method/`, cross-skill refs) survives.
 ❌ Rejected Vercel `npx skills` CLI — scatters skills into self-contained folders, breaking the shared
 root. Manifests: `.claude-plugin/` ✅; `.cursor-plugin/` / `.codex-plugin/` / `.opencode/` /
 `.pi/extensions/` to add one at a time after Claude Code is validated. See [`install/`](install/).
+
+**Universality = derived fit, not universal fit** *(2026-07-06)* — we don't chase a schema that fits
+every project shape. Instead the ship gates are **topology-neutral contracts** (identity /
+runtime-load / health), and **`flow-tailor` guides the agent to derive + prove this project's
+bespoke answers** to them (probes, verify commands, AC surfaces, rules) on top of the spine.
+`examples/` profiles are reference derivations that seed tailoring, not archetype products.
+❌ Rejected the pre-built archetype matrix — always one shape short; the agent derives better than
+we pre-enumerate. Portability (per-harness manifests) stays the package's own responsibility.
 
 ## 🧪 Validation
 
