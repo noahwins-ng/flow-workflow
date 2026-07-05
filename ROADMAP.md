@@ -82,11 +82,31 @@ namespacing, FAIL-2 plan-project ticket convention). The live `adapters/linear.s
 **intentionally not exercised** — it's the fallback for harnesses *without* Linear MCP, and native MCP
 is the primary path. Static-reviewed clean (state-by-UUID, enum values confirmed); not a gap for MCP users.
 
-## 📋 Not yet done
+## 📋 Next (two tracks, 2026-07-06)
 
-- [ ] Validate the Claude Code plugin install end-to-end (the gating step).
+**Track 1 — prove the derived-fit model** (universality is the agent's job now; test how well
+the package guides it):
+- [ ] Run `flow-init → flow-tailor → flow-doctor` on a **real project** — flow-tailor's first
+      execution *is* its validation run (the prove-step generates its own evidence). Watch for:
+      questions `tailoring.md` should have asked but didn't, values the agent wanted to invent
+      instead of leaving empty, and how UNPROVEN behaves when prod isn't reachable.
+- [ ] Ship one ticket through the tailored profile end-to-end — the probes surviving a real
+      `flow-ship-issue` is the success measure (and the universality n=2).
+
+**Track 2 — portability** (the package's own homework; one harness at a time, validate before
+adding the next):
+- [ ] **Codex first** — manifest *generated* from the one `skills/` source (model on superpowers'
+      `sync-to-codex-plugin.sh` / `package-codex-plugin.sh`, not handwritten). Validate read-only
+      skills (`flow-status`, `flow-session-check`), fill the `install/harness-notes.md` row with
+      what the harness **actually** registered, then the write-path skills.
+- [ ] Cursor second; opencode / pi after — same recipe per harness.
+
+**Backlog (deferred by choice, not gaps):**
 - [ ] Smoke-test `adapters/linear.sh` against the live API (harnesses without Linear MCP).
-- [ ] Make the repo public before real distribution.
-- [ ] Add + validate per-harness manifests (Cursor / Codex / opencode / pi), one at a time.
 - [ ] Extend the adapter with Linear *creation* ops (for `flow-plan-project` without native MCP).
 - [ ] Decide whether deploy/verify should be capability-resolved for shell-sandboxed harnesses.
+- [ ] Pressure-test the load-bearing disciplines (superpowers' writing-skills TDD: baseline an
+      agent *without* the skill, watch it fail, verify compliance with it).
+
+**Done since the last refresh:** repo public (MIT) · Claude Code plugin install validated
+(marketplace add → install → skills registered) · v0.2.0 released.
