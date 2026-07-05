@@ -33,7 +33,9 @@ mass-produce unvalidated manifests.
 1. **Skill discovery** — register the `flow-*` SKILL.md files (descriptions carry trigger phrases).
 2. **Package integrity** — install the repo as a unit so internal refs resolve: `adapters/linear.sh`,
    sibling `skills/flow-*/SKILL.md` (read-and-follow), `method/…`. Expose a **stable root** the skills
-   resolve against (Claude Code: `${CLAUDE_PLUGIN_ROOT}`).
+   resolve against. The universal resolution chain (also in `AGENTS.md`):
+   `${CLAUDE_PLUGIN_ROOT}` (Claude Code plugin) → `$FLOW_ROOT` (manual installs) → the directory
+   holding `AGENTS.md` / `profile.template.yaml` (walk up from any skill file).
 3. **Shell access** — ship/verify/adapter paths shell out (git, gh, ssh, curl, jq).
 4. **Tracker** — native Linear tool if the harness has MCP; else `adapters/linear.sh` + `LINEAR_API_KEY`.
 5. **Subagent (optional)** — for `profile.review.fresh_eyes_agent`; empty ⇒ single self-review pass.

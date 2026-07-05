@@ -27,7 +27,7 @@ operations use your Linear tool native-first (see the note in flow-cycle-start).
 5. **Milestone completion** — for each milestone with issues in this cycle, check the *full*
    milestone issue list (not just this cycle's slice). If all are Done, prompt:
    *"<milestone> is complete — run flow-retro when ready."* Do **not** auto-run flow-retro.
-   - **Exception:** skip the prompt for any milestone in `profile.cadence.perpetual_milestones` —
+   - **Exception:** skip the prompt for any milestone in `profile.taxonomy.perpetual_milestones` —
      those are catch-alls that never "complete"; a drained queue is not a finished phase.
 
 6. **Sync the plan** — checkout the default branch first (`git checkout <default_branch> && git
@@ -38,7 +38,7 @@ operations use your Linear tool native-first (see the note in flow-cycle-start).
    new tickets were created ⇒ re-run; you probably missed some.
 
 7. **Post a project status update** (`profile.cadence.project`, type `project`):
-   - `health`: onTrack if velocity ≥ `profile.cadence.health_on_track_min`, atRisk if ≥
+   - `health`: onTrack if velocity ≥ `profile.taxonomy.health_on_track_min`, atRisk if ≥
      `health_at_risk_min`, else offTrack.
    - `body`: markdown — shipped (linked), rollover count, velocity, milestone progress.
 

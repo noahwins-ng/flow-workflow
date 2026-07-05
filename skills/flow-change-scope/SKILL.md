@@ -33,7 +33,8 @@ Otherwise skip.
 
 ## Step 5 — Update the tracker
 - **add**: create a new issue in `profile.cadence.project` — title, description, AC, milestone,
-  priority.
+  priority — in the universal ticket structure (`method/conventions.md` "Ticket structure",
+  mirrored to the team's presentation like flow-plan-project Step 2a).
 - **drop**: cancel the issue.
 - **modify**: update the issue description + AC.
 Then post an audit comment on the issue (all three types):

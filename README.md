@@ -119,6 +119,7 @@ disclosure), and the fresh-eyes reviewer is optional. Details: [`install/`](inst
 <summary>Expand the tree</summary>
 
 ```
+AGENTS.md                harness-neutral entry point: skill index + package-root resolution
 profile.template.yaml    package-wide config schema; flow-init generates a filled copy per project
 QUICKSTART.md            5-minute first run
 ROADMAP.md               skill list, coupling analysis, decisions, what's aspirational
@@ -137,7 +138,8 @@ agents/                  bundled subagents: flow-code-reviewer (review phase) ·
 hooks/                   OPTIONAL Claude-Code guardrails (protect-repo + check-uncommitted) — inert until enabled
 adapters/linear.sh       tracker fallback (Linear GraphQL over curl+jq)
 examples/                filled example profiles (Python, Node/Vercel)
-install/                 per-harness install guides
+install/                 per-harness install guides + harness-notes.md (per-harness facts matrix)
+scripts/check.sh         self-consistency gate (frontmatter, cross-refs, profile-key drift) — CI runs it
 .claude-plugin/          Claude Code plugin + marketplace manifests
 ```
 

@@ -65,4 +65,5 @@ Claude-Code-only; other harnesses have their own event models (not yet ported).
 
 All internal references (`adapters/…`, `method/…`, `skills/flow-*/…`) are **relative to the package
 root**. Under a plugin install that root is `${CLAUDE_PLUGIN_ROOT}`. If you install some other way,
-make sure the whole package tree is reachable from a stable path and resolve internal refs against it.
+set `$FLOW_ROOT`, or resolve against the directory holding `AGENTS.md` — the full resolution chain
+is documented in `AGENTS.md`.
