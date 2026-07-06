@@ -6,6 +6,32 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Validated
+- **Greenfield inception, end-to-end for real** (2026-07-06, argus-agent): the full chain
+  (init → tailor → doctor → plan-project → gen-claudemd → cycle-start) executed by a cold agent
+  from a bare PRD — repo scaffolded, profile derived honestly (tracker proven; toolchain/deploy
+  deferred, not faked), real Linear project + 7 phase milestones + Ops + 21 canonical issues
+  created inside the fence, CLAUDE.md generated, first cycle kicked off. First field run of
+  plan-project / gen-claudemd / cycle-start. **Both Track-1 archetypes (brownfield adoption +
+  greenfield inception) now proven.**
+
+### Fixed (from the greenfield run's friction log)
+- **flow-tailor: greenfield semantics** — deriving from a committed spec is valid (triggers/rules
+  may name paths that don't exist yet); and empty's two meanings are now first-class:
+  `# TO-DERIVE(after <milestone>)` marks *temporarily* empty, which **flow-doctor now reports as
+  ⏳ deferred** (with a re-tailor suggestion) instead of no-such-concept off.
+- **flow-plan-project**: Step 2a samples house style from the *team's* recent issues (the project
+  doesn't exist yet on greenfield); a **delegated-approval branch** for unattended runs (proposal +
+  critical self-review in the report); milestones created serially (API has no sort field);
+  granularity note (plan the committed horizon; parking-lot items get no tickets).
+- **flow-gen-claudemd**: greenfield stance made explicit — "what's there" = spec + profile; target
+  layout labeled as such; regenerate after the stack lands.
+- **flow-cycle-start filters the cycle to `cadence.project`** — team-level cycles mix projects on
+  shared teams.
+- **`install/harness-notes.md`**: documented the claude.ai Linear MCP WAF quirk (POSTs containing
+  literal shell pipelines are rejected — defang command text in ticket bodies) + the
+  `list_projects`+milestones 400.
+
+### Validated (brownfield)
 - **First real-project adoption** (2026-07-06): a cold agent ran `init → tailor → doctor` on a
   production Next.js/Vercel/Supabase ERP (brownfield, live Linear team). Doctor HEALTHY; zero
   tracked files touched; 8 values proven live (569-test gate, prod health probe, CI, tracker

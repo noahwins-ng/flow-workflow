@@ -30,6 +30,14 @@ On a **generic-subagent-only** harness, dispatch a general-purpose subagent with
 `agents/*.md` file as the prompt template. On a **no-subagent** harness, do the work in a single
 pass yourself and note it.
 
+## Tracker-endpoint quirks
+
+- **claude.ai Linear MCP**: the relay's WAF **rejects POSTs whose body contains literal shell
+  pipelines** (e.g. `curl … | jq …`) — issue descriptions and comments must reference commands as
+  defanged prose ("read the health endpoint's version field"), never literal pipe chains. Reads
+  are unaffected. Also: `list_projects` 400s when `includeMilestones` is combined with a team
+  filter — fetch milestones separately.
+
 ## Adding a harness
 
 Validate per `VALIDATION.md` on a throwaway project, then fill this row in with what the harness

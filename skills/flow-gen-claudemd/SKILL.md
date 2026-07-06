@@ -14,7 +14,10 @@ is shipped verbatim; Project Conventions are placeholders to fill). Reads `profi
 `profile.docs.spec`, `profile.docs.architecture`, and the repo itself.
 
 ## Golden rule
-**Describe what's actually there — don't invent conventions.** Every claim in the Conventions
+**Describe what's actually there — don't invent conventions.** On a **greenfield/pre-build repo**,
+"what's there" = the committed spec + profile: fill Repo Structure from the spec's *target* layout
+(say so inline), drop Code Style / Common Commands until a toolchain exists, and note that the file
+should be regenerated after the stack lands. Every claim in the Conventions
 section must trace to the profile, the spec, or the repo. If a section has no basis, drop it rather
 than fabricate one. If a `CLAUDE.md` already exists, do NOT overwrite — show a diff of proposed
 additions and let the user merge.
