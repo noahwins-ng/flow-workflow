@@ -13,6 +13,8 @@ Run each and report pass/fail:
 - `profile.verify.types`
 - `profile.verify.test` — the offline/fast gate that mirrors CI. Honor `profile.verify.test_note`
   (e.g. do not use a bare test runner that pulls in live/integration suites).
+- `profile.verify.build` — for compiled/bundled projects (Next.js, TS, Go…) the build IS a gate
+  (often the real type-check). Empty = interpreted project, no build concept.
 
 ## Step 1b — Security & dependencies (automated gate)
 Manual security review is phase 4; this is the automated pre-PR gate.

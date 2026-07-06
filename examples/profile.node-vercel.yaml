@@ -34,6 +34,7 @@ verify:
   types:  "npm run typecheck"
   test:   "npm test"
   test_note: ""
+  build:  "npm run build"               # Next.js: the build is a gate (and does the real type-check)
   test_targeted: "npm test -- {path}"
   security: "npm audit --audit-level=high"
 

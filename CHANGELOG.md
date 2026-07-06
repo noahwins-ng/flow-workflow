@@ -5,6 +5,32 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Validated
+- **First real-project adoption** (2026-07-06): a cold agent ran `init → tailor → doctor` on a
+  production Next.js/Vercel/Supabase ERP (brownfield, live Linear team). Doctor HEALTHY; zero
+  tracked files touched; 8 values proven live (569-test gate, prod health probe, CI, tracker
+  reads); 11 interview questions correctly deferred instead of guessed, then settled with the
+  owner. The prove-step caught two live landmines (red `tsc` on tests, red `npm audit` baseline).
+
+### Fixed (from the adoption run's friction log)
+- **`verify.build`** — new profile key: for compiled/bundled projects the build IS a verify gate
+  (often the real type-check). Wired into sanity-check Step 1 + doctor check 3; Node/Vercel
+  example carries it.
+- **flow-init `docs.plan` mapping now tests the contract, not the filename** — a future-features
+  roadmap matches "ROADMAP.md" but violates the checkbox-per-shipped-ticket contract; map it to
+  `docs.spec` and scaffold a real plan. Plus: rewrite skeleton `INDEX.md` links when files are
+  mapped rather than copied (no dead links).
+- **flow-init detects hook managers** (husky / lefthook / pre-commit / existing `core.hooksPath`)
+  before installing the `.githooks` scaffold — re-pointing `core.hooksPath` would silently disable
+  the project's hooks.
+- **flow-init derives the tracker prefix from repo evidence first** (CLAUDE.md, commit tags,
+  branches); asks only when the repo carries no trace.
+- **flow-tailor: owner-unavailable mode specified** — unanswerable interview questions become
+  `# TO-ASK:` values + a numbered list in the report; the run is *complete-pending-interview*.
+  Doctor degradation walk gets the same pending semantics.
+- `profile.template.yaml` `docs.patterns` defaults to empty (the skeleton ships no patterns doc —
+  a filename default dangled on repos without one); doctor check 3 notes "resolves ≠ passes" and
+  reads tailor's PROVEN/UNPROVEN derivation comments.
 
 ## [0.3.0] — 2026-07-06
 ### Fixed
