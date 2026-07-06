@@ -5,6 +5,14 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+
+## [0.3.0] — 2026-07-06
+### Fixed
+- **Plugin updates were silently stale**: `.claude-plugin/plugin.json` was never version-bumped, so
+  Claude Code's version-keyed plugin cache kept serving 0.1.0 content forever. `plugin.json` is now
+  in lockstep with `VERSION`, and `scripts/check.sh` (check 2) enforces the match so a release can't
+  ship without the bump again.
+
 ### Validated
 - **flow-tailor shakedown** (2026-07-06, flow-sandbox re-tailor pass, no-deploy CLI shape): the
   question bank caught both planted defect classes (skeleton AC-templates demanding prod gates on
