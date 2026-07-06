@@ -31,12 +31,17 @@ for skill_md in sorted(pathlib.Path("skills").glob("*/SKILL.md")):
 sys.exit(1 if bad else 0)
 PY
 
-# 2. YAML surfaces parse
-echo "[2/6] yaml parses"
+# 2. YAML surfaces parse + version lockstep
+echo "[2/6] yaml parses + version lockstep"
 for y in profile.template.yaml examples/*.yaml hooks/hooks.json .claude-plugin/*.json; do
   [ -f "$y" ] || continue
   python3 -c "import sys,yaml; yaml.safe_load(open('$y'))" 2>/dev/null || fail "$y does not parse"
 done
+# plugin.json version must match VERSION — Claude Code's plugin cache is keyed by it; a release
+# without this bump serves stale content forever (bit us at v0.2.0).
+PKG_V=$(tr -d '[:space:]' < VERSION)
+PLUGIN_V=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+[ "$PKG_V" = "$PLUGIN_V" ] || fail "VERSION ($PKG_V) != .claude-plugin/plugin.json version ($PLUGIN_V)"
 
 # 3. shellcheck
 echo "[3/6] shellcheck"

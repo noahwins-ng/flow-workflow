@@ -5,7 +5,7 @@
 **A structured, portable dev-workflow skill suite.**
 Take one tracked issue from *ticket → merged-and-verified* — and bootstrap whole projects from a PRD — with the same discipline on any agent harness.
 
-![version](https://img.shields.io/badge/version-0.2.0-blue)
+![version](https://img.shields.io/badge/version-0.3.0-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![status](https://img.shields.io/badge/status-validated-brightgreen)
 ![harness](https://img.shields.io/badge/harness-Claude%20Code-8A63D2)
