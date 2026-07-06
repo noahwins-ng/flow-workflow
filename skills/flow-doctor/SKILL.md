@@ -23,9 +23,10 @@ Load `workflow-profile.yaml` from the repo root (or the path the user gives). Th
    Judgment-call fields that are still template defaults (`architecture_rules`,
    `ac_execution_keywords`, `deploy.*`, `cadence.*`) → ⚠ "review before relying on it", not ✗.
 
-3. **`verify.*` commands resolve** — for each non-empty `lint/format/types/test/test_targeted`, take
-   the first token and check it's on PATH (`command -v <tok>`). ✗ if a referenced tool is missing
-   (e.g. profile says `uv run ...` but `uv` isn't installed).
+3. **`verify.*` commands resolve** — for each non-empty `lint/format/types/test/build/test_targeted`,
+   take the first token and check it's on PATH (`command -v <tok>`). ✗ if a referenced tool is missing
+   (e.g. profile says `uv run ...` but `uv` isn't installed). Note the limit: "resolves" ≠ "passes" —
+   if the profile carries flow-tailor derivation comments, trust PROVEN ones and flag UNPROVEN ones.
 
 4. **`deploy.*` commands resolve** — same first-token check for `ci_status/merge/deployed_sha/
    runtime_id/health/rollback`. Empty = skip (no such concept). ⚠ if `ssh`/`gh` referenced but not

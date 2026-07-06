@@ -43,8 +43,13 @@ left alone. If you would replace something you didn't create, stop and surface i
    - **Target exists** → leave it. Record it as "found" and use its real path in the profile.
    - **A conventional equivalent exists under a different name** (e.g. the repo has `docs/PLAN.md`
      or `ROADMAP.md` instead of `docs/project-plan.md`) → do **not** add a duplicate; point the
-     profile's `docs.plan` at the existing file and note the mapping in your report. When unsure
-     whether an existing file is the equivalent, ask the user rather than guessing.
+     profile at the existing file and note the mapping in your report. **Equivalence = the file
+     satisfies the surface's *contract*, not just its name**: `docs.plan` requires a
+     checkbox-per-shipped-ticket tracker (the ship hard-gate ticks entries in it) — a
+     future-features roadmap matches the name but violates the contract; map it to `docs.spec`
+     instead and scaffold a real plan. When unsure, ask the user rather than guessing.
+   - **If any skeleton file was mapped rather than copied**, rewrite the affected links in the
+     scaffolded `docs/INDEX.md` to the mapped paths — a verbatim INDEX ships dead links.
    - **Missing** → copy the skeleton file in (`cp`), replacing `<Project>` placeholders with the
      repo name.
 
@@ -60,8 +65,9 @@ left alone. If you would replace something you didn't create, stop and surface i
      infer it — do not invent a command that won't run.
    - `docs.*` → point each at the file resolved in step 2 (scaffolded or pre-existing); empty for any
      you couldn't establish.
-   - `tracker.identifier_regex` / `identifier_example` → **ask the user** for their Linear team
-     prefix (e.g. `QNT`); don't guess.
+   - `tracker.identifier_regex` / `identifier_example` → **derive from repo evidence first**
+     (CLAUDE.md, commit history `[ABC-123]` tags, branch names); cite the evidence. Only if the
+     repo carries no trace, ask the user — never guess a prefix from the project name.
    - Leave `deploy.*`, `cadence.*`, `audit.*`, `architecture_rules`, `ac_execution_keywords` as
      template defaults — these are judgment calls, and **deriving them is flow-tailor's job**
      (read `skills/flow-tailor/SKILL.md` and follow it, next). Don't hand-guess them here.
@@ -80,7 +86,11 @@ left alone. If you would replace something you didn't create, stop and surface i
      whose `deploy.*` value is empty (the project has no such concept). If there's no deploy at all,
      skip `cd.yml` entirely and note it.
    - `.githooks/commit-msg` — tune `__ID_REGEX__` to `tracker.identifier_regex`. Run
-     `git config core.hooksPath .githooks` (or fold into `make setup`).
+     `git config core.hooksPath .githooks` (or fold into `make setup`). **First detect an existing
+     hook manager** (`git config core.hooksPath` already set, `.husky/`, `lefthook.yml`,
+     `.pre-commit-config.yaml`): if one owns the hooks, **skip this scaffold and note it** —
+     re-pointing `core.hooksPath` would silently disable the project's existing hooks. (The
+     never-overwrite rule doesn't catch this: `git config` overwrites *state*, not a file.)
    - `Makefile` — targets mapped to `verify.*` (skip if the repo already has a task runner).
    - `.github/dependabot.yml` — set the ecosystem from the detected stack.
    - `.github/PULL_REQUEST_TEMPLATE.md`.

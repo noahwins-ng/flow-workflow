@@ -47,6 +47,9 @@ verify:
   types:  "uv run pyright"
   test:   "make test"               # MUST be the offline/fast gate that mirrors CI; not a live-LLM/integration sweep
   test_note: "Do NOT use bare 'uv run pytest' — it collects the live-judge suite."
+  # Build gate — for compiled/bundled projects the build IS a verify gate (and often the real
+  # type-check, e.g. `next build`). Empty = interpreted project, no build concept.
+  build: ""                          # e.g. "npm run build" / "go build ./..." / "cargo build"
   # Targeted test command for the implement phase; {path} = changed package/dir.
   test_targeted: "uv run pytest {path} -x -q"
   # Dependency vulnerability scan — run by sanity-check when a dep manifest/lockfile changes.
@@ -84,7 +87,10 @@ docs:
   # no-op. (This is what the cycle/methodology skills depend on — see ROADMAP "coupling layers".)
   plan:          "docs/project-plan.md"     # ship hard gate: every shipped ticket has an entry here
   spec:          "docs/project-requirement.md"  # the what/why; change-scope edits this
-  patterns:      "docs/patterns.md"         # implement phase reads this before coding
+  patterns:      ""                  # implement phase reads this before coding. Point at a real
+                                     # patterns doc (or a CLAUDE.md section) if one exists; the
+                                     # skeleton doesn't ship one, so a filename default here would
+                                     # dangle — empty until the project has it.
   architecture:  "docs/architecture/system-overview.md"
   decisions_dir: "docs/decisions"           # ADRs; change-scope/sync-plan/retro create numbered files here
   adr_template:  "docs/decisions/TEMPLATE.md"

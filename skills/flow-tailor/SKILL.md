@@ -45,6 +45,11 @@ Ask against the **gate contracts** (see the guideline's question bank):
 If a contract genuinely has no answer here ("it's a library, nothing runs"), the answer is
 **empty** — that's a valid topology, and flow-doctor will report what it turns off.
 
+**Owner unavailable** (unattended/delegated run): do NOT answer on their behalf. For each
+unanswerable question, leave the value empty with a `# TO-ASK: <the exact question>` comment and
+collect all of them as a numbered list in your report — the run is *complete-pending-interview*,
+not failed. The owner's answers get applied as a follow-up pass (diff-and-confirm as usual).
+
 ## Step 3 — Derive
 
 Fill the judgment-call surfaces, one at a time, showing your reasoning:
@@ -79,7 +84,8 @@ you, re-tailoring in six months) inherits reasoning, not just strings.
 
 Read `skills/flow-doctor/SKILL.md` and follow it. The run must end HEALTHY, and you must walk the
 **degradation report** with the user line by line: every OFF is either confirmed deliberate or
-sent back to Step 2. Then report:
+sent back to Step 2 (owner unavailable → mark each unconfirmed OFF as pending in the report,
+alongside the TO-ASK list). Then report:
 
 ```
 Tailored <project> — <topology> (<stack>)
