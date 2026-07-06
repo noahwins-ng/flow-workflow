@@ -5,6 +5,12 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Changed
+- **Node/Vercel example teaches the field-proven identity probe** — the app's health route exposes
+  `VERCEL_GIT_COMMIT_SHA` and the probe reads it back (proven live on a real ship), replacing the
+  CLI+token `vercel inspect` pattern; `rollback` is now honestly manual (documented procedure, no
+  faked command). ROADMAP backlog notes scaffold topology variants wait for argus Phase-0 evidence.
+
 ### Validated
 - **Greenfield inception, end-to-end for real** (2026-07-06, argus-agent): the full chain
   (init → tailor → doctor → plan-project → gen-claudemd → cycle-start) executed by a cold agent

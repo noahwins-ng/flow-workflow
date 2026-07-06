@@ -102,6 +102,9 @@ adding the next):
 - [ ] Cursor second; opencode / pi after — same recipe per harness.
 
 **Backlog (deferred by choice, not gaps):**
+- [ ] `method/scaffolds/` topology variants — both field runs correctly *skipped* most scaffolds
+      (Vercel needs no cd.yml; husky owned hooks; greenfield had no stack). Improve them from the
+      argus Phase-0 VPS run's evidence, not speculatively.
 - [ ] Smoke-test `adapters/linear.sh` against the live API (harnesses without Linear MCP).
 - [ ] Extend the adapter with Linear *creation* ops (for `flow-plan-project` without native MCP).
 - [ ] Decide whether deploy/verify should be capability-resolved for shell-sandboxed harnesses.
