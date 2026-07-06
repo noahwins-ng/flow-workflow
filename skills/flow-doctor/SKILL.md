@@ -58,6 +58,9 @@ Load `workflow-profile.yaml` from the repo root (or the path the user gives). Th
    - `tracker.next_issue` empty → no "next up" suggestion after ship.
    These are ℹ lines, not ⚠ — unless the combination looks contradictory (e.g. `deploy.health`
    empty but `audit.host` set: something runs somewhere, yet ship never health-checks it → ⚠).
+   **Deferred ≠ off**: an empty key carrying a `# TO-DERIVE(after …)` / `# TO-ASK` comment is
+   *temporarily* empty (greenfield) — report it as ⏳ deferred with its trigger milestone, not as
+   the no-such-concept ℹ, and suggest re-running flow-tailor when that milestone lands.
 
 ## Report
 ```

@@ -18,6 +18,8 @@ Kick off a work cycle. Reads `profile.cadence` (team, project) and `profile.docs
 
 1. **Fetch the active cycle** for `profile.cadence.team` and list its issues in a table:
    Issue id · Title · Status (Todo/In Progress/In Review/Done) · Priority.
+   **Filter to `profile.cadence.project`** — cycles are team-level, and a shared team's cycle
+   mixes several projects' issues; show only this project's (note the count of others).
 
 2. **Milestone progress** — which milestone (phase) is in flight? How many of its issues are Done
    vs remaining?

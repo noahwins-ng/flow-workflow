@@ -50,6 +50,13 @@ unanswerable question, leave the value empty with a `# TO-ASK: <the exact questi
 collect all of them as a numbered list in your report — the run is *complete-pending-interview*,
 not failed. The owner's answers get applied as a follow-up pass (diff-and-confirm as usual).
 
+**Greenfield / pre-build repo**: deriving from a *committed spec* is valid derivation — AC-template
+triggers and architecture rules may name paths that don't exist on disk yet; they're proven the
+first time a matching file lands. And distinguish empty's two meanings: **"no such concept"**
+(permanent — the library archetype) vs **"not built yet"** (temporary). Annotate temporary empties
+`# TO-DERIVE(after <milestone>): <what it becomes>` so flow-doctor reports them as *deferred*, not
+off — and re-run tailor when that milestone lands.
+
 ## Step 3 — Derive
 
 Fill the judgment-call surfaces, one at a time, showing your reasoning:
