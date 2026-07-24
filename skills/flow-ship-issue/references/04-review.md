@@ -49,6 +49,7 @@ process them per Step 4's discipline before acting.
   names that invite future bugs, missing types on public functions, needless complexity.
 
 ## Step 3 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Review: <id> — <title>
 Files reviewed: N files, +X -Y

@@ -6,6 +6,17 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 ### Changed
+- **Report blocks are now imperative, not illustrative** — every fenced terminal report block in
+  the suite carries an explicit *"emit this block in full — every line, placeholders substituted;
+  never summarize, compress, or collapse it to prose"* line above the fence. Covers all six
+  `flow-ship-issue` phase reports (pick / implement / sanity / review / ship + the final report)
+  and the eight standalone-skill reports (server-audit, cycle-end, change-scope, doctor, status,
+  session-check, cycle-start, sync-plan). Field runs showed the bare fenced templates read as
+  examples and got skipped or prose-summarized under long-context fatigue; the wording binds them
+  as required output while avoiding the "print `<id>` literally" trap of "verbatim". `flow-retro`
+  has no terminal block (its report is a committed doc), so it gets the file-artifact analog on its
+  write-step — *"write every section; never drop, merge, or compress one; an empty section says
+  'none' explicitly"* — closing the same silent-compression risk in the shape retro actually uses.
 - **Node/Vercel example teaches the field-proven identity probe** — the app's health route exposes
   `VERCEL_GIT_COMMIT_SHA` and the probe reads it back (proven live on a real ship), replacing the
   CLI+token `vercel inspect` pattern; `rollback` is now honestly manual (documented procedure, no

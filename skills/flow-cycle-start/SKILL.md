@@ -33,7 +33,8 @@ Kick off a work cycle. Reads `profile.cadence` (team, project) and `profile.docs
 5. **Plan staleness check** (if `profile.docs.plan` is set) — if there are Done issues in the
    tracker whose plan items are still unchecked, note: *"plan may be out of sync — run flow-sync-plan."*
 
-6. **Report:**
+6. **Report:** **emit this block in full** — every line, placeholders substituted. Never
+   summarize, compress, or collapse it to prose.
    ```
    Cycle N (<start> — <end>)
 

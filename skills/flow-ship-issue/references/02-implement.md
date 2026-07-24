@@ -75,6 +75,7 @@ Classify per `references/ac-classification.md` and mark each AC **DONE / PARTIAL
 Run `profile.verify.types` on the project. Fix all type errors before reporting.
 
 ## Step 8 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Implemented: <id> — <title>
 

@@ -90,6 +90,7 @@ with literal command+output), a Findings block carried forward, and a Verificati
 checks, CI, deploy SHA + runtime-id, health). A reader must be able to re-verify every claim.
 
 ## Step 8 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Shipped <id>: <title>
 PR:      <url> (merged)

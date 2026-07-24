@@ -63,6 +63,7 @@ Load `workflow-profile.yaml` from the repo root (or the path the user gives). Th
    the no-such-concept ℹ, and suggest re-running flow-tailor when that milestone lands.
 
 ## Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 flow-doctor — <project> @ <profile path>
 

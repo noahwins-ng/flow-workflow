@@ -42,6 +42,7 @@ If anything changed: commit `docs: sync plan with tracker` (and `docs: add ADR-N
 one was created); push.
 
 ## Step 6 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Synced <plan>
 Ticked (Done):    [x] <item> — <id>

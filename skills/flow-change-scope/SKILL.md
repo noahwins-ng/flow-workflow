@@ -52,6 +52,7 @@ Warrants an ADR if it changes architecture/data flow/responsibilities, a future 
 numbered ADR from `profile.docs.adr_template`, list it in `profile.docs.adr_index`.
 
 ## Step 7 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Scope change: [add|drop|modify]
 Spec:     updated <spec> — <section> | none

@@ -42,7 +42,8 @@ operations use your Linear tool native-first (see the note in flow-cycle-start).
      `health_at_risk_min`, else offTrack.
    - `body`: markdown — shipped (linked), rollover count, velocity, milestone progress.
 
-8. **Report:**
+8. **Report:** **emit this block in full** — every line, placeholders substituted. Never
+   summarize, compress, or collapse it to prose.
    ```
    Cycle N (<start> — <end>)
    ✓ Shipped: X    → Rolled over: Y
