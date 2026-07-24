@@ -1,6 +1,6 @@
 {
   "name": "flow",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Structured dev-workflow skill suite: one ticket from pick to merged-and-verified, plus cadence rituals, scope changes, and milestone retros. Tracker-agnostic (Linear default); every project fact lives in a workflow-profile.yaml.",
   "author": { "name": "Noah Ng" },
   "homepage": "https://github.com/noahwins-ng/flow-workflow",
