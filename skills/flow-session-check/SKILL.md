@@ -41,7 +41,8 @@ verification is the sanity-check phase's job, not this.
    - Report them. Do not suggest the next issue — that's flow-cycle-start's job.
    - Prompt: *"No active issue. Run flow-cycle-start to review the cycle, or pick an issue to start."*
 
-6. **Report:**
+6. **Report:** **emit this block in full** — every line, placeholders substituted. Never
+   summarize, compress, or collapse it to prose.
    ```
    Resuming: <id> — <title>
    Status:    <status>

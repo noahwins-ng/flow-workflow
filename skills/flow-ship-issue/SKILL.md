@@ -94,7 +94,8 @@ and which phase to resume from.
 
 ## Final report
 
-After all five phases pass, output:
+After all five phases pass, emit this block in full — every line, placeholders substituted; never
+summarize, compress, or collapse it to prose:
 
 ```
 Done: <ISSUE> — <title>

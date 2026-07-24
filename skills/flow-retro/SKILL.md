@@ -61,5 +61,6 @@ up next.
 
 ## Step 9 — Report + save
 Report (timeline, shipped, went-well, harder-than-expected, lessons, invariant guards, phase-review
-actions, next up). Then write it to `<profile.docs.retros_dir>/phase-<n>-<name>.md` and commit
+actions, next up). **Write every section** — never drop, merge, or compress one; an empty section
+says "none" explicitly. Then write it to `<profile.docs.retros_dir>/phase-<n>-<name>.md` and commit
 `docs: add retro for <milestone>`.

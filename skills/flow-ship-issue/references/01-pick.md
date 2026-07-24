@@ -25,7 +25,8 @@ acceptance criteria. (Reference `<id>` = the issue identifier carried from Step 
    - If your tracker has an active-cycle/sprint concept, assign the issue to the current one so it
      is visible on the board.
 
-5. **Report:**
+5. **Report:** **emit this block in full** — every line, placeholders substituted. Never
+   summarize, compress, or collapse it to prose.
    ```
    Picked up: <id> — <title>
    Milestone: <milestone>

@@ -56,6 +56,7 @@ proposing a new one. If covered, reference it (`covered by <id>`) and don't dupl
 duplicate exists, ask rather than filing.
 
 ## Step 4 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Server Audit — <host> @ <UTC>
 Healthy (N):  ✓ <finding>

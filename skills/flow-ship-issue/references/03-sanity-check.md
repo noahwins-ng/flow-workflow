@@ -38,6 +38,7 @@ Manual security review is phase 4; this is the automated pre-PR gate.
 4. Any `✗ BLOCKED` dev execution AC ⇒ **NEEDS FIXES**.
 
 ## Step 3 — Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Sanity Check: <id> — <title>
 

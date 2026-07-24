@@ -18,6 +18,7 @@ Fast, local-only snapshot. No tracker/API calls (that's flow-session-check's job
 3. `git status --short` — uncommitted + untracked
 
 ## Report
+**Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.
 ```
 Branch:      <branch>
 Ahead:       <N commits> vs <default_branch>
