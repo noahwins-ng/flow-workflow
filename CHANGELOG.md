@@ -5,6 +5,8 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+
+## [0.3.1] — 2026-07-24
 ### Changed
 - **Report blocks are now imperative, not illustrative** — every fenced terminal report block in
   the suite carries an explicit *"emit this block in full — every line, placeholders substituted;
