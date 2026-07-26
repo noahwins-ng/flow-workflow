@@ -6,6 +6,20 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 
+## [0.3.2] — 2026-07-26
+### Added
+- **Working Approach gains rules 5 and 6** (`method/claude-md-template.md`, shipped verbatim into
+  every generated `CLAUDE.md`) — *Concise Output* (answer what was asked and stop; tickets stay ≤5
+  lines of context plus one-line ACs that link rather than restate) and *Fold Follow-Ups Into an
+  Existing Ticket* (in-flight review comments and verify-time defects get fixed on the same branch
+  and recorded on the current ticket, or added as an AC to an open ticket covering that domain — a
+  new ticket only when nothing covers it or it needs an unmade decision). Both were field-derived
+  from the argus adoption run. Rule 6 closes a spine hole: `method/guidelines/scoping-and-tickets.md`
+  covered planning-time bundling but nothing covered feedback arriving mid-`flow-ship-issue`, which
+  is exactly where "park it in a fresh ticket to close this one green" happens. Applied to this
+  repo's own `CLAUDE.md` too. Existing consumers pick these up by re-running `flow-gen-claudemd`
+  (regeneration is diff-and-confirm, so it's safe on a hand-edited file).
+
 ## [0.3.1] — 2026-07-24
 ### Changed
 - **Report blocks are now imperative, not illustrative** — every fenced terminal report block in

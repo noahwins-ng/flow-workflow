@@ -20,6 +20,19 @@ pre-existing dead code (mention it, don't delete it). Every changed line should 
 → "write tests for invalid inputs, then make them pass"). For multi-step work, state a brief plan
 with a verify step each.
 
+## 5. Concise Output
+**Answer what was asked and stop.** No preamble, no recap of what you just did, no closing summary;
+a second answer to the same question is shorter than the first. Tickets: ≤5 lines of context, then
+one-line ACs (condition + how it's proven), linking `docs/` or the ADR rather than restating it.
+
+## 6. Fold Follow-Ups Into an Existing Ticket
+**Feedback on work in flight belongs on a ticket that already exists.** A review comment or a defect
+found while verifying, if it's inside the current ticket's scope, gets fixed on the same branch and
+recorded on that ticket. If it belongs elsewhere but an open ticket covers that domain, add it there
+as an AC. File a *new* ticket only when nothing covers it or it needs an unmade decision (ADR /
+scope change) — never to close the current one green.
+See the flow package's `method/guidelines/scoping-and-tickets.md`.
+
 ---
 
 # <PROJECT NAME> — Project Conventions

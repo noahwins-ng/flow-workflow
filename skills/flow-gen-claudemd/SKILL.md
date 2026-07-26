@@ -2,7 +2,8 @@
 name: flow-gen-claudemd
 description: >-
   Generate a CLAUDE.md for the project following the established convention — the project-agnostic
-  Working Approach (Think Before Coding / Simplicity First / Surgical Changes / Goal-Driven) plus a
+  Working Approach (Think Before Coding / Simplicity First / Surgical Changes / Goal-Driven /
+  Concise Output / Fold Follow-Ups) plus a
   Project Conventions section filled from the profile, spec, and repo. Use when the user says
   "generate CLAUDE.md", "write the CLAUDE.md", "/flow-gen-claudemd", or after planning a new project.
 ---
