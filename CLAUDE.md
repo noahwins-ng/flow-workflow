@@ -18,6 +18,16 @@ skill, sweep every cross-reference (frontmatter `name`, README, ROADMAP, sibling
 Turn changes into verifiable goals. For anything structural, the verify step is a slice of
 `VALIDATION.md` — don't call a change done because it reads right.
 
+## 5. Concise Output
+Answer what was asked and stop. No preamble, no recap, no closing summary. Tickets: ≤5 lines of
+context, then one-line ACs (condition + how it's proven), linking docs rather than restating them.
+
+## 6. Fold Follow-Ups Into an Existing Ticket
+Feedback on work in flight belongs on a ticket that already exists — fix it on the same branch and
+record it there, or add it as an AC to an open ticket covering that domain. A *new* ticket only when
+nothing covers it or it needs an unmade decision. Never park an in-scope fix to close the current
+one green. See `method/guidelines/scoping-and-tickets.md`.
+
 ---
 
 # flow — Project Conventions
