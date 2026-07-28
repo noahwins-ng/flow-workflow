@@ -5,7 +5,7 @@
 **A structured, portable dev-workflow skill suite.**
 Take one tracked issue from *ticket → merged-and-verified* — and bootstrap whole projects from a PRD — with the same discipline on any agent harness.
 
-![version](https://img.shields.io/badge/version-0.3.0-blue)
+![version](https://img.shields.io/badge/version-0.4.0-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![status](https://img.shields.io/badge/status-validated-brightgreen)
 ![harness](https://img.shields.io/badge/harness-Claude%20Code-8A63D2)
@@ -30,8 +30,8 @@ It's structured on purpose: hard gates, evidence-backed acceptance criteria, and
 not vibes.
 
 > **Status:** validated end-to-end on Claude Code (2026-07-04, all 8 [`VALIDATION.md`](VALIDATION.md)
-> phases — CI, hooks, test-first, subagents, live Linear inception, cadence, retro). Other harnesses
-> remain aspirational.
+> phases — CI, hooks, test-first, subagents, live Linear inception, cadence, retro; parallel
+> delivery added and validated 2026-07-28, Phase 3b). Other harnesses remain aspirational.
 
 ## The core idea: spine + profile
 
@@ -95,6 +95,10 @@ different commands — the same pipeline runs unchanged.
 ```
 
 **Existing project:** `flow-init` → `flow-tailor` → `flow-doctor` → work with `flow-ship-issue <ID>`.
+
+**Parallel (up to 3 issues):** `flow-cycle-start` proposes a pairwise-independent set → one git
+worktree + session per issue running `flow-ship-issue <ID> --park` → one `flow-integrate` run from
+the main checkout lands the parked branches serially.
 
 **New project from a PRD:** drop your brief in the repo, then
 `flow-init` → `flow-tailor` → `flow-doctor` → `flow-plan-project` → `flow-gen-claudemd` → `flow-cycle-start`.
