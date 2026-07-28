@@ -5,6 +5,8 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+
+## [0.4.0] — 2026-07-28
 ### Added
 - **Parallel delivery: `--park` + `flow-integrate`** — `flow-ship-issue --park` stops after the
   review phase (issue → In Review with a `PARKED at <branch> @ <sha>` comment; no squash/PR/merge),
