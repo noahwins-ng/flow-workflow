@@ -24,6 +24,8 @@ Linear project/milestones/issues + plan) → `flow-gen-claudemd` (generate CLAUD
 - `flow-status` — fast local git snapshot, no network.
 - `flow-ship-issue <ID>` — the full pipeline: pick → implement → sanity → review → ship. (The old `/go`.)
 - `flow-fix <ID>` — a ship run broke; diagnose, fix, resume from the failed phase.
+- **Parallel:** `flow-ship-issue <ID> --park` in one worktree+session per issue (max 3), then
+  `flow-integrate` from the main checkout to land the parked branches serially.
 - `flow-sync-issue-status <ID>` — tracker status drifted; reconcile it from git/PR state.
 
 **Weekly / milestone (cadence):**

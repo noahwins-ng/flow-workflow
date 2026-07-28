@@ -30,8 +30,18 @@ point:
 Don't skip your own pass either way. Treat the agent's findings as input to **verify**, not gospel —
 process them per Step 4's discipline before acting.
 
-**2.1 — Your own pass.** Read the diff as if you did not write it. Check each category:
+**2.1 — Your own pass, in two stages.** Read the diff as if you did not write it. Run the stages
+in order and **keep their verdict weights distinct** — a reviewer told to find gaps always finds
+some; the stage split is what stops quality nits from blocking a spec-correct ship (or spec gaps
+hiding among style notes).
 
+**Stage 1 — Spec compliance (findings here are BLOCKING):**
+- **AC coverage** — does the diff actually satisfy each acceptance criterion? Anything implemented
+  that no AC or ticket text asked for (scope creep) — flag it.
+- **Execution-AC evidence** — re-read the AC list. For each AC containing a word from
+  `profile.ac_execution_keywords`, confirm a verification command was actually run with output
+  pasted. Include implicit AC from `profile.docs.ac_templates` when the diff touches trigger paths.
+  An execution AC marked ✓ without command+output is a **BLOCKING** review issue.
 - **Logic** — off-by-one, inverted conditions, missing null/absent-data checks, ordering/race
   assumptions, overly broad `except`/swallowed errors.
 - **Security** — injection via string-built queries/commands with external input; hardcoded
@@ -40,13 +50,15 @@ process them per Step 4's discipline before acting.
 - **Architecture** — check the diff against every rule in `profile.architecture_rules`; check for
   incorrect cross-package/module coupling and for hardcoded values that belong in a shared
   registry/config.
+
+**Stage 2 — Quality (ADVISORY unless severe):**
 - **Edge cases** — empty data, retry/idempotency, network failures/timeouts, rate limits.
-- **Execution-AC evidence** — re-read the AC list. For each AC containing a word from
-  `profile.ac_execution_keywords`, confirm a verification command was actually run with output
-  pasted. Include implicit AC from `profile.docs.ac_templates` when the diff touches trigger paths.
-  An execution AC marked ✓ without command+output is a **BLOCKING** review issue.
+  Escalate to BLOCKING only when an AC's happy path breaks on a plainly reachable input.
 - **Code quality** (flag only significant issues, not style) — dead/unreachable code, misleading
   names that invite future bugs, missing types on public functions, needless complexity.
+
+Sort each fresh-eyes-agent finding into a stage too — the agent reports findings, but the
+stage (and therefore the verdict weight) is your call.
 
 ## Step 3 — Report
 **Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.

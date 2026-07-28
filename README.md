@@ -24,7 +24,7 @@ pick  →  implement  →  sanity check  →  review  →  ship
 
 ## What it is
 
-`flow` is a suite of **17 skills** that encode a full delivery workflow — generalized from a
+`flow` is a suite of **18 skills** that encode a full delivery workflow — generalized from a
 battle-tested Claude Code slash-command setup so the *discipline* travels to any project or harness.
 It's structured on purpose: hard gates, evidence-backed acceptance criteria, and an audit trail,
 not vibes.
@@ -50,6 +50,7 @@ different commands — the same pipeline runs unchanged.
 |---|---|
 | `flow-ship-issue` | The flagship pipeline: pick → implement → sanity → review → ship *(the old `/go`)* |
 | `flow-fix` | Recover a broken ship run — diagnose the failed phase **from git state**, fix, resume |
+| `flow-integrate` | Serial merge queue for parallel work: land branches parked by `flow-ship-issue --park` (rebase → sanity → merge, one deploy-verify) |
 
 **Inception** — bootstrap a project from a PRD
 | Skill | Does |
@@ -127,7 +128,7 @@ QUICKSTART.md            5-minute first run
 ROADMAP.md               skill list, coupling analysis, decisions, what's aspirational
 VALIDATION.md            end-to-end runbook + watch-list of untested seams
 CLAUDE.md                conventions for working ON this package
-skills/                  the 17 flow-* skills (all prefixed to namespace across harnesses)
+skills/                  the 18 flow-* skills (all prefixed to namespace across harnesses)
 method/
   conventions.md         the method the skills assume
   project-setup-playbook.md   inception reference

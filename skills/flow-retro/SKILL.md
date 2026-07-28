@@ -31,6 +31,9 @@ now enforced by CI or a ship hard-gate?"*
    An *invariant* is a claim you assumed true that drifted (e.g. "prod SHA == merged commit").
 3. If no guard exists: either draft a new reliability ticket now, **or** explicitly mark "accepted
    risk — <reason>". Never leave an invariant without a disposition.
+   **A guard is an executable artifact** — a CI check, lint rule, test, hook, or script the pipeline
+   runs — never a CLAUDE.md sentence or doc note. Advisory prose degrades; executable checks don't.
+   If the proposed guard is "remember to…", it isn't a guard yet — turn it into a command.
 4. **Same-shape clustering** — if two incidents violated invariants of the same shape, flag it; one
    deeper guard may replace two narrow ones.
 

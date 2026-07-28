@@ -34,13 +34,21 @@ For a **multi-file or non-trivial** issue, also decompose before coding:
   step whose deliverable needs it; split only where a reviewer could reject one step while approving
   its neighbor.
 
-Skip this micro-planning for a trivial one-file change.
+**Plan gate (hard, scale-adaptive).** If the issue **touches more than ~3 files or has any
+prod-execution AC**, present the decomposition as a short plan — each AC mapped to the change that
+satisfies it (`AC → files/steps`) — and **pause for user approval before writing code**. If your
+harness has a native plan/read-only mode, use it for this step rather than a bespoke format. A plan
+correction here costs minutes; the same correction at review costs the whole implementation.
+
+Skip this micro-planning (and the plan gate) for a trivial change you could describe in one sentence.
 
 ## Step 3 — Implement test-first, with AC checkpoints
 Work in **red → green → refactor** cycles. For each verifiable acceptance criterion (or logical group):
 1. **Write the test first.** For a **bug**, write a test that reproduces it and **watch it fail for
    the right reason** — a test you never saw fail proves nothing. For a **feature / behavior change**,
-   write tests that pin the AC. *Exceptions* (note them, ask if unsure): throwaway prototype, generated
+   write tests that pin the AC. **WIP-commit the failing test before implementing** (message like
+   `wip: red test for <AC>`) — it's the attempt-zero receipt for `references/recovery.md` and proves
+   the red state existed. *Exceptions* (note them, ask if unsure): throwaway prototype, generated
    code, pure config.
 2. **Write the minimal code** to make it pass. Follow Step 2's patterns; respect
    `profile.architecture_rules`; use the project's config object for all hosts/ports/credentials

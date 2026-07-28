@@ -1,6 +1,6 @@
 # 🗺️ Roadmap
 
-> **At a glance:** 17 `flow-*` skills · public (`noahwins-ng/flow-workflow`, MIT) · multi-manifest
+> **At a glance:** 18 `flow-*` skills · public (`noahwins-ng/flow-workflow`, MIT) · multi-manifest
 > plugin · **validated end-to-end on Claude Code 2026-07-04** (other harnesses aspirational).
 
 **Goal:** a personal, structured dev-workflow skill package (orba/superpowers-style) that runs
@@ -19,7 +19,7 @@ package *structured*.
 3. **Methodology** — docs skeleton (plan / spec / ADRs / retros), cycle+milestone model, the
    invariant-guard practice, memory capture → *a way of working*, not a swappable command.
 
-## ✅ Skills — all 17 built
+## ✅ Skills — all 18 built
 
 All skills are prefixed **`flow-`** to namespace them across harnesses (no universal namespace
 scheme exists, so the prefix is baked into each skill's `name:` + directory — `flow-init`/`flow-status`
@@ -29,6 +29,7 @@ would otherwise shadow Claude Code built-ins).
 |-------|--------|:-----:|
 | `flow-ship-issue` — pick→implement→sanity→review→ship *(the old /go)* | stack + tracker | ✅ |
 | `flow-fix` — recover a broken ship run: diagnose→fix→resume | git + tracker | ✅ |
+| `flow-integrate` — serial merge queue for parked parallel branches | git + tracker + deploy | ✅ *(unvalidated)* |
 | `flow-init` — scaffold docs skeleton + profile (PRD-aware) | — | ✅ |
 | `flow-tailor` — derive + prove the project-specific workflow layer | all (it fits them) | ✅ |
 | `flow-plan-project` — PRD → phases → Linear project/milestones/issues + plan | tracker + methodology | ✅ |
@@ -72,6 +73,23 @@ bespoke answers** to them (probes, verify commands, AC surfaces, rules) on top o
 `examples/` profiles are reference derivations that seed tailoring, not archetype products.
 ❌ Rejected the pre-built archetype matrix — always one shape short; the agent derives better than
 we pre-enumerate. Portability (per-harness manifests) stays the package's own responsibility.
+
+**Parallel delivery = sessions, not an orchestrator** *(2026-07-28)* — parallel work is **N
+independent sessions**, one per issue, each in its own git worktree running
+`flow-ship-issue <ID> --park` (stop after review), then **one serial `flow-integrate` run** from
+the main checkout (rebase → sanity re-run → merge per branch; single deploy-identity verify).
+Concurrency cap **3** — operator review bandwidth, non-conflicting-ticket scarcity, and the serial
+integrate tail all bind before agent throughput does. `flow-cycle-start` proposes the
+pairwise-independent set.
+❌ Rejected a dispatcher/orchestrator skill: session-spawning isn't portable across harnesses
+(same reason cross-skill refs are read-and-follow), and a long-lived coordinator is a fragile
+single point needing its own recovery. The human fans out; the package gates and integrates.
+
+**Delta-spec change model — considered and parked** *(2026-07-28)* — OpenSpec-style
+propose-delta → apply → archive for `flow-change-scope` would cut the 4-surface sweep per change,
+but introduces a pending-deltas lifecycle state a crashed session can strand. For a solo operator
+with infrequent scope changes, eager-and-boring beats lazy-and-stateful. Revisit only if a field
+run shows scope changes frequent enough that the sweep actually hurts.
 
 ## 🧪 Validation
 

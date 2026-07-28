@@ -5,6 +5,29 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+### Added
+- **Parallel delivery: `--park` + `flow-integrate`** — `flow-ship-issue --park` stops after the
+  review phase (issue → In Review with a `PARKED at <branch> @ <sha>` comment; no squash/PR/merge),
+  so N independent sessions can run one ticket each in separate git worktrees. The new
+  `flow-integrate` skill is the serial merge queue: rebase each parked branch on the default
+  branch → re-run the sanity gate → ship through merge, then one deploy-identity verify and
+  per-issue close-out. Deliberately *not* an orchestrator — the human fans out sessions; a failed
+  branch is skipped (stays parked), never blocks the queue. `flow-cycle-start` gains a parallel-set
+  proposal: min(3, pairwise-independent ready issues), hard cap 3 (operator review bandwidth is the
+  binding constraint).
+- **Plan gate in `flow-ship-issue` phase 2** — issues touching >~3 files or carrying a
+  prod-execution AC now require a short AC→changes plan approved by the user before code; trivial
+  one-sentence diffs skip it. Harness-native plan mode preferred over a bespoke format.
+- **Failing-test checkpoint** — phase 2's red step is WIP-committed before implementing
+  (`wip: red test for <AC>`), doubling as the attempt-zero receipt for recovery.
+
+### Changed
+- **Review phase is now two-stage** — stage 1 spec compliance (AC coverage, execution-AC evidence,
+  logic, security, architecture — BLOCKING) then stage 2 quality (edge cases, code quality —
+  ADVISORY unless severe), so gap-hunting reviewers can't block a spec-correct ship on nits, and
+  fresh-eyes-agent findings get sorted into a stage before acting.
+- **`flow-retro` guards must be executable** — the invariant→guard audit now requires each guard to
+  be a CI check, lint rule, test, hook, or script; "remember to…" prose is explicitly not a guard.
 
 ## [0.3.2] — 2026-07-26
 ### Added

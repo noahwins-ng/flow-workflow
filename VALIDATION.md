@@ -79,6 +79,17 @@ echo "**test update**" | LINEAR_API_KEY=… ./adapters/linear.sh project status-
 > scope for the sandbox. Validate those on the first real project, or point `deploy.*` at a toy
 > deploy and assert the gates fire.
 
+## Phase 3b — Parallel delivery (`--park` + `flow-integrate`)
+
+Needs two trivial, file-disjoint issues (e.g. touch two different modules). Two sessions/worktrees.
+
+| Step | Assert |
+|------|--------|
+| **flow-cycle-start** with ≥2 independent issues ready | Proposes a parallel set of min(3, independent issues); names the worktree + `--park` + `flow-integrate` recipe; honestly proposes fewer when pairs conflict. |
+| **flow-ship-issue &lt;ID&gt; --park** ×2, each in its own `git worktree` | Both run pick→implement→sanity→review then **stop**: no squash/PR/merge; issue → In Review with a `PARKED at <branch> @ <sha>` comment; plan gate fires (or is skipped with the trivial-diff reason stated); red test WIP-committed before implementation. |
+| **flow-integrate** from the main checkout | Collects both parked branches from the PARKED comments; pauses for confirmation; lands them **serially** (rebase → sanity re-run → PR → merge each); one deploy-verify pass (skips cleanly with empty `deploy.*`, and says so); both issues → Done with ship comments; worktrees + branches cleaned up. |
+| Failure injection: before integrating, commit a conflicting change to the default branch that collides with branch 2 | Branch 1 lands; branch 2 → **SKIPPED (rebase conflict)**, stays parked, rebase aborted, queue not blocked; report names the resume path. Re-running flow-integrate picks up only the still-parked branch. |
+
 ## Phase 4 — Cadence & methodology
 
 | Step | Assert |
@@ -138,6 +149,7 @@ python -c "import yaml; yaml.safe_load(open('examples/profile.node-vercel.yaml')
 ## Exit criteria
 - [ ] Phases 0–2 fully PASS (install, adapter, inception) — the core loop.
 - [ ] Phase 3 PASS through merge (deploy gates deferred).
+- [ ] Phase 3b PASS: two parked ships land serially via flow-integrate; conflict-injection branch skips without blocking the queue.
 - [ ] Phase 7 PASS: scaffolds filled correctly + commit-msg hook gates.
 - [ ] Every FAIL either fixed or filed with a repro.
 - [ ] Watch-list items 1–5 each explicitly confirmed or fixed.

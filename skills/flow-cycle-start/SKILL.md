@@ -27,6 +27,14 @@ Kick off a work cycle. Reads `profile.cadence` (team, project) and `profile.docs
 3. **Suggest the next issue** to pick, ranked by: Priority (Urgent > High > Medium > Low), then
    dependencies (blocked issues come after their blockers), skipping Done.
 
+3b. **Parallel set (optional)** — if the user wants to run issues in parallel, propose
+   **min(3, pairwise-independent ready issues)**: no blocking relation between any pair, and — by
+   title/description — no two plausibly touching the same files or subsystem. Be honest when the
+   backlog only supports 2 (or 1): a smaller true set beats a padded one that collides at merge.
+   Hard cap 3 — beyond that the operator stops reading diffs and the review gate becomes theater.
+   Point the user at the parallel recipe: one worktree + session per issue running
+   `flow-ship-issue <ID> --park`, then one `flow-integrate` run from the main checkout.
+
 4. **If the cycle is empty**, suggest pulling issues from the next milestone's backlog into the
    cycle — and moving them **Backlog → Todo** (Backlog issues don't show on the cycle board).
 

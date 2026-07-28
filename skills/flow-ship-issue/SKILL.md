@@ -6,7 +6,8 @@ description: >-
   verification, tracker close-out). Harness-neutral; every project-specific fact (tracker,
   toolchain, deploy target, doc paths, architecture rules) is read from a project profile.
   Use when the user says "ship <ISSUE>", "deliver <ISSUE>", "go <ISSUE>", "/flow-ship-issue <ISSUE>",
-  or asks to take a ticket from start to merged.
+  or asks to take a ticket from start to merged. Supports "--park" (stop after review; a later
+  flow-integrate run merges) for parallel worktree sessions.
 ---
 
 # Ship an Issue
@@ -84,6 +85,19 @@ Two references are shared across phases — read them when a phase tells you to:
 - **Ship verifies deployed identity before trusting any AC.** After merge+deploy, confirm the
   running code is the code you merged (`profile.deploy.deployed_sha` + `profile.deploy.runtime_id`)
   *before* checking any post-deploy AC. An AC check against stale code is meaningless.
+
+## Park mode (`--park` — for parallel runs)
+
+If the user asked to **park** (e.g. `ship <ISSUE> --park`), run phases 1–4 normally, then **stop
+before phase 5**. Park exists for parallel work: several ship runs proceed in separate git worktrees,
+and a later `flow-integrate` run merges the parked branches serially. On a park:
+
+1. Set the issue **In Review** (`profile.tracker.set_in_review`) and add a comment:
+   `PARKED at <branch> @ <HEAD sha> — review passed, awaiting integrate`.
+2. Emit the final-report block with the pipeline line reading
+   `pick ✓ → implement ✓ → sanity ✓ → review ✓ → PARKED (integrate pending)` and `PR: none (parked)`.
+3. Do **not** squash, push, open a PR, merge, or touch the plan file — those belong to the
+   integrate run (`skills/flow-integrate/SKILL.md`), which re-runs the sanity gate after rebasing.
 
 ## Failure handling
 
