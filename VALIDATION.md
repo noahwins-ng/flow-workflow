@@ -160,4 +160,7 @@ python -c "import yaml; yaml.safe_load(open('examples/profile.node-vercel.yaml')
 
 | Date | Phase | Step | PASS/FAIL | Notes / bug |
 |------|-------|------|-----------|-------------|
-| | | | | |
+| 2026-07-28 | 3b | cycle-start parallel set | PASS | Honest set of 2 (QNT-313 src+tests / QNT-316 README); no padding. |
+| 2026-07-28 | 3b | ship --park ×2 (worktrees) | PASS | Plan gate fired on 313 (AC-mapped plan + approval, design fork caught); skipped on 316 with reason stated. Red-test WIP checkpoint worked. FIX-1: prose's literal `wip: red test…` message conflicts with profile commit-hook format — now defers to `profile.vcs.wip_commit`. FIX-2: fresh-eyes reviewer false-BLOCKED AC2 as "receipt missing" (receipts live in tracker comment it can't see) — dispatch now includes sanity receipts. |
+| 2026-07-28 | 3b | flow-integrate (queue) | PASS | 316 SKIPPED (injected rebase conflict, aborted, not blocking); 313 rebased → sanity re-run → PR #5 → merged → Done. FIX-3: merge issued while CI check pending (went green; luck) — 05-ship Step 5 now says pending ≠ pass. FIX-4: `--delete-branch` local step fails in worktree layouts — integrate now says merge from main checkout. |
+| 2026-07-28 | 3b | integrate re-run (restartability) | PASS | Collected only the still-parked 316; manual conflict resolve → sanity → CI watched green → PR #6 merged → Done. Worktrees + branches cleaned. |

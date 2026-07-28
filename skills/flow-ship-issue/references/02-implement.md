@@ -46,9 +46,10 @@ Skip this micro-planning (and the plan gate) for a trivial change you could desc
 Work in **red → green → refactor** cycles. For each verifiable acceptance criterion (or logical group):
 1. **Write the test first.** For a **bug**, write a test that reproduces it and **watch it fail for
    the right reason** — a test you never saw fail proves nothing. For a **feature / behavior change**,
-   write tests that pin the AC. **WIP-commit the failing test before implementing** (message like
-   `wip: red test for <AC>`) — it's the attempt-zero receipt for `references/recovery.md` and proves
-   the red state existed. *Exceptions* (note them, ask if unsure): throwaway prototype, generated
+   write tests that pin the AC. **WIP-commit the failing test before implementing**, using `profile.vcs.wip_commit`
+   with a description like "red tests for AC1" (commit hooks may reject any other format —
+   respect `profile.vcs.commit_hook_note`) — it's the attempt-zero receipt for
+   `references/recovery.md` and proves the red state existed. *Exceptions* (note them, ask if unsure): throwaway prototype, generated
    code, pure config.
 2. **Write the minimal code** to make it pass. Follow Step 2's patterns; respect
    `profile.architecture_rules`; use the project's config object for all hosts/ports/credentials

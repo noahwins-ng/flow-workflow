@@ -17,7 +17,9 @@ Read the full branch diff with fresh eyes and look for defects before shipping. 
 ## Step 2 — Review
 **2.0 — Fresh eyes first.** Dispatch `profile.review.fresh_eyes_agent` (the bundled
 **`flow-code-reviewer`**) on the diff only — no author context — and use its findings as your starting
-point:
+point. **Include the execution-AC receipts from the sanity audit comment in the dispatch** (the
+receipts live in the tracker, not the diff — a reviewer who can't see them will report every
+execution AC as unproven):
 - **Named-subagent harness** → dispatch the agent by the name in the profile (per-harness naming in
   `install/harness-notes.md` — e.g. Claude Code namespaces it `flow:flow-code-reviewer`). If the
   configured name doesn't resolve, retry with the other namespace form (add the plugin prefix if it's

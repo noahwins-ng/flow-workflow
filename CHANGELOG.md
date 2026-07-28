@@ -18,8 +18,14 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 - **Plan gate in `flow-ship-issue` phase 2** — issues touching >~3 files or carrying a
   prod-execution AC now require a short AC→changes plan approved by the user before code; trivial
   one-sentence diffs skip it. Harness-native plan mode preferred over a bespoke format.
-- **Failing-test checkpoint** — phase 2's red step is WIP-committed before implementing
-  (`wip: red test for <AC>`), doubling as the attempt-zero receipt for recovery.
+- **Failing-test checkpoint** — phase 2's red step is WIP-committed before implementing (via
+  `profile.vcs.wip_commit`), doubling as the attempt-zero receipt for recovery.
+- **Validated: VALIDATION.md Phase 3b** (2026-07-28, Snippet Vault sandbox) — two parked worktree
+  ships + conflict-injected serial integrate + restart, PASS. Four prose defects found and fixed in
+  the same pass: red-test commit message now defers to the profile's wip format (hooks reject bare
+  `wip:`); the fresh-eyes review dispatch now includes sanity-comment execution receipts (reviewer
+  false-blocked an AC it couldn't see proof for); ship's CI step states pending ≠ pass; integrate
+  runs merges from the main checkout (`--delete-branch` fails its local step in worktree layouts).
 
 ### Changed
 - **Review phase is now two-stage** — stage 1 spec compliance (AC coverage, execution-AC evidence,

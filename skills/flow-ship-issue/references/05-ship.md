@@ -43,8 +43,9 @@ proceeding.
 - Attach the PR link to the issue while it is still open.
 
 ## Step 5 — CI
-`profile.deploy.ci_status` (with `{pr}`). No checks → proceed. Failure → report, do **not** merge,
-offer to fix.
+`profile.deploy.ci_status` (with `{pr}`). No checks → proceed. **Wait for every check to
+complete — pending is not a pass; never issue the merge while a check is still running.**
+Failure → report, do **not** merge, offer to fix.
 
 ## Step 6 — Merge
 `profile.deploy.merge` (with `{pr}`). Then `git checkout <default_branch> && git pull`.

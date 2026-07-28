@@ -37,7 +37,10 @@ For each, confirm the branch exists (`git branch --list <branch>` / `git ls-remo
 
 ## Step 2 — Per branch, serially (the queue)
 
-For each parked branch, in order — **finish or skip one completely before touching the next**:
+For each parked branch, in order — **finish or skip one completely before touching the next**.
+Run merge/PR commands **from the main checkout** (not the branch's worktree): a merge command with
+`--delete-branch` fails its local-checkout step when the default branch lives in another worktree.
+Branch/worktree deletion belongs to Step 3 regardless.
 
 1. **Rebase** onto the current default branch tip: `git rebase <default_branch>` on the parked
    branch. Conflicts → do **not** auto-resolve: mark this branch **SKIPPED (rebase conflict)**,

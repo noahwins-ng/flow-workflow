@@ -29,7 +29,7 @@ would otherwise shadow Claude Code built-ins).
 |-------|--------|:-----:|
 | `flow-ship-issue` — pick→implement→sanity→review→ship *(the old /go)* | stack + tracker | ✅ |
 | `flow-fix` — recover a broken ship run: diagnose→fix→resume | git + tracker | ✅ |
-| `flow-integrate` — serial merge queue for parked parallel branches | git + tracker + deploy | ✅ *(unvalidated)* |
+| `flow-integrate` — serial merge queue for parked parallel branches | git + tracker + deploy | ✅ |
 | `flow-init` — scaffold docs skeleton + profile (PRD-aware) | — | ✅ |
 | `flow-tailor` — derive + prove the project-specific workflow layer | all (it fits them) | ✅ |
 | `flow-plan-project` — PRD → phases → Linear project/milestones/issues + plan | tracker + methodology | ✅ |
@@ -99,6 +99,12 @@ real Linear inception, cadence + retro. **PASS with 2 defects, both now fixed** 
 namespacing, FAIL-2 plan-project ticket convention). The live `adapters/linear.sh` GraphQL path is
 **intentionally not exercised** — it's the fallback for harnesses *without* Linear MCP, and native MCP
 is the primary path. Static-reviewed clean (state-by-UUID, enum values confirmed); not a gap for MCP users.
+
+**Phase 3b (parallel delivery) validated 2026-07-28** on the same sandbox: two worktree `--park`
+runs (plan gate fired/skipped correctly, red-test checkpoint), conflict-injected `flow-integrate`
+(skip-don't-block + restart re-collects only the parked branch). PASS with 4 prose defects, all
+fixed same-day (wip-commit format, reviewer receipt blind spot, CI-pending merge, `--delete-branch`
+in worktree layouts). Real-project run at concurrency 2 (argus, post QNT-328/329) still pending.
 
 ## 📋 Next (two tracks, 2026-07-06)
 
