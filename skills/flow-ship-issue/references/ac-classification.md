@@ -22,10 +22,11 @@ the command, you cannot claim it passes.
 
 > **Presentation vs. semantics.** The `[code AC]` / `[dev execution AC]` / `[prod execution AC]` tags
 > below are the *semantic classification* — internal shorthand for how each criterion is proven. They
-> are **not** a required rendering. When you **write** a ticket, follow the project's own AC format
-> (many teams use a numbered list like `- [ ] AC1 (short-label, code AC) -- <text>`); the tag just
-> records which class it is. When you **verify** (sanity/review), classify by these three kinds
-> regardless of how the ticket rendered them.
+> are **not** a required rendering. When you **write** a ticket, follow the project's own AC format;
+> the tag just records which class it is. House style may vary heading names and AC numbering —
+> **never** the `- [ ] AC<n> (<label>, <class>) -- <claim>` checkbox line or the canonical section
+> set (see "Ticket structure" in `method/conventions.md`). When you **verify** (sanity/review),
+> classify by these three kinds regardless of how the ticket rendered them.
 
 ### [code AC] — verifiable by reading the implementation
 Example: "handles rate limits with exponential backoff", "uses an idempotent table engine",
@@ -84,3 +85,32 @@ evidence) AND **carry what you learned**. Two non-negotiable blocks:
    verified empirically it is not — <evidence>"), a latent bug found, a judgement call and why, or
    a scope shortcut taken. If genuinely nothing deviated, write one explicit line saying so —
    omitting the block is not allowed.
+
+### Comment rendering (mandatory)
+
+Every AC line in a tracker comment is a **Markdown checkbox** — `- [x]` proven (receipt shown),
+`- [ ]` blocked or pending. A bare ✓/✗, a plain bullet, or a paragraph per AC violates the
+contract. Copy this shape exactly:
+
+```markdown
+## <Phase> audit — <ISSUE-ID>
+
+- [x] AC1 (<label>, code AC) -- <claim>
+  Proof: `test::name` PASS   (or `file:line`)
+- [x] AC2 (<label>, dev execution AC) -- <claim>
+  Command: <exact command run>
+  Output:  <literal output line that proves it>
+- [ ] AC3 (<label>, prod execution AC) -- <claim> — ⏳ PENDING, verify post-deploy
+
+## Findings
+- <bullet — or one explicit "nothing deviated" line>
+```
+
+### Pre-post check (blocking)
+
+Before calling `add_comment` (or `save_issue` when writing/updating AC), re-read your draft and
+confirm mechanically — fix and only then post:
+1. Every AC line starts with `- [ ]` or `- [x]` and carries `(<label>, <class>)`.
+2. Every dev execution AC shows literal `Command:` + `Output:`; every code AC names its test or
+   `file:line`.
+3. The Findings block is present.

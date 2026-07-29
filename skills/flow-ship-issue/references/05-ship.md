@@ -84,11 +84,22 @@ report and do **not** mark Done — offer `profile.deploy.rollback`.
 - All prod AC pass → move the issue to Done (`profile.tracker.set_done`; do not rely on auto-close).
 - Any fail → keep In Review, report what failed and how to fix.
 
-## Step 7b — Ship comment
-Post the permanent ship record (`profile.tracker.add_comment`) per the audit-comment contract in
-`references/ac-classification.md`: per-AC receipts (every execution AC — dev and now-resolved prod —
-with literal command+output), a Findings block carried forward, and a Verification summary (quality
-checks, CI, deploy SHA + runtime-id, health). A reader must be able to re-verify every claim.
+## Step 7b — Close-out triple (whoever sets Done owns all three)
+The close-out is **one indivisible triple** — a ticket is not closed until all three exist. In a
+solo ship that owner is this phase; in a parallel run it is `flow-integrate`. Never leave one leg
+to "the other" path.
+
+1. **Ship comment** — post the permanent ship record (`profile.tracker.add_comment`) per the
+   audit-comment contract in `references/ac-classification.md`, including its mandatory checkbox
+   rendering and pre-post check: per-AC receipts (every execution AC — dev and now-resolved prod —
+   with literal command+output), a Findings block carried forward, and a Verification summary
+   (quality checks, CI, deploy SHA + runtime-id, health). **One self-contained comment** — never
+   split the record across comments (follow-up detail comments may add depth, but the record
+   itself must stand alone). A reader must be able to re-verify every claim.
+2. **Tick the description AC** — update the issue description, flipping every proven criterion's
+   `- [ ]` to `- [x]` (prod AC only after its receipt). The ticket body must agree with the ship
+   record.
+3. **Status Done** — already set in Step 7; confirm it stuck.
 
 ## Step 8 — Report
 **Emit this block in full** — every line, placeholders substituted. Never summarize, compress, or collapse it to prose.

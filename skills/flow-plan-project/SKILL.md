@@ -32,8 +32,9 @@ Then **fetch 1–2 recent non-trivial issues from the team — any project** (on
 skill's own project doesn't exist yet; the team's other projects carry the house style). If the
 team already has a house format, mirror its *presentation* — heading names, AC numbering style —
 while keeping every canonical element present (context, scope, classed + verifiable AC,
-references). If the team has no established format, render the canonical structure as-is. Never
-invent a third format.
+references). House style never overrides the AC line shape: every AC is a
+`- [ ] AC<n> (<label>, <class>) -- <claim>` checkbox, no matter what the sampled issues do. If the
+team has no established format, render the canonical structure as-is. Never invent a third format.
 
 ## Step 2b — Propose the decomposition (no writes yet)
 Draft, and present for approval:
@@ -63,7 +64,10 @@ Using native Linear tools, in order:
    serially** (the API has no sort field — order comes from creation sequence + target dates;
    parallel creation can scramble it).
 3. **Issues** — for each approved issue: set project, milestone, label, priority, and the AC in the
-   description. **Always set the project** (issues without it fall out of the project view). Assign
+   description. **Pre-create check (blocking), per issue:** before each `save_issue`, re-read the
+   drafted body — commit-shaped title; sections in canonical order; every AC line starts with
+   `- [ ]` and carries `(<label>, <class>)`. Fix, then create.
+   **Always set the project** (issues without it fall out of the project view). Assign
    the Cycle 1 picks to the active cycle and set their status **Todo** (Backlog issues don't show on
    the cycle board); leave the rest in Backlog.
    - If a Linear state name collides with a type word, set state by its UUID, not its name.

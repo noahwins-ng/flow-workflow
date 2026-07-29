@@ -66,9 +66,18 @@ After the last merge, deployment runs once. Follow `05-ship.md` Step 7 exactly �
 handling. Both hard gates apply unchanged: fail ⇒ stop, no issue moves to Done.
 
 Once the deployment is verified:
-- For **each merged issue**, resolve its ⏳ PENDING prod-execution ACs (command + output receipts),
-  post the ship comment (05-ship Step 7b), and move it to Done. An issue whose prod AC fails stays
-  In Review — report it; the others still close.
+- For **each merged issue**, run the full close-out (integrate owns 05-ship Step 7b's triple in a
+  parallel run — no one else will do it), in order:
+  1. Resolve its ⏳ PENDING prod-execution ACs (command + output receipts).
+  2. Post the ship record — **one** self-contained comment in the audit-comment contract's
+     mandatory checkbox shape (`ac-classification.md` → "Comment rendering"), with its pre-post
+     check. Follow-up detail comments are fine; the record must stand alone.
+  3. Tick every proven AC `- [ ]` → `- [x]` in the **issue description**.
+  4. Move the issue to Done.
+  An issue whose prod AC fails stays In Review (skip 2–4 for it) — report it; the others still close.
+- **Close-out verify (before the final report):** re-fetch each closed issue and confirm the
+  triple — ship record present in checkbox shape, description ACs all ticked, status Done. Fix
+  any miss now; the report may only claim Done for issues that pass this check.
 - Delete merged branches and their worktrees (`git worktree remove <path>`, `git branch -d`) —
   park-mode worktrees live at `.claude/worktrees/<id-lower>` in this repo (`git worktree list`
   shows them all). Never delete a SKIPPED branch or its worktree.

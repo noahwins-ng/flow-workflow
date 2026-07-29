@@ -6,6 +6,23 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 
+## [0.4.3] — 2026-07-30
+### Changed
+- **AC rendering hardened against cross-model drift** — field findings from two real runs (Opus
+  session shipped a ticket off the canonical shape; Sonnet session posted an audit comment without
+  `- [ ]` checkboxes on the ACs). The audit-comment contract (`ac-classification.md`) now carries a
+  literal, mandatory comment template (checkbox per AC + receipts) and a blocking pre-post check;
+  the "presentation vs. semantics" note and plan-project's house-style mirroring no longer license
+  dropping the `- [ ] AC<n> (<label>, <class>) -- <claim>` line; plan-project and change-scope gain
+  a blocking pre-`save_issue` shape check.
+- **Close-out is an owned, indivisible triple** — field findings from the argus parallel run: one
+  ship record dropped its checkboxes, another was fragmented across three comments, and no ticket's
+  description ACs got ticked because no skill owned that step. 05-ship Step 7b is now the
+  "close-out triple" (one self-contained canonical ship comment + description ACs flipped to
+  `- [x]` + Done confirmed), owned by whoever sets Done — solo ship: phase 5; parallel:
+  `flow-integrate`, which also gains a blocking close-out verify (re-fetch each closed issue and
+  confirm the triple before the final report may claim Done).
+
 ## [0.4.2] — 2026-07-29
 ### Changed
 - **Park mode isolation is now a verify-gate, not an instruction** — field finding from the first
