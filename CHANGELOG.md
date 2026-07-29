@@ -6,6 +6,16 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 
+## [0.4.2] — 2026-07-29
+### Changed
+- **Park mode isolation is now a verify-gate, not an instruction** — field finding from the first
+  real parallel run (argus, Sonnet 5): 1 of 3 sessions checked its issue branch out in the main
+  checkout, skipping the worktree step. Park mode now runs `git rev-parse --show-toplevel` before
+  phase 2 and again before parking, must see `.claude/worktrees/<id-lower>`, and carries an
+  explicit STOP-and-migrate recovery (WIP-commit → checkout default → re-attach branch as
+  worktree). The PARKED comment gains a `Worktree:` receipt line so integrate/auditors can verify
+  isolation held.
+
 ## [0.4.1] — 2026-07-29
 ### Changed
 - **Park mode owns its worktree lifecycle** — `flow-ship-issue --park` now creates its own

@@ -103,10 +103,29 @@ Ensure `.claude/worktrees/` is in `.gitignore` (add + commit it if missing — o
 check the issue branch out in the main checkout: parallel sessions would fight over it. The
 worktree is removed by `flow-integrate` after the branch merges — do not clean it up yourself.
 
+**Isolation gate (verify, don't assume).** At two points — **before phase 2 starts** and **again
+before posting the PARKED comment** — run:
+
+```
+git rev-parse --show-toplevel
+```
+
+The output must end in `.claude/worktrees/<id-lower>`. If it does not, you are in the main
+checkout — **STOP and migrate before any further work**:
+
+1. WIP-commit anything uncommitted (`profile.vcs.wip_commit`).
+2. `git checkout <default_branch>` (frees the branch from the main checkout).
+3. `git worktree add .claude/worktrees/<id-lower> <branch>` (re-attach the existing branch).
+4. Continue inside the worktree; note the migration in your next report.
+
+The PARKED comment must include the toplevel receipt (`Worktree: <path>`) so the integrate run
+and any auditor can verify isolation held.
+
 On a park:
 
 1. Set the issue **In Review** (`profile.tracker.set_in_review`) and add a comment:
-   `PARKED at <branch> @ <HEAD sha> — review passed, awaiting integrate`.
+   `PARKED at <branch> @ <HEAD sha> — review passed, awaiting integrate` plus the isolation
+   receipt line `Worktree: <git rev-parse --show-toplevel output>`.
 2. Emit the final-report block with the pipeline line reading
    `pick ✓ → implement ✓ → sanity ✓ → review ✓ → PARKED (integrate pending)` and `PR: none (parked)`.
 3. Do **not** squash, push, open a PR, merge, or touch the plan file — those belong to the
