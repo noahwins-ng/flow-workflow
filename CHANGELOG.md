@@ -5,6 +5,8 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 "updating" a project = pulling a new spine version here (the profile schema is backward-additive).
 
 ## [Unreleased]
+
+## [0.4.1] — 2026-07-29
 ### Changed
 - **Park mode owns its worktree lifecycle** — `flow-ship-issue --park` now creates its own
   repo-local worktree (`.claude/worktrees/<id-lower>`, gitignored) before phase 1 instead of
