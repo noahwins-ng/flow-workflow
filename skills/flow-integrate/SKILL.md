@@ -69,8 +69,9 @@ Once the deployment is verified:
 - For **each merged issue**, resolve its ⏳ PENDING prod-execution ACs (command + output receipts),
   post the ship comment (05-ship Step 7b), and move it to Done. An issue whose prod AC fails stays
   In Review — report it; the others still close.
-- Delete merged branches and their worktrees (`git worktree remove <path>`, `git branch -d`).
-  Never delete a SKIPPED branch or its worktree.
+- Delete merged branches and their worktrees (`git worktree remove <path>`, `git branch -d`) —
+  park-mode worktrees live at `.claude/worktrees/<id-lower>` in this repo (`git worktree list`
+  shows them all). Never delete a SKIPPED branch or its worktree.
 
 ## Step 4 — Report
 

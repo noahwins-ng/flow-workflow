@@ -32,8 +32,9 @@ Kick off a work cycle. Reads `profile.cadence` (team, project) and `profile.docs
    title/description — no two plausibly touching the same files or subsystem. Be honest when the
    backlog only supports 2 (or 1): a smaller true set beats a padded one that collides at merge.
    Hard cap 3 — beyond that the operator stops reading diffs and the review gate becomes theater.
-   Point the user at the parallel recipe: one worktree + session per issue running
-   `flow-ship-issue <ID> --park`, then one `flow-integrate` run from the main checkout.
+   Point the user at the parallel recipe: one session per issue, each opened at the repo root,
+   running `flow-ship-issue <ID> --park` (park mode creates its own repo-local worktree under
+   `.claude/worktrees/`), then one `flow-integrate` run from the main checkout to land and clean up.
 
 4. **If the cycle is empty**, suggest pulling issues from the next milestone's backlog into the
    cycle — and moving them **Backlog → Todo** (Backlog issues don't show on the cycle board).

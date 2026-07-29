@@ -96,9 +96,10 @@ different commands — the same pipeline runs unchanged.
 
 **Existing project:** `flow-init` → `flow-tailor` → `flow-doctor` → work with `flow-ship-issue <ID>`.
 
-**Parallel (up to 3 issues):** `flow-cycle-start` proposes a pairwise-independent set → one git
-worktree + session per issue running `flow-ship-issue <ID> --park` → one `flow-integrate` run from
-the main checkout lands the parked branches serially.
+**Parallel (up to 3 issues):** `flow-cycle-start` proposes a pairwise-independent set → one session
+per issue (each opened at the repo root) running `flow-ship-issue <ID> --park`, which creates its
+own repo-local worktree under `.claude/worktrees/` → one `flow-integrate` run from the main
+checkout lands the parked branches serially and removes the worktrees.
 
 **New project from a PRD:** drop your brief in the repo, then
 `flow-init` → `flow-tailor` → `flow-doctor` → `flow-plan-project` → `flow-gen-claudemd` → `flow-cycle-start`.

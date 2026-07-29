@@ -89,8 +89,21 @@ Two references are shared across phases — read them when a phase tells you to:
 ## Park mode (`--park` — for parallel runs)
 
 If the user asked to **park** (e.g. `ship <ISSUE> --park`), run phases 1–4 normally, then **stop
-before phase 5**. Park exists for parallel work: several ship runs proceed in separate git worktrees,
-and a later `flow-integrate` run merges the parked branches serially. On a park:
+before phase 5**. Park exists for parallel work: several ship sessions run at once, each isolated
+in its own worktree, and a later `flow-integrate` run merges the parked branches serially.
+
+**Before phase 1 — create your own worktree.** From the repo root, create a repo-local worktree
+and do all subsequent work inside it (phase 1's checkout rules apply to the branch name):
+
+```
+git worktree add .claude/worktrees/<id-lower> -b <branch>
+```
+
+Ensure `.claude/worktrees/` is in `.gitignore` (add + commit it if missing — one line). Never
+check the issue branch out in the main checkout: parallel sessions would fight over it. The
+worktree is removed by `flow-integrate` after the branch merges — do not clean it up yourself.
+
+On a park:
 
 1. Set the issue **In Review** (`profile.tracker.set_in_review`) and add a comment:
    `PARKED at <branch> @ <HEAD sha> — review passed, awaiting integrate`.
