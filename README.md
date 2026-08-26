@@ -5,10 +5,10 @@
 **A structured, portable dev-workflow skill suite.**
 Take one tracked issue from *ticket → merged-and-verified* — and bootstrap whole projects from a PRD — with the same discipline on any agent harness.
 
-![version](https://img.shields.io/badge/version-0.4.3-blue)
+![version](https://img.shields.io/badge/version-0.5.0-blue)
 ![license](https://img.shields.io/badge/license-MIT-green)
 ![status](https://img.shields.io/badge/status-validated-brightgreen)
-![harness](https://img.shields.io/badge/harness-Claude%20Code-8A63D2)
+![harness](https://img.shields.io/badge/harness-Claude%20Code%20%2B%20opencode-8A63D2)
 ![tracker](https://img.shields.io/badge/tracker-Linear-5E6AD2)
 
 </div>
@@ -29,9 +29,10 @@ battle-tested Claude Code slash-command setup so the *discipline* travels to any
 It's structured on purpose: hard gates, evidence-backed acceptance criteria, and an audit trail,
 not vibes.
 
-> **Status:** validated end-to-end on Claude Code (2026-07-04, all 8 [`VALIDATION.md`](VALIDATION.md)
-> phases — CI, hooks, test-first, subagents, live Linear inception, cadence, retro; parallel
-> delivery added and validated 2026-07-28, Phase 3b). Other harnesses remain aspirational.
+> **Status:** validated end-to-end on Claude Code (2026-07-04 all 8 phases; parallel 2026-07-28 Phase 3b)
+> and on **opencode 1.18.x** (2026-08-26 — plugin install, 18 skills + flat subagents, guardrail,
+> slash auto-exposure, native Linear MCP `connected`, live ship `QNT-314:PR #7`). Other harnesses remain aspirational.
+> See [`install/opencode.md`](install/opencode.md) + `.opencode/INSTALL.md`.
 
 ## The core idea: spine + profile
 
@@ -89,9 +90,12 @@ different commands — the same pipeline runs unchanged.
 ## Quickstart
 
 ```bash
-# 1. Install as a Claude Code plugin (keeps the package intact — see install/claude-code.md)
+# 1. Install as a plugin (keeps the package intact)
+# Claude Code:
 /plugin marketplace add noahwins-ng/flow-workflow
 /plugin install flow@flow
+# opencode (see install/opencode.md):
+# add to opencode.json:  "plugin": ["/abs/path/to/flow-workflow/.opencode/plugin/flow.ts"]
 ```
 
 **Existing project:** `flow-init` → `flow-tailor` → `flow-doctor` → work with `flow-ship-issue <ID>`.
@@ -115,7 +119,8 @@ pattern used by [obra/superpowers](https://github.com/obra/superpowers). This ke
 | Harness | Status |
 |---|---|
 | **Claude Code** | ✅ supported (`.claude-plugin/` present) |
-| Cursor · Codex · opencode · pi | 🚧 aspirational — manifest per harness, added after Claude Code is validated |
+| **opencode** | ✅ validated 1.18.x (`.opencode/plugin/flow.ts` + `INSTALL.md`) |
+| Cursor · Codex · pi | 🚧 aspirational — manifest per harness, added after Claude Code is validated |
 
 Portability is designed in: tracker access is **native-MCP-first with a `curl`+`jq` fallback**,
 deploy/verify goes through profile shell commands, phases load by plain file reads (progressive

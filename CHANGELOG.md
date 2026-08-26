@@ -6,6 +6,32 @@ The **spine** ships from this repo; each adopting project keeps its own `workflo
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-08-26
+### Added
+- **opencode harness validated (1.18.x)** — plugin-based install via `.opencode/plugin/flow.ts`
+  modeled on obra/superpowers (config-hook `skills.paths`, flat `mode: subagent` agents,
+  `experimental.chat.messages.transform` bootstrap, `tool.execute.before` guardrail shelling out to
+  `hooks/protect-repo.sh`). Skills auto-expose as `/flow-*` slash commands (TUI-only expansion).
+  Linear via native MCP `https://mcp.linear.app/mcp` (streamable HTTP, OAuth `needs_auth` → `connected`);
+  no `LINEAR_API_KEY` needed on opencode. Live ship `QNT-314` via opencode batch `opencode run`
+  (PR #7 merged, `HEALTHY` on `flow-doctor`). Headless CI smoke at `.github/workflows/opencode-smoke.yml:1`.
+- `vcs.worktrees_dir` profile key (`profile.template.yaml:39`, default `.claude/worktrees`) —
+  `flow-ship-issue`/`flow-integrate`/`flow-cycle-start`/`flow` no longer hardcode `.claude/worktrees`.
+
+### Changed
+- `flow-gen-claudemd` now also ensures `AGENTS.md` (symlink → `CLAUDE.md` if missing) so opencode/Codex
+  see the generated instructions (`AGENTS.md` wins over `CLAUDE.md` on opencode).
+- `profile.template.yaml:review.fresh_eyes_agent` docs now list per-harness values
+  (`flow:flow-code-reviewer` on Claude Code, `flow-code-reviewer` on opencode).
+- `install/opencode.md` + `.opencode/INSTALL.md:1` rewritten from placeholder to validated guide;
+  `install/harness-notes.md` opencode row + quirks validated; `install/README.md:24` flipped to ✅.
+
+### Fixed
+- `skills` vs `commands` registration asymmetry on opencode: `config.command` mutations are ignored
+  (commands read static config + dirs only) and `opencode run "/x"` never expands slashes — both are
+  moot given skills auto-expose as commands, but now documented.
+- Linear endpoint correction: `/sse` 404s, `/mcp` is current (verified `needs_auth` → `connected`).
+
 ## [0.4.3] — 2026-07-30
 ### Changed
 - **AC rendering hardened against cross-model drift** — field findings from two real runs (Opus
