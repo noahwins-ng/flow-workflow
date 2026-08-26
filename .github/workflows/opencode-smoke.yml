@@ -1,0 +1,55 @@
+name: opencode-smoke
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.opencode/**'
+      - 'skills/**'
+      - 'profile.template.yaml'
+      - 'adapters/**'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install opencode
+        run: |
+          curl -fsSL https://opencode.ai/install | bash
+          echo "$HOME/.opencode/bin" >> $GITHUB_PATH
+      - name: Wire plugin (local checkout)
+        run: |
+          mkdir -p ~/.config/opencode
+          cat > ~/.config/opencode/opencode.json <<'JSON'
+          {
+            "$schema": "https://opencode.ai/config.json",
+            "plugin": ["$GITHUB_WORKSPACE/.opencode/plugin/flow.ts"],
+            "mcp": { "linear": { "type": "remote", "url": "https://mcp.linear.app/mcp" } }
+          }
+          JSON
+          # CI can't do OAuth — fall back to adapter key if secret is set
+          if [ -n "${{ secrets.LINEAR_API_KEY }}" ]; then
+            echo "LINEAR_API_KEY present — adapter fallback will be used"
+          else
+            echo "::warning::No LINEAR_API_KEY secret — tracker steps will be skipped"
+          fi
+      - name: One-liner headless smokes
+        env:
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1) skills visible (no tracker needed)
+          opencode run "use the skill tool to list skills" 2>&1 | tee /tmp/skills.log
+          grep -q "flow-ship-issue" /tmp/skills.log
+
+          # 2) local-only skill execution
+          opencode run "Use the skill tool to load flow-doctor and report verdict" 2>&1 | tee /tmp/doctor.log
+          grep -q "HEALTHY\|Verdict" /tmp/doctor.log
+
+          # 3) tracker smoke (needs LINEAR_API_KEY or pre-authed Linear MCP)
+          #    Skips gracefully if no auth — flow-doctor will report ⚠ tracker
+          if [ -n "$LINEAR_API_KEY" ]; then
+            ./adapters/linear.sh issue get QNT-314 2>&1 | head -5
+          fi
