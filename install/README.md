@@ -21,7 +21,7 @@ step first — see ROADMAP.)
 | Claude Code | `.claude-plugin/` (plugin.json + marketplace.json) | `/plugin marketplace add noahwins-ng/flow-workflow` → `/plugin install flow@flow` | ✅ manifest present, **unvalidated** |
 | Cursor | `.cursor-plugin/` | `/add-plugin` / plugin marketplace | ☐ to add ([cursor.md](cursor.md)) |
 | Codex | `.codex-plugin/` | `/plugins` → search → install | ☐ to add ([codex.md](codex.md)) |
-| opencode | `.opencode/` (+ `INSTALL.md`) | follow `.opencode/INSTALL.md` | ☐ to add ([opencode.md](opencode.md)) |
+| opencode | `.opencode/plugin/flow.ts` (+ `INSTALL.md`) | one `plugin` line → [.opencode/INSTALL.md](../.opencode/INSTALL.md) | ✅ validated (1.18.21) — see [opencode.md](opencode.md) |
 | pi | `.pi/extensions/` | `pi install git:github.com/noahwins-ng/flow-workflow` | ☐ to add ([pi.md](pi.md)) |
 
 Add each manifest by copying the shape from superpowers' corresponding file, pointing it at our

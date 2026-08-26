@@ -34,6 +34,9 @@ tracker:
 vcs:
   commit_format: "{id}: {type}({scope}): {description}"   # {type} in feat|fix|refactor|test|docs|chore
   wip_commit:    "{id}: {type}({scope}): wip - {description}"
+  # Where --park worktrees live (flow-ship-issue --park / flow-integrate). Any path works —
+  # the default is Claude Code's convention; opencode/Codex users may prefer `.flow/worktrees`.
+  worktrees_dir: ".claude/worktrees"
   # If a commit-msg hook enforces a shape, note it so the agent doesn't get rejected:
   commit_hook_note: "Plain '{id}: wip:' is rejected — type(scope) is required."
   pr_title:  "{id}: {title}"
@@ -119,10 +122,11 @@ ac_execution_keywords:
 
 review:
   # Fresh-eyes reviewer dispatched before your own pass. This is the EXACT dispatch name — set it to
-  # what your harness registered the bundled agent as. **Claude Code namespaces plugin agents as
-  # `<plugin>:<agent>`, so the value is `flow:flow-code-reviewer`** (verify with /agents). On a harness
-  # that doesn't namespace, use the bare `flow-code-reviewer`. Empty = single self-review pass; on a
-  # generic-subagent harness, dispatch `agents/flow-code-reviewer.md` as the prompt template.
+  # what your harness registered the bundled agent as. Per harness:
+  #   Claude Code: "flow:flow-code-reviewer" (plugin agents are namespaced; verify with /agents)
+  #   opencode:    "flow-code-reviewer"      (flat names, registered by .opencode/plugin/flow.ts)
+  # Empty = single self-review pass; on a generic-subagent harness, dispatch
+  # `agents/flow-code-reviewer.md` as the prompt template.
   fresh_eyes_agent: "flow:flow-code-reviewer"
 
 cadence:

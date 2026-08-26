@@ -11,7 +11,7 @@ means updating one matrix, not sweeping every skill.
 | Claude Code | **namespaced `flow:<agent>`** — e.g. `flow:flow-code-reviewer`, `flow:flow-investigator` (verify with `/agents`) | ✅ | ✅ opt-in (`hooks/`, inert until `FLOW_HOOKS=1` / `.flow-hooks`) | ✅ validated |
 | Cursor | TBD on validation | TBD | ❌ (no port yet) | ☐ unvalidated |
 | Codex | TBD on validation | TBD | ❌ | ☐ unvalidated |
-| opencode | TBD on validation | TBD | ❌ | ☐ unvalidated |
+| opencode | **flat names, no prefix** — `flow-code-reviewer`, `flow-investigator` (registered by `.opencode/plugin/flow.ts`; matches profile default) | ✅ (`mode: subagent`, description-driven auto-dispatch + manual `@mention`; dispatch runtime-verified) | ✅ via plugin: `tool.execute.before` shells out to `hooks/protect-repo.sh` (opt-in `FLOW_HOOKS=1` / `.flow-hooks`, same as Claude Code). No session-close hook — `check-uncommitted.sh` not ported (known gap) | ✅ validated (1.18.21) — see [opencode.md](opencode.md) |
 | pi | TBD on validation | TBD | ❌ | ☐ unvalidated |
 
 ## The dispatch rule (universal)
@@ -37,6 +37,25 @@ pass yourself and note it.
   defanged prose ("read the health endpoint's version field"), never literal pipe chains. Reads
   are unaffected. Also: `list_projects` 400s when `includeMilestones` is combined with a team
   filter — fetch milestones separately.
+
+## opencode quirks
+
+- **Skills register via plugin, not placement**: `.opencode/plugin/flow.ts` pushes the repo's
+  `skills/` onto `config.skills.paths` in its `config` hook (the superpowers pattern — they
+  migrated off symlink farms). No symlinks, no vendoring; the repo stays a unit so `adapters/`
+  and `method/` resolve. Validated on 1.18.x.
+- **`AGENTS.md` beats `CLAUDE.md`**: if a project has both, opencode reads only `AGENTS.md`.
+  For opencode-targeted projects, symlink (`ln -s CLAUDE.md AGENTS.md`) or the generated
+  instructions are invisible there. The plugin's bootstrap also teaches the model this mapping.
+- **Local plugins load by file path**, not directory: `"plugin": ["<repo>/.opencode/plugin/flow.ts"]`.
+- **Skills auto-expose as slash commands**: every discovered skill becomes `/skill-name` in the
+  TUI — no command registration needed at all. Quirks: expansion is TUI-only (`opencode run`
+  passes slash text through literally), and plugin config-hook mutations to `config.command`
+  are ignored (commands read static config + dirs only) — moot given auto-exposure.
+- **Git-backed plugin specs get cache-pinned** by Bun; clear `~/.cache/opencode/node_modules/`
+  when updates don't appear.
+
+See [opencode.md](opencode.md) for the full validated writeup.
 
 ## Adding a harness
 

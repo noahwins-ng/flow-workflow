@@ -93,13 +93,15 @@ before phase 5**. Park exists for parallel work: several ship sessions run at on
 in its own worktree, and a later `flow-integrate` run merges the parked branches serially.
 
 **Before phase 1 — create your own worktree.** From the repo root, create a repo-local worktree
-and do all subsequent work inside it (phase 1's checkout rules apply to the branch name):
+under `profile.vcs.worktrees_dir` (default `.claude/worktrees`; harness-agnostic — set it to
+whatever your tooling expects) and do all subsequent work inside it (phase 1's checkout rules
+apply to the branch name):
 
 ```
-git worktree add .claude/worktrees/<id-lower> -b <branch>
+git worktree add <worktrees_dir>/<id-lower> -b <branch>
 ```
 
-Ensure `.claude/worktrees/` is in `.gitignore` (add + commit it if missing — one line). Never
+Ensure `<worktrees_dir>/` is in `.gitignore` (add + commit it if missing — one line). Never
 check the issue branch out in the main checkout: parallel sessions would fight over it. The
 worktree is removed by `flow-integrate` after the branch merges — do not clean it up yourself.
 
@@ -110,12 +112,12 @@ before posting the PARKED comment** — run:
 git rev-parse --show-toplevel
 ```
 
-The output must end in `.claude/worktrees/<id-lower>`. If it does not, you are in the main
+The output must end in `<worktrees_dir>/<id-lower>`. If it does not, you are in the main
 checkout — **STOP and migrate before any further work**:
 
 1. WIP-commit anything uncommitted (`profile.vcs.wip_commit`).
 2. `git checkout <default_branch>` (frees the branch from the main checkout).
-3. `git worktree add .claude/worktrees/<id-lower> <branch>` (re-attach the existing branch).
+3. `git worktree add <worktrees_dir>/<id-lower> <branch>` (re-attach the existing branch).
 4. Continue inside the worktree; note the migration in your next report.
 
 The PARKED comment must include the toplevel receipt (`Worktree: <path>`) so the integrate run

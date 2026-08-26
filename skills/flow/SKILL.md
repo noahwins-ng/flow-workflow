@@ -25,7 +25,8 @@ Linear project/milestones/issues + plan) → `flow-gen-claudemd` (generate CLAUD
 - `flow-ship-issue <ID>` — the full pipeline: pick → implement → sanity → review → ship. (The old `/go`.)
 - `flow-fix <ID>` — a ship run broke; diagnose, fix, resume from the failed phase.
 - **Parallel:** one session per issue (max 3), each from the repo root, running
-  `flow-ship-issue <ID> --park` (creates its own `.claude/worktrees/<id>` worktree), then
+  `flow-ship-issue <ID> --park` (creates its own worktree under `profile.vcs.worktrees_dir`,
+  default `.claude/worktrees/<id>`), then
   `flow-integrate` from the main checkout to land the parked branches serially and clean up.
 - `flow-sync-issue-status <ID>` — tracker status drifted; reconcile it from git/PR state.
 

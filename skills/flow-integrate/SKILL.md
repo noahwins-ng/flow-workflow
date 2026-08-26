@@ -79,8 +79,9 @@ Once the deployment is verified:
   triple — ship record present in checkbox shape, description ACs all ticked, status Done. Fix
   any miss now; the report may only claim Done for issues that pass this check.
 - Delete merged branches and their worktrees (`git worktree remove <path>`, `git branch -d`) —
-  park-mode worktrees live at `.claude/worktrees/<id-lower>` in this repo (`git worktree list`
-  shows them all). Never delete a SKIPPED branch or its worktree.
+  park-mode worktrees live at `<profile.vcs.worktrees_dir>/<id-lower>` (default
+  `.claude/worktrees`) in this repo (`git worktree list` shows them all). Never delete a
+  SKIPPED branch or its worktree.
 
 ## Step 4 — Report
 
