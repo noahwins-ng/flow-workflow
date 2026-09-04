@@ -35,21 +35,25 @@ jobs:
           else
             echo "::warning::No LINEAR_API_KEY secret — tracker steps will be skipped"
           fi
-      - name: One-liner headless smokes
+      - name: Headless smokes (no LLM needed)
         env:
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 1) skills visible (no tracker needed)
-          opencode run "use the skill tool to list skills" 2>&1 | tee /tmp/skills.log
-          grep -q "flow-ship-issue" /tmp/skills.log
+          # 1) skills + commands visible via server API (no LLM)
+          opencode serve --port 49494 > /tmp/ocserve.log 2>&1 &
+          for i in 1 2 3 4 5; do curl -sf http://127.0.0.1:49494/command >/tmp/cmd.json && break; sleep 2; done
+          python3 -c "import json; cmds=[c['name'] for c in json.load(open('/tmp/cmd.json'))]; assert 'flow-ship-issue' in cmds, cmds; assert 'flow-doctor' in cmds; print(f'{len(cmds)} commands, flow present')"
+          curl -sf http://127.0.0.1:49494/mcp | tee /tmp/mcp.json
+          # mcp.linear is configured — expect needs_auth (CI can't OAuth) or connected
+          python3 -c "import json; d=json.load(open('/tmp/mcp.json')); assert 'linear' in d, d; print('mcp:', d['linear'])"
+          pkill -f "opencode serve" || true
 
-          # 2) local-only skill execution
-          opencode run "Use the skill tool to load flow-doctor and report verdict" 2>&1 | tee /tmp/doctor.log
-          grep -q "HEALTHY\|Verdict" /tmp/doctor.log
+          # 2) local-only static checks (no LLM)
+          ./scripts/check.sh
 
-          # 3) tracker smoke (needs LINEAR_API_KEY or pre-authed Linear MCP)
-          #    Skips gracefully if no auth — flow-doctor will report ⚠ tracker
+          # 3) tracker smoke via adapter if key present (native MCP needs OAuth, not available in CI)
           if [ -n "$LINEAR_API_KEY" ]; then
             ./adapters/linear.sh issue get QNT-314 2>&1 | head -5
+          else
+            echo "::warning::No LINEAR_API_KEY — tracker adapter smoke skipped (native MCP needs OAuth)"
           fi
