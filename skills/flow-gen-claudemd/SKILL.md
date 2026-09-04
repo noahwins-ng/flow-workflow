@@ -54,8 +54,8 @@ additions and let the user merge.
    is Working Approach + Project Conventions for working *ON* the package — intentionally different).
    Some harnesses read `AGENTS.md`, not `CLAUDE.md` (opencode: AGENTS.md wins when both exist;
    Codex: AGENTS.md only). After writing CLAUDE.md in a consuming project:
-   - If no `AGENTS.md` exists → write it as a **copy** of the just-generated CLAUDE.md content
-     (not a symlink — lets the two diverge later if the project customizes per harness).
+   - If no `AGENTS.md` exists → create it as a symlink (`ln -s CLAUDE.md AGENTS.md`) so both
+     names serve one file.
    - If an `AGENTS.md` already exists → leave it alone; report that it may drift from CLAUDE.md
      and let the user reconcile.
    Mention which path each of the user's harnesses reads in the report.
@@ -67,6 +67,6 @@ Generated CLAUDE.md
 Working Approach: included (standard)
 Conventions filled: Core Philosophy, Architecture, Stack, Repo Structure, Code Style, Git Workflow, Common Commands
 Dropped (no basis): Observability, Environment
-AGENTS.md: written as copy of CLAUDE.md (opencode/Codex read it) — not a symlink; flow repo itself keeps AGENTS.md vs CLAUDE.md distinct
+AGENTS.md: symlinked → CLAUDE.md (opencode/Codex read it) — flow repo itself keeps AGENTS.md vs CLAUDE.md distinct
 Please confirm: <anything inferred rather than sourced>
 ```
